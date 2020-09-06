@@ -47,7 +47,8 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 // For CLI based results.
 const printStarSystem = (results) => {
 	return `
-Star System: ${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
+Star System:
+\t${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
 Planetary Bodies (${results.systemObjects.length}):
 ${printPlanetaryBodies(results.systemObjects)}
 `
@@ -56,7 +57,7 @@ ${printPlanetaryBodies(results.systemObjects)}
 const printPlanetaryBodies = (systemObjects) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`#${i+1}: ${body.name} (${body.type})`)
+		out.push(`\t#${i+1}: ${body.name} (${body.type})`)
 	}
 	return out.join('\n')
 }
