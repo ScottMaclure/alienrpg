@@ -1,0 +1,15 @@
+{
+  "name": "alienrpg",
+  "description": "Alien RPG tools.",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Scott Maclure <scott.maclure@gmail.com>",
+  "license": "MIT"
+}
