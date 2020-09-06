@@ -1,0 +1,14 @@
+{
+	"starTypes": [
+		{
+			"type": "Giant",
+			"description": "Huge, bright and cool star in a late stage of evolution.",
+			"brightness": "Type III"
+		},
+		{
+			"type": "Subgiant",
+			"description": "A large, bright star, exhausting its fuel.",
+			"brightness": "Type IV"
+		}
+	]
+}
