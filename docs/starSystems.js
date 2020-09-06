@@ -13,7 +13,8 @@ const createStarSystem = (data) => {
 	createSystemObjects(data, results)
 
 	// Pick which planetary body will be the "main" world, which has been colonized.
-	let world = pickMainWorld(data, results)
+	let usedPlanetNames = [''] // trick for while loop later.
+	let world = pickMainWorld(data, results, usedPlanetNames)
 
 	// Generate details for this world.
 	createWorld(data, world)
@@ -33,19 +34,15 @@ const getStarType = (data) => {
 const createSystemObjects = (data, results) => {
 	results['systemObjects'] = []
 	let modKey = results['starType'].type // will look up the modifier by this key, else use 'default'.
-	let usedPlanetNames = [''] // trick for while loop later.
 	for (const systemObject of data.systemObjects) {
 		let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
 		// console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
 		for (let i = 0; i < numberOfObjects; i++) {
-			// generate a unique planet name
-			let planetName = getUniquePlanetName(data, usedPlanetNames)
 			// optional feature
 			let feature = systemObject.features ? utils.randomArrayItem(systemObject.features) : null
 			// The main data for a given planetary body.
 			// TODO This is where a type system would come in handy.
 			results['systemObjects'].push({
-				'name': planetName,
 				'type': systemObject.type,
 				'feature': feature,
 				'weight': utils.roll(systemObject.weightRoll),
@@ -67,7 +64,8 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 	return planetName
 }
 
-const pickMainWorld = (data, results) => {
+const pickMainWorld = (data, results, usedPlanetNames) => {
+
 	// Find the main world
 	let mainWorld = null
 	let foundMainWorld = false
@@ -75,9 +73,12 @@ const pickMainWorld = (data, results) => {
 		mainWorld = utils.randomArrayItem(results.systemObjects)
 		if (mainWorld.habitable) {
 			mainWorld.isMainWorld = true
+			// generate a unique planet name
+			mainWorld.name = getUniquePlanetName(data, usedPlanetNames)
 			foundMainWorld = true
 		}
 	}
+
 	return mainWorld
 }
 
@@ -107,7 +108,7 @@ ${printPlanetaryBodies(results.systemObjects, tabs)}
 const printPlanetaryBodies = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`${tabs}#${i+1}: ${body.isMainWorld ? '(main)' : ''} ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''}`)
+		out.push(`${tabs}#${i+1}: ${body.isMainWorld ? body.name : 'Uninhabited'} ${body.type}${body.feature ? ', ' + body.feature : ''}`)
 		if (body.isMainWorld === true) {
 			out.push(printWorldDetails(body, tabs + "\t"))
 		}
@@ -120,7 +121,7 @@ const printWorldDetails = (world, tabs) => {
 	return `${tabs}Planet size: ${utils.formatNumber(world.planetSize.sizeKm)} km
 ${tabs}Surface gravity: ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
 ${tabs}Atmosphere: ${world.atmosphere.type}
-${tabs}Temperature: ${world.temperature.type}, average: ${world.temperature.average} (${world.temperature.description})`
+${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})`
 }
 
 export default { helloWorld, createStarSystem, printStarSystem }
