@@ -9,6 +9,27 @@
 			"type": "Subgiant",
 			"description": "A large, bright star, exhausting its fuel.",
 			"brightness": "Type IV"
+		},
+		{
+			"type": "Main Sequence",
+			"description": "Small but incredibly common type of star.",
+			"brightness": "Type V"
+		},
+		{
+			"type": "White Dwarf",
+			"description": "A dead, burnt-out star, tiny and super-dense.",
+			"brightness": "Type DA"
+		},
+		{
+			"type": "Red Dwarf",
+			"description": "A red main sequence star, small and cool. Very common star.",
+			"brightness": "Type MV"
+		},
+		{
+			"type": "White Main Sequence",
+			"description": "White main sequence stars that burn hot and brightly.",
+			"brightness": "Type A0V"
 		}
+
 	]
 }
