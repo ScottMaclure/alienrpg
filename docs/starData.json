@@ -135,15 +135,22 @@
 		{"2d6": 8, "sizeKm": 10000, "surfaceGravity": 0.7, "examples": null, "atmosphereMod": ""},
 		{"2d6": 10, "sizeKm": 12500, "surfaceGravity": 1.0, "examples": "Earth, Venus", "atmosphereMod": ""},
 		{"2d6": 11, "sizeKm": 15000, "surfaceGravity": 1.3, "examples": null, "atmosphereMod": ""},
-		{"2d6": 12, "sizeKm": 20000, "surfaceGravity": 2.0, "examples": "Super-Earth", "atmosphereMod": ""}
+		{"2d6": 20, "sizeKm": 20000, "surfaceGravity": 2.0, "examples": "Super-Earth", "atmosphereMod": ""}
 	],
 	"atmospheres": [
-		{"2d6": 3, "type": "Thin"},
-		{"2d6": 6, "type": "Breathable"},
-		{"2d6": 8, "type": "Toxic"},
-		{"2d6": 9, "type": "Dense"},
-		{"2d6": 10, "type": "Corrosive"},
-		{"2d6": 11, "type": "Infiltrating"},
-		{"2d6": 12, "type": "Special"}
+		{"2d6": 3, "type": "Thin", "temperatureMod": "-4"},
+		{"2d6": 6, "type": "Breathable", "temperatureMod": ""},
+		{"2d6": 8, "type": "Toxic", "temperatureMod": ""},
+		{"2d6": 9, "type": "Dense", "temperatureMod": "+1"},
+		{"2d6": 10, "type": "Corrosive", "temperatureMod": "+6"},
+		{"2d6": 11, "type": "Infiltrating", "temperatureMod": "+6"},
+		{"2d6": 20, "type": "Special", "temperatureMod": ""}
+	],
+	"temperatures": [
+		{"2d6": 3, "type": "Frozen", "average": -50, "description": "Titan, Pluto, Enceladus"},
+		{"2d6": 5, "type": "Cold", "average": 0, "description": "Alaska or Antarctica in winter"},
+		{"2d6": 7, "type": "Temperate", "average": 30, "description": "Boston or Paris"},
+		{"2d6": 10, "type": "Hot", "average": 80, "description": "Titan, Pluto, Enceladus"},
+		{"2d6": 20, "type": "Burning", "average": 120, "description": "Mercury, Venus"},
 	]
 }

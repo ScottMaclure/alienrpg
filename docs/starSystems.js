@@ -89,6 +89,8 @@ const createWorld = (data, world) => {
 	world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
 	// console.debug('atmosphere', world.atmosphere)
 
+	world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+
 }
 
 // For CLI based results.
@@ -117,7 +119,8 @@ const printWorldDetails = (world, tabs) => {
 	// console.debug('printWorldDetails, world:', world)
 	return `${tabs}Planet size: ${utils.formatNumber(world.planetSize.sizeKm)} km
 ${tabs}Surface gravity: ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
-${tabs}Atmosphere: ${world.atmosphere.type}`
+${tabs}Atmosphere: ${world.atmosphere.type}
+${tabs}Temperature: ${world.temperature.type}, average: ${world.temperature.average} (${world.temperature.description})`
 }
 
 export default { helloWorld, createStarSystem, printStarSystem }
