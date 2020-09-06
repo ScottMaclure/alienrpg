@@ -28,8 +28,9 @@ const shuffleArray = (arr) => {
    return arr;
 }
 
-const random2d6ArrayItem = (arr) => {
-	let num = diceUtils.roll('2d6').total
+const random2d6ArrayItem = (arr, mod) => {
+	let num = diceUtils.roll('2d6 ' + mod).total // e.g. 2d6 -2
+	// console.log(`random2d6ArrayItem, mod=${mod}, total=${num}`)
 	for (const item of arr) {
 		if (num <= item['2d6']) {
 			return item

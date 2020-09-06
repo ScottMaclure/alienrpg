@@ -10,6 +10,6 @@ let starData = JSON.parse(fs.readFileSync('./docs/starData.json', 'utf-8'))
 
 let results = starSystems.createStarSystem(starData)
 
-console.log(results) // Debug
+// console.log(results) // Debug
 
 console.log(starSystems.printStarSystem(results))

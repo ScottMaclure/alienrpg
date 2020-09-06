@@ -50,7 +50,8 @@
 				"Storms"
 			],
 			"weightRoll": "2d6+3",
-			"habitable": false
+			"habitable": false,
+			"planetSizeMod": "-4"
 		},
 		{
 			"type": "Terrestrial Planet",
@@ -61,7 +62,8 @@
 				"White Dwarf": "-3"
 			},
 			"weightRoll": "2d6-3",
-			"habitable": true
+			"habitable": true,
+			"planetSizeMod": ""
 		},
 		{
 			"type": "Ice Planet",
@@ -73,7 +75,8 @@
 				"White Main Sequence": ""
 			},
 			"weightRoll": "2d6+10",
-			"habitable": true
+			"habitable": true,
+			"planetSizeMod": "-2"
 		},
 		{
 			"type": "Asteroid Belt",
@@ -92,7 +95,8 @@
 				"Very wide—covering several orbits"
 			],
 			"weightRoll": "2d6+10",
-			"habitable": false
+			"habitable": false,
+			"planetSizeMod": ""
 		}
 	],
 	"iccCodes": [
@@ -124,13 +128,22 @@
 		"Tracatus"
 	],
 	"planetSizes": [
-		{"2d6": 2, "sizeKm": 999, "surfaceGravity": 0, "examples": "Ceres and other asteroids"},
-		{"2d6": 4, "sizeKm": 2000, "surfaceGravity": 0.1, "examples": "Iapetus"},
-		{"2d6": 6, "sizeKm": 4000, "surfaceGravity": 0.2, "examples": "Luna, Europa"},
-		{"2d6": 7, "sizeKm": 7000, "surfaceGravity": 0.5, "examples": "Mars"},
-		{"2d6": 8, "sizeKm": 10000, "surfaceGravity": 0.7, "examples": null},
-		{"2d6": 10, "sizeKm": 12500, "surfaceGravity": 1.0, "examples": "Earth, Venus"},
-		{"2d6": 11, "sizeKm": 15000, "surfaceGravity": 1.3, "examples": null},
-		{"2d6": 12, "sizeKm": 20000, "surfaceGravity": 2.0, "examples": "Super-Earth"}
+		{"2d6": 2, "sizeKm": 999, "surfaceGravity": 0, "examples": "Ceres and other asteroids", "atmosphereMod": "-6"},
+		{"2d6": 4, "sizeKm": 2000, "surfaceGravity": 0.1, "examples": "Iapetus", "atmosphereMod": "-6"},
+		{"2d6": 6, "sizeKm": 4000, "surfaceGravity": 0.2, "examples": "Luna, Europa", "atmosphereMod": "-6"},
+		{"2d6": 7, "sizeKm": 7000, "surfaceGravity": 0.5, "examples": "Mars", "atmosphereMod": "-2"},
+		{"2d6": 8, "sizeKm": 10000, "surfaceGravity": 0.7, "examples": null, "atmosphereMod": ""},
+		{"2d6": 10, "sizeKm": 12500, "surfaceGravity": 1.0, "examples": "Earth, Venus", "atmosphereMod": ""},
+		{"2d6": 11, "sizeKm": 15000, "surfaceGravity": 1.3, "examples": null, "atmosphereMod": ""},
+		{"2d6": 12, "sizeKm": 20000, "surfaceGravity": 2.0, "examples": "Super-Earth", "atmosphereMod": ""}
+	],
+	"atmospheres": [
+		{"2d6": 3, "type": "Thin"},
+		{"2d6": 6, "type": "Breathable"},
+		{"2d6": 8, "type": "Toxic"},
+		{"2d6": 9, "type": "Dense"},
+		{"2d6": 10, "type": "Corrosive"},
+		{"2d6": 11, "type": "Infiltrating"},
+		{"2d6": 12, "type": "Special"}
 	]
 }
