@@ -32,38 +32,42 @@
 		}
 
 	],
-	"systemObjets": [
+	"systemObjects": [
 		{
 			"type": "Gas Giant",
-			"number": "d6-1",
+			"number": "d6",
 			"modifiers": {
-				"Subgiant": "-1",
-				"White Dwarf": "-4"
+				"default": "-1",
+				"Subgiant": "-2",
+				"White Dwarf": "-5"
 			}
 		},
 		{
-			"type": "Terrestrial Planets",
+			"type": "Terrestrial Planet",
 			"number": "d6",
 			"modifiers": {
+				"default": "",
 				"Red Dwarf": "-3",
 				"White Dwarf": "-3"
 			}
 		},
 		{
-			"type": "Ice Planets",
+			"type": "Ice Planet",
 			"number": "d6",
 			"modifiers": {
-				"Subgiant": "-1",
-				"Giant": "-1",
-				"White Main Sequence": "-1"
+				"default": "+1",
+				"Subgiant": "",
+				"Giant": "",
+				"White Main Sequence": ""
 			}
 		},
 		{
-			"type": "Gas Giant",
-			"number": "d6-1",
+			"type": "Asteroid Belt",
+			"number": "d6",
 			"modifiers": {
-				"Subgiant": "-1",
-				"White Dwarf": "-4"
+				"default": "-3",
+				"White Dwarf": "-5",
+				"Subgiant": "-5"
 			}
 		}
 	],

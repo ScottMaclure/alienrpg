@@ -10,6 +10,23 @@ const getStarSystem = (data) => {
 
 	// TODO What about "Spectral Class"?
 
+	// Generate random amount of  system objects for this system, based on the star type.
+	results['systemObjects'] = []
+	let modKey = results['starType'].type // will look up the modifier by this key, else use 'default'.
+	let usedPlanetNames = [''] // trick for while loop later.
+	for (const systemObject of data.systemObjects) {
+		let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
+		console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
+		for (let i = 0; i < numberOfObjects; i++) {
+			// generate a unique planet name
+			let planetName = getUniquePlanetName(data, usedPlanetNames)
+			results['systemObjects'].push({
+				'name': planetName,
+				'type': systemObject.type
+			})
+		}
+	}
+
 	return results
 }
 
@@ -17,11 +34,31 @@ const getStarType = (data) => {
 	return utils.randomArrayItem(data.starTypes)
 }
 
+const getUniquePlanetName = (data, usedPlanetNames) => {
+	let planetName = ''
+	while (usedPlanetNames.includes(planetName)) {
+		let iccCode = utils.randomArrayItem(data.iccCodes)
+		let planetaryName = utils.randomArrayItem(data.planetaryNames)
+		planetName = iccCode + '-' + planetaryName
+	}
+	return planetName
+}
+
 // For CLI based results.
 const printStarSystem = (results) => {
 	return `
 Star System: ${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
+Planetary Bodies (${results.systemObjects.length}):
+${printPlanetaryBodies(results.systemObjects)}
 `
+}
+
+const printPlanetaryBodies = (systemObjects) => {
+	let out = []
+	for (const [i, body] of systemObjects.entries()) {
+		out.push(`#${i+1}: ${body.name} (${body.type})`)
+	}
+	return out.join('\n')
 }
 
 export default { helloWorld, getStarSystem, printStarSystem }
