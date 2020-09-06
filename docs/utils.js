@@ -28,9 +28,24 @@ const shuffleArray = (arr) => {
    return arr;
 }
 
+const random2d6ArrayItem = (arr) => {
+	let num = diceUtils.roll('2d6').total
+	for (const item of arr) {
+		if (num <= item['2d6']) {
+			return item
+		}
+	}
+	throw `Couldn't find a random 2d6 item for length ${arr.length} array.`
+}
+
+// From https://blog.abelotech.com/posts/number-currency-formatting-javascript/
+const formatNumber = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+
 const roll = (rollString) => diceUtils.roll(rollString).total
 
 export default {
+	formatNumber,
+	random2d6ArrayItem,
 	randomArrayItem,
 	roll,
 	rollNumberObjects,

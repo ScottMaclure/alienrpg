@@ -8,9 +8,8 @@ import starSystems from './docs/starSystems.js'
 
 let starData = JSON.parse(fs.readFileSync('./docs/starData.json', 'utf-8'))
 
-let results = starSystems.getStarSystem(starData)
+let results = starSystems.createStarSystem(starData)
 
-console.log('Results:')
-console.log(results)
+console.log(results) // Debug
 
 console.log(starSystems.printStarSystem(results))

@@ -2,7 +2,7 @@ import utils from './utils.js'
 
 const helloWorld = () => 'Hello, World!'
 
-const getStarSystem = (data) => {
+const createStarSystem = (data) => {
 	let results = {}
 
 	// First, we generate the star type.
@@ -10,7 +10,23 @@ const getStarSystem = (data) => {
 
 	// TODO What about "Spectral Class"?
 
-	// Generate random amount of  system objects for this system, based on the star type.
+	createSystemObjects(data, results)
+
+	createMainWorld(data, results)
+
+	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
+	// results.systemObjects = utils.shuffleArray(results.systemObjects)
+	results.systemObjects.sort((a, b) => a.weight - b.weight)
+
+	return results
+}
+
+const getStarType = (data) => {
+	return utils.randomArrayItem(data.starTypes)
+}
+
+// Generate random amount of system objects for this system, based on the star type.
+const createSystemObjects = (data, results) => {
 	results['systemObjects'] = []
 	let modKey = results['starType'].type // will look up the modifier by this key, else use 'default'.
 	let usedPlanetNames = [''] // trick for while loop later.
@@ -26,20 +42,12 @@ const getStarSystem = (data) => {
 				'name': planetName,
 				'type': systemObject.type,
 				'feature': feature,
-				'weight': utils.roll(systemObject.weightRoll)
+				'weight': utils.roll(systemObject.weightRoll),
+				'habitable': systemObject.habitable,
+				'isMainWorld': false // will be set later for one lucky planetary body.
 			})
 		}
 	}
-
-	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
-	// results.systemObjects = utils.shuffleArray(results.systemObjects)
-	results.systemObjects.sort((a, b) => a.weight - b.weight)
-
-	return results
-}
-
-const getStarType = (data) => {
-	return utils.randomArrayItem(data.starTypes)
 }
 
 const getUniquePlanetName = (data, usedPlanetNames) => {
@@ -50,6 +58,21 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 		planetName = iccCode + '-' + planetaryName
 	}
 	return planetName
+}
+
+const createMainWorld = (data, results) => {
+
+	// Find the main world
+	let mainWorld = null
+	let foundMainWorld = false
+	while (!foundMainWorld) {
+		mainWorld = utils.randomArrayItem(results.systemObjects)
+		foundMainWorld = mainWorld.habitable
+		mainWorld.isMainWorld = true
+	}
+
+	mainWorld.planetSize = utils.random2d6ArrayItem(data.planetSizes)
+
 }
 
 // For CLI based results.
@@ -65,9 +88,16 @@ ${printPlanetaryBodies(results.systemObjects)}
 const printPlanetaryBodies = (systemObjects) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`\t#${i+1}: ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''} (weight: ${body.weight})`)
+		out.push(`\t#${i+1}: ${body.isMainWorld ? '(main)' : ''} ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''}`)
+		if (body.isMainWorld) {
+			out.push(printMainWorldDetails(body))
+		}
 	}
 	return out.join('\n')
 }
 
-export default { helloWorld, getStarSystem, printStarSystem }
+const printMainWorldDetails = (mainWorld) => {
+	return `\t\tPlanet size: ${utils.formatNumber(mainWorld.planetSize.sizeKm)} km, surface gravity: ${mainWorld.planetSize.surfaceGravity} G${mainWorld.planetSize.examples ? ' (e.g. ' + mainWorld.planetSize.examples + ')' : '' }`
+}
+
+export default { helloWorld, createStarSystem, printStarSystem }
