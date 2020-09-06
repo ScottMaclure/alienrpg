@@ -31,5 +31,68 @@
 			"brightness": "Type A0V"
 		}
 
+	],
+	"systemObjets": [
+		{
+			"type": "Gas Giant",
+			"number": "d6-1",
+			"modifiers": {
+				"Subgiant": "-1",
+				"White Dwarf": "-4"
+			}
+		},
+		{
+			"type": "Terrestrial Planets",
+			"number": "d6",
+			"modifiers": {
+				"Red Dwarf": "-3",
+				"White Dwarf": "-3"
+			}
+		},
+		{
+			"type": "Ice Planets",
+			"number": "d6",
+			"modifiers": {
+				"Subgiant": "-1",
+				"Giant": "-1",
+				"White Main Sequence": "-1"
+			}
+		},
+		{
+			"type": "Gas Giant",
+			"number": "d6-1",
+			"modifiers": {
+				"Subgiant": "-1",
+				"White Dwarf": "-4"
+			}
+		}
+	],
+	"iccCodes": [
+		"LV",
+		"MT",
+		"RF"
+	],
+	"planetaryNames": [
+		"Arges",
+		"Aurora",
+		"Damnation",
+		"Doramin",
+		"Euphrates",
+		"Hamilton",
+		"Hannibal",
+		"Magdala",
+		"Moab",
+		"Monos",
+		"Nakaya",
+		"Napier",
+		"Nemesis",
+		"Nero",
+		"Nocturne",
+		"Phaeton",
+		"Prospero",
+		"Requiem",
+		"Solitude",
+		"Steropes",
+		"Tracatus"
 	]
 }

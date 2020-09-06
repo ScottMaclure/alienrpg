@@ -8,6 +8,8 @@ const getStarSystem = (data) => {
 	// First, we generate the star type.
 	results['starType'] = getStarType(data)
 
+	// TODO What about "Spectral Class"?
+
 	return results
 }
 
