@@ -92,6 +92,11 @@ const createWorld = (data, world) => {
 
 	world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
 
+	// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
+	const geoMod = world.planetSize.atmosphereMod + world.atmosphere.temperatureMod
+	// console.debug(`atmosphereMod ${world.planetSize.atmosphereMod} + temperatureMod ${world.atmosphere.temperatureMod} = geoMod ${geoMod}`)
+	world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
+
 }
 
 // For CLI based results.
@@ -108,7 +113,7 @@ ${printPlanetaryBodies(results.systemObjects, tabs)}
 const printPlanetaryBodies = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`${tabs}#${i+1}: ${body.isMainWorld ? body.name : 'Uninhabited'} ${body.type}${body.feature ? ', ' + body.feature : ''}`)
+		out.push(`${tabs}#${i+1}: ${body.type}${body.feature ? ', ' + body.feature : ''}${body.isMainWorld ? ', ' + body.geosphere.type : ' (Uninhabited)'}`)
 		if (body.isMainWorld === true) {
 			out.push(printWorldDetails(body, tabs + "\t"))
 		}
@@ -121,7 +126,8 @@ const printWorldDetails = (world, tabs) => {
 	return `${tabs}Planet size: ${utils.formatNumber(world.planetSize.sizeKm)} km
 ${tabs}Surface gravity: ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
 ${tabs}Atmosphere: ${world.atmosphere.type}
-${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})`
+${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})
+${tabs}Geosphere: ${world.geosphere.type}. ${world.geosphere.description}`
 }
 
 export default { helloWorld, createStarSystem, printStarSystem }
