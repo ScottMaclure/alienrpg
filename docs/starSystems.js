@@ -25,13 +25,15 @@ const getStarSystem = (data) => {
 			results['systemObjects'].push({
 				'name': planetName,
 				'type': systemObject.type,
-				'feature': feature
+				'feature': feature,
+				'weight': utils.roll(systemObject.weightRoll)
 			})
 		}
 	}
 
-	// FIXME Mix up the planetary bodies - not sure what's best here?
-	results.systemObjects = utils.shuffleArray(results.systemObjects)
+	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
+	// results.systemObjects = utils.shuffleArray(results.systemObjects)
+	results.systemObjects.sort((a, b) => a.weight - b.weight)
 
 	return results
 }
@@ -63,7 +65,7 @@ ${printPlanetaryBodies(results.systemObjects)}
 const printPlanetaryBodies = (systemObjects) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`\t#${i+1}: ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''}`)
+		out.push(`\t#${i+1}: ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''} (weight: ${body.weight})`)
 	}
 	return out.join('\n')
 }

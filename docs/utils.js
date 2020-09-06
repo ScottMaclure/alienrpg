@@ -28,8 +28,11 @@ const shuffleArray = (arr) => {
    return arr;
 }
 
+const roll = (rollString) => diceUtils.roll(rollString).total
+
 export default {
 	randomArrayItem,
+	roll,
 	rollNumberObjects,
 	shuffleArray
 }
