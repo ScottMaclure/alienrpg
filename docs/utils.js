@@ -18,7 +18,18 @@ const rollNumberObjects = (object, modKey) => {
 	return rollResult.total < 0 ? 0 : rollResult.total
 }
 
+const shuffleArray = (arr) => {
+   for (var i = arr.length - 1; i > 0; i--) {
+       var j = Math.floor(Math.random() * (i + 1));
+       var temp = arr[i];
+       arr[i] = arr[j];
+       arr[j] = temp;
+   }
+   return arr;
+}
+
 export default {
 	randomArrayItem,
-	rollNumberObjects
+	rollNumberObjects,
+	shuffleArray
 }

@@ -40,7 +40,15 @@
 				"default": "-1",
 				"Subgiant": "-2",
 				"White Dwarf": "-5"
-			}
+			},
+			"features": [
+				"High Winds",
+				"Intense Radiation Fields",
+				"Rings",
+				"Single Super Storm",
+				"Small Gas Giant",
+				"Storms"
+			]
 		},
 		{
 			"type": "Terrestrial Planet",
@@ -68,7 +76,15 @@
 				"default": "-3",
 				"White Dwarf": "-5",
 				"Subgiant": "-5"
-			}
+			},
+			"features": [
+				"Bright and highly visible",
+				"Contains several large dwarf planets",
+				"Dust Belt",
+				"High orbital inclination",
+				"Intensely mineral rich asteroids",
+				"Very wide—covering several orbits"
+			]
 		}
 	],
 	"iccCodes": [

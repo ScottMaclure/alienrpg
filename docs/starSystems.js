@@ -20,12 +20,18 @@ const getStarSystem = (data) => {
 		for (let i = 0; i < numberOfObjects; i++) {
 			// generate a unique planet name
 			let planetName = getUniquePlanetName(data, usedPlanetNames)
+			// optional feature
+			let feature = systemObject.features ? utils.randomArrayItem(systemObject.features) : null
 			results['systemObjects'].push({
 				'name': planetName,
-				'type': systemObject.type
+				'type': systemObject.type,
+				'feature': feature
 			})
 		}
 	}
+
+	// FIXME Mix up the planetary bodies - not sure what's best here?
+	results.systemObjects = utils.shuffleArray(results.systemObjects)
 
 	return results
 }
@@ -57,7 +63,7 @@ ${printPlanetaryBodies(results.systemObjects)}
 const printPlanetaryBodies = (systemObjects) => {
 	let out = []
 	for (const [i, body] of systemObjects.entries()) {
-		out.push(`\t#${i+1}: ${body.name} (${body.type})`)
+		out.push(`\t#${i+1}: ${body.name}, ${body.type}${body.feature ? ', ' + body.feature : ''}`)
 	}
 	return out.join('\n')
 }
