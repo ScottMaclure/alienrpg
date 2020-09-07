@@ -52,7 +52,7 @@ const printWorldDetails = (world, tabs) => {
     out.push(`Atmosphere:  ${world.atmosphere.type}`)
     out.push(`Temperature: ${world.temperature.type}, ${world.temperature.average}°C average (${world.temperature.description})`)
     if (world.habitable) {
-        out.push(`Geosphere:   ${world.geosphere.type}${world.geosphere.description}`)
+        out.push(`Geosphere:   ${world.geosphere.type}, ${world.geosphere.description}`)
         out.push(`Terrain:     ${world.terrain.description}`)
     }
     if (world.isMainWorld) {
