@@ -54,7 +54,7 @@ const createWorld = (systemObject) => {
 	// TODO What about making systemObject a child of world? More consistent with other data? Or should we flatten the others instead?
 	return({
 		'key': systemObject.key, // used for future reference in starData.json.
-		'type': systemObject.type,
+		'type': systemObject.type, // e.g. icePlanet
 		'feature': feature,
 		'weight': utils.roll(systemObject.weightRoll),
 		'habitable': systemObject.habitable,
@@ -116,7 +116,11 @@ const generateWorld = (data, world) => {
 	// console.debug('atmosphere', world.atmosphere)
 
 	// FIXME Ice planet is broken, you can get hot/burning temps easily.
-	world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+	if (world.key === 'icePlanet') {
+		world.temperature = data.temperatures[0] // the first element is the coldest
+	} else {
+		world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+	}
 
 	// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
 	const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
@@ -170,8 +174,8 @@ const generateWorld = (data, world) => {
 			if (orbitalComponent.multiRoll) {
 				const maxComponents = utils.roll(orbitalComponent.multiRoll)
 				for (let i = 0; i < maxComponents; i++) {
-					let anotherOrbitalComponent = utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod) 
-					if (anotherOrbitalComponent.multiRoll) {
+					let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+					if (typeof anotherOrbitalComponent.multiRoll !== void 0) {
 						// Skip this one, get another.
 						i--
 					} else {
