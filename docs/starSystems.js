@@ -15,9 +15,8 @@ const createStarSystem = (data) => {
 	// TODO What about generating planetary details for all planets?
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
-	let world = pickMainWorld(data, results, usedPlanetNames)
-	// Generate details for this world.
-	generateWorld(data, world)
+	pickMainWorld(data, results, usedPlanetNames)
+	generateWorlds(data, results)
 
 	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
 	// results.systemObjects = utils.shuffleArray(results.systemObjects)
@@ -82,9 +81,12 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 	return planetName
 }
 
+/**
+ * Randomly determine the "main" habitated world in this system.
+ * Also set its name, cause it's special.
+ */
 const pickMainWorld = (data, results, usedPlanetNames) => {
 
-	// Find the main world
 	let mainWorld = null
 	let foundMainWorld = false
 	while (!foundMainWorld) {
@@ -97,11 +99,23 @@ const pickMainWorld = (data, results, usedPlanetNames) => {
 		}
 	}
 
-	return mainWorld
+}
+
+/**
+ * Set properties for ALL system objects. 
+ * @param {object} data starData.json
+ * @param {object} results Generated system objects etc.
+ */
+const generateWorlds = (data, results) => {
+	for (let world of results.systemObjects) {
+		// Clone the data to ensure uniqueness each time we generate world data.
+		generateWorld(JSON.parse(JSON.stringify(data)), world)
+	}
 }
 
 /**
  * The logic for world creation.
+ * If the world has been marked as habitable, do a little extra.
  * @param {object} data starData.json
  * @param {object} world See createSystemObjects()
  */
@@ -112,27 +126,48 @@ const generateWorld = (data, world) => {
 	world.planetSize = utils.random2d6ArrayItem(data.planetSizes, world.planetSizeMod)
 	// console.debug('planetSize', world.planetSize)
 
-	world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
-	// console.debug('atmosphere', world.atmosphere)
-
-	// FIXME Ice planet is broken, you can get hot/burning temps easily.
-	if (world.key === 'icePlanet') {
-		world.temperature = data.temperatures[0] // the first element is the coldest
-	} else {
-		world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+	// Atmosphere and temperature are driven by the object type (key).
+	switch (world.key) {
+		case 'gasGiant':
+			world.atmosphere = data.atmospheres[data.atmospheres.length -2] // Infiltrating
+			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			break
+		case 'icePlanet':
+			world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
+			world.temperature = data.temperatures[0] // Frozen
+			break
+		case 'asteroidBelt':
+			world.atmosphere = data.atmospheres[0] // Thin
+			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			break
+		case 'terrestrialPlanet':
+			world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
+			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			break
+		default:
+			throw new Error(`Unknown world key=${world.key}, aborting.`)
 	}
 
-	// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
-	const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
-	world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
-	
-	// Terrain mods use both geosphere and temperature.
-	const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
-	// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
-	world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+	// Calculate average temp after all the atmo and temp fiddling.
+	world.temperature.average = utils.randomInteger(world.temperature.min, world.temperature.max)
 
-	// TODO In future, createWorld may be used for uninhabited worlds in the system.
 	if (world.habitable) {
+		// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
+		const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
+		world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
+
+		// Terrain mods use both geosphere and temperature.
+		// Terrain is only for terestrial or ice objects, so for now, put inside the isMainWorld check.
+		// TODO In future, would need for gas giants with planets
+		const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
+		// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
+		world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+	}
+	
+	// Only populate worlds flagged as habitable.
+	if (world.isMainWorld) {
+	
+		// console.log(`Habitating world ${world.name}....`)
 
 		const numColonies = getNumColonies()
 		const colonySizeMod = world.planetSize.colonySizeMod + world.atmosphere.colonySizeMod

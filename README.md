@@ -20,7 +20,7 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 ### Sooner
 
 * [x] 10+ on 2D6 = two competing colonies on the same world.
-* [ ] Ice planets - force temp to frozen (p340)
+* [x] Ice planets - force temp to frozen (p340)
 * [ ] Add temperature min/max fields, generate average per planet
 * [ ] Sort planetary bodies by average temperature (p340)
 * [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)

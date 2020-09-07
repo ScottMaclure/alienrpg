@@ -88,11 +88,19 @@ const rollD66 = (tensMod = 0) => {
 	return parseInt('' + tensDie + onesDie, 10)
 }
 
+/**
+ * Generate a random int between min and max, inclusive.
+ */
+const randomInteger = (min, max) => {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default {
 	formatNumber,
 	random2d6ArrayItem,
 	randomArrayItem,
 	randomD66ArrayItem,
+	randomInteger,
 	roll,
 	rollD66,
 	rollNumberObjects,

@@ -14,11 +14,9 @@ ${printSystemObjects(results.systemObjects, tabs)}
 const printSystemObjects = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
-		out.push(printWorldTitle(i, world, tabs))
-		if (world.isMainWorld) {
-			out.push(printWorldDetails(world, tabs + "\t"))
-		}
-	}
+        out.push(printWorldTitle(i, world, tabs))
+        out.push(printWorldDetails(world, tabs + "\t"))
+    }
 	return out.join('\n')
 }
 
@@ -42,20 +40,34 @@ const printMoonSummary = (world) => {
 	return `, ${moonCount} moons`
 }
 
+/**
+ * Handle all world types: habitable, colonised.
+ */
 const printWorldDetails = (world, tabs) => {
-	// console.debug('printWorldDetails, world:', world)
-	return `${tabs}Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
-${tabs}Atmosphere:  ${world.atmosphere.type}
-${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})
-${tabs}Geosphere:   ${world.geosphere.type}. ${world.geosphere.description}
-${tabs}Terrain:     ${world.terrain.description}${world.habitable ? printColonyDetails(world, tabs) : ''}`
+    let out = []
+    // console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
+    if (world.habitable) {
+        out.push(`Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+    }
+    out.push(`Atmosphere:  ${world.atmosphere.type}`)
+    out.push(`Temperature: ${world.temperature.type}, ${world.temperature.average}°C average (${world.temperature.description})`)
+    if (world.habitable) {
+        out.push(`Geosphere:   ${world.geosphere.type}${world.geosphere.description}`)
+        out.push(`Terrain:     ${world.terrain.description}`)
+    }
+    if (world.isMainWorld) {
+        out.push(printColonyDetails(world, tabs))
+    }
+    const output = `${tabs}` + out.join(`\n${tabs}`)
+    // console.debug(output)
+    return output
 }
 
 const printColonyDetails = (world, tabs) => {
 	let out = []
 	let nestedTabs = tabs + '\t'
 	for (const [i, colony] of world.colonies.entries()) {
-		out.push(`
+        out.push(`
 ${tabs}Colony #${i+1}:
 ${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}${printColonyOrbitalComponent(colony.orbitalComponents, nestedTabs)}`)
 	}

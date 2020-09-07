@@ -151,11 +151,11 @@
 		{"2d6": 50, "type": "Special", "temperatureMod": 0, "geosphereMod": 8, "colonySizeMod": 0, "colonyMissionMod": 0}
 	],
 	"temperatures": [
-		{"2d6": 3, "type": "Frozen", "average": -50, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": -2, "icePlanet": 0},
-		{"2d6": 5, "type": "Cold", "average": 0, "description": "Alaska or Antarctica in winter", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
-		{"2d6": 7, "type": "Temperate", "average": 30, "description": "Boston or Paris", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
-		{"2d6": 10, "type": "Hot", "average": 80, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": 0, "icePlanet": 0},
-		{"2d6": 50, "type": "Burning", "average": 200, "description": "Mercury, Venus", "geosphereMod": -4, "terrestrialPlanet": 0, "icePlanet": 0}
+		{"2d6": 3, "type": "Frozen", "min": -100, "max": -50, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": -2, "icePlanet": 0},
+		{"2d6": 5, "type": "Cold", "min": -50, "max": 0, "description": "Alaska or Antarctica in winter", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 7, "type": "Temperate", "min": 0, "max": 30, "description": "Boston or Paris", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 10, "type": "Hot", "min": 31, "max": 80, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 50, "type": "Burning", "min": 80, "max": 200, "description": "Mercury, Venus", "geosphereMod": -4, "terrestrialPlanet": 0, "icePlanet": 0}
 	],
 	"geospheres": [
 		{"2d6": 4, "type": "Desert World", "description": "No surface water", "terrestrialPlanet": -3, "icePlanet": 0},
