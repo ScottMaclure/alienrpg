@@ -10,12 +10,14 @@ const createStarSystem = (data) => {
 
 	createSystemObjects(data, results)
 
+	// TODO Gas giant planets?
+
+	// TODO What about generating planetary details for all planets?
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
 	let world = pickMainWorld(data, results, usedPlanetNames)
-
 	// Generate details for this world.
-	createWorld(data, world)
+	generateWorld(data, world)
 
 	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
 	// results.systemObjects = utils.shuffleArray(results.systemObjects)
@@ -36,22 +38,30 @@ const createSystemObjects = (data, results) => {
 		let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
 		// console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
 		for (let i = 0; i < numberOfObjects; i++) {
-			// optional feature
-			let feature = systemObject.features ? utils.randomArrayItem(systemObject.features) : null
-			// The main data for a given planetary body.
-			// TODO This is where a type system would come in handy.
-			results['systemObjects'].push({
-				'key': systemObject.key,
-				'type': systemObject.type,
-				'feature': feature,
-				'weight': utils.roll(systemObject.weightRoll),
-				'habitable': systemObject.habitable,
-				'isMainWorld': false, // will be set later for one lucky planetary body.
-				'planetSizeMod': systemObject.planetSizeMod,
-				'colonies': []
-			})
+			results['systemObjects'].push(createWorld(systemObject))
 		}
 	}
+}
+
+/**
+ * The main data for a given planetary body.
+ * TODO This is where a type system would come in handy. TS or Flow?
+ * @param {*} systemObject starData.json system object info.
+ */
+const createWorld = (systemObject) => {
+	// optional feature
+	let feature = systemObject.features ? utils.randomArrayItem(systemObject.features) : null
+	// TODO What about making systemObject a child of world? More consistent with other data? Or should we flatten the others instead?
+	return({
+		'key': systemObject.key, // used for future reference in starData.json.
+		'type': systemObject.type,
+		'feature': feature,
+		'weight': utils.roll(systemObject.weightRoll),
+		'habitable': systemObject.habitable,
+		'isMainWorld': false, // will be set later for one lucky planetary body. Maybe more later.
+		'planetSizeMod': systemObject.planetSizeMod,
+		'colonies': [] // fleshed out later
+	})
 }
 
 const getUniquePlanetName = (data, usedPlanetNames) => {
@@ -95,7 +105,7 @@ const pickMainWorld = (data, results, usedPlanetNames) => {
  * @param {object} data starData.json
  * @param {object} world See createSystemObjects()
  */
-const createWorld = (data, world) => {
+const generateWorld = (data, world) => {
 
 	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
 

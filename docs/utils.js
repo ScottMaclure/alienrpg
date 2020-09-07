@@ -10,6 +10,10 @@ const randomArrayItem = (arr) => {
 	return arr[idx]
 }
 
+/**
+ * For an object with number (rollString) and modifiers (including 'default'), generate the number.
+ * TODO Should this just be in starSystem.js?
+ */
 const rollNumberObjects = (object, modKey) => {
 	// Get the star type mode, else use 'default'
 	const mod = object.modifiers[modKey] ? object.modifiers[modKey] : object.modifiers['default']
