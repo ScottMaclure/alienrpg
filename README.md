@@ -24,6 +24,7 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * [ ] Add temperature range field, put in output
 * [ ] Add -6 to temp mod if ice planet
 * [ ] 10+ on 2D6 = two competing colonies on the same world.
+* [ ] Maintain a log of calculations, to display to UI later.
 
 ### Later
 

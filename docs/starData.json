@@ -142,13 +142,13 @@
 		{"2d6": 50, "sizeKm": 20000, "surfaceGravity": 2.0, "examples": "Super-Earth", "atmosphereMod": 0, "colonySizeMod": 0}
 	],
 	"atmospheres": [
-		{"2d6": 3, "type": "Thin", "temperatureMod": -4, "geosphereMod": -4, "colonySizeMod": 0},
-		{"2d6": 6, "type": "Breathable", "temperatureMod": 0, "geosphereMod": 0, "colonySizeMod": 1},
-		{"2d6": 8, "type": "Toxic", "temperatureMod": 0, "geosphereMod": 0, "colonySizeMod": 0},
-		{"2d6": 9, "type": "Dense", "temperatureMod": 1, "geosphereMod": -4, "colonySizeMod": 0},
-		{"2d6": 10, "type": "Corrosive", "temperatureMod": 6, "geosphereMod": -4, "colonySizeMod": -2},
-		{"2d6": 11, "type": "Infiltrating", "temperatureMod": 6, "geosphereMod": -4, "colonySizeMod": -2},
-		{"2d6": 50, "type": "Special", "temperatureMod": 0, "geosphereMod": 8, "colonySizeMod": 0}
+		{"2d6": 3, "type": "Thin", "temperatureMod": -4, "geosphereMod": -4, "colonySizeMod": 0, "colonyMissionMod": 0},
+		{"2d6": 6, "type": "Breathable", "temperatureMod": 0, "geosphereMod": 0, "colonySizeMod": 1, "colonyMissionMod": 1},
+		{"2d6": 8, "type": "Toxic", "temperatureMod": 0, "geosphereMod": 0, "colonySizeMod": 0, "colonyMissionMod": -6},
+		{"2d6": 9, "type": "Dense", "temperatureMod": 1, "geosphereMod": -4, "colonySizeMod": 0, "colonyMissionMod": 0},
+		{"2d6": 10, "type": "Corrosive", "temperatureMod": 6, "geosphereMod": -4, "colonySizeMod": -2, "colonyMissionMod": -6},
+		{"2d6": 11, "type": "Infiltrating", "temperatureMod": 6, "geosphereMod": -4, "colonySizeMod": -2, "colonyMissionMod": -6},
+		{"2d6": 50, "type": "Special", "temperatureMod": 0, "geosphereMod": 8, "colonySizeMod": 0, "colonyMissionMod": 0}
 	],
 	"temperatures": [
 		{"2d6": 3, "type": "Frozen", "average": -50, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": -2, "icePlanet": 0},
@@ -219,8 +219,21 @@
 		]
 	},
 	"colonySizes": [
-		{"2d6": "7", "size": "Start-Up", "population": "3d6x10", "missions": "1"},
-		{"2d6": "10", "size": "Young", "population": "3d6x100", "missions": "d3–1"},
-		{"2d6": "50", "size": "Established", "population": "2d6x1000", "missions": "d3"}
+		{"2d6": "7", "size": "Start-Up", "population": "3d6x10", "missions": "1", "colonyMissionMod": -1},
+		{"2d6": "10", "size": "Young", "population": "3d6x100", "missions": "d3–1", "colonyMissionMod": 0},
+		{"2d6": "50", "size": "Established", "population": "2d6x1000", "missions": "d3", "colonyMissionMod": 4}
+	],
+	"colonyMissions": [
+		{"2d6": 2 , "type": "Terraforming"},
+		{"2d6": 3 , "type": "Research"},
+		{"2d6": 4 , "type": "Survey and Prospecting"},
+		{"2d6": 5 , "type": "Prison/Secluded or Exile"},
+		{"2d6": 6 , "type": "Mining and Refining"},
+		{"2d6": 7 , "type": "Mineral Drilling"},
+		{"2d6": 8 , "type": "Communications Relay"},
+		{"2d6": 9 , "type": "Military"},
+		{"2d6": 10, "type": "Cattle Ranching/Logging"},
+		{"2d6": 11, "type": "Corporate HQ"},
+		{"2d6": 50, "type": "Government HQ"}
 	]
 }

@@ -133,7 +133,20 @@ const createWorld = (data, world) => {
 				colony.colonySize.missionsAmount = parseInt(colony.colonySize.missions)
 			}
 
-			// TODO Generate missions
+			// Generate unique missions
+			colony.missions = []
+			const colonyMissionMod = world.atmosphere.colonyMissionMod + colony.colonySize.colonyMissionMod
+			let usedMissionTypes = []
+			for (let i = 0; i < colony.colonySize.missionsAmount; i++) {
+				let newMission = ''
+				let foundUniqueMission = false
+				while (!foundUniqueMission) {
+					newMission = utils.random2d6ArrayItem(data.colonyMissions, colonyMissionMod)
+					foundUniqueMission = !usedMissionTypes.includes(newMission.type)
+				}
+				usedMissionTypes.push(newMission.type)
+				colony.missions.push(newMission)
+			}
 
 			// TODO Generate factions
 
@@ -188,10 +201,19 @@ ${tabs}Terrain:     ${world.terrain.description}${world.habitable ? printColonyD
 
 const printColonyDetails = (world, tabs) => {
 	let out = []
+	let nestedTabs = tabs + '\t'
 	for (const [i, colony] of world.colonies.entries()) {
 		out.push(`
 ${tabs}Colony #${i+1}:
-${tabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})`)
+${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}`)
+	}
+	return out.join('')
+}
+
+const printColonyMissions = (missions, tabs) => {
+	let out = []
+	for (const [i, mission] of missions.entries()) {
+		out.push(`\n${tabs}Mission #${i+1}: ${mission.type}`)
 	}
 	return out.join('')
 }
