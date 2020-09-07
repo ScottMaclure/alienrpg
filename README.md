@@ -21,9 +21,13 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 * [x] 10+ on 2D6 = two competing colonies on the same world.
 * [x] Ice planets - force temp to frozen (p340)
-* [ ] Add temperature min/max fields, generate average per planet
+* [x] Add temperature min/max fields, generate average per planet
 * [ ] Sort planetary bodies by average temperature (p340)
+* [ ] Colony factions
+* [ ] Colony allegiance
+* [ ] Scenario hook per inhabited planet
 * [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)
+* [ ] Uninhabited moons (If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons.)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets.
 * [ ] Contract Fria Ligan for permission to use content for the generator
 * [ ] Generate uninhabited planetary details for the rest of the system

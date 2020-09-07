@@ -50,7 +50,6 @@
 				"Small Gas Giant",
 				"Storms"
 			],
-			"weightRoll": "2d6+3",
 			"habitable": false,
 			"planetSizeMod": "-4"
 		},
@@ -63,7 +62,6 @@
 				"Red Dwarf": "-3",
 				"White Dwarf": "-3"
 			},
-			"weightRoll": "2d6-3",
 			"habitable": true,
 			"planetSizeMod": ""
 		},
@@ -77,7 +75,6 @@
 				"Giant": "",
 				"White Main Sequence": ""
 			},
-			"weightRoll": "2d6+10",
 			"habitable": true,
 			"planetSizeMod": "-2"
 		},
@@ -98,7 +95,6 @@
 				"Intensely mineral rich asteroids",
 				"Very wide—covering several orbits"
 			],
-			"weightRoll": "2d6+10",
 			"habitable": false,
 			"planetSizeMod": ""
 		}

@@ -20,7 +20,7 @@ const createStarSystem = (data) => {
 
 	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
 	// results.systemObjects = utils.shuffleArray(results.systemObjects)
-	results.systemObjects.sort((a, b) => a.weight - b.weight)
+	results.systemObjects.sort((a, b) => a.temperature.average - b.temperature.average)
 
 	return results
 }
@@ -55,7 +55,6 @@ const createWorld = (systemObject) => {
 		'key': systemObject.key, // used for future reference in starData.json.
 		'type': systemObject.type, // e.g. icePlanet
 		'feature': feature,
-		'weight': utils.roll(systemObject.weightRoll),
 		'habitable': systemObject.habitable,
 		'isMainWorld': false, // will be set later for one lucky planetary body. Maybe more later.
 		'planetSizeMod': systemObject.planetSizeMod,
