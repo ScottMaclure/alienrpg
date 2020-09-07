@@ -67,8 +67,7 @@ const printColonyDetails = (world, tabs) => {
 	let out = []
 	let nestedTabs = tabs + '\t'
 	for (const [i, colony] of world.colonies.entries()) {
-        out.push(`
-${tabs}Colony #${i+1}:
+        out.push(`Colony #${i+1}:
 ${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}${printColonyOrbitalComponent(colony.orbitalComponents, nestedTabs)}`)
 	}
 	return out.join('')
