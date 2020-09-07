@@ -19,10 +19,11 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 ### Sooner
 
-* [ ] Full star system generation (i.e. the MVP)
+* [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)
 * [ ] Contract Fria Ligan for permission to use content for the generator
 * [ ] Add temperature range field, put in output
 * [ ] Add -6 to temp mod if ice planet
+* [ ] 10+ on 2D6 = two competing colonies on the same world.
 
 ### Later
 
@@ -33,3 +34,7 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
 * [ ] Generate uninhabited planetary details for the rest of the system
+
+### Done
+
+TBC... move done tasks here after each release.

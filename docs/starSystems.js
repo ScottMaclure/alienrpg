@@ -49,7 +49,8 @@ const createSystemObjects = (data, results) => {
 				'weight': utils.roll(systemObject.weightRoll),
 				'habitable': systemObject.habitable,
 				'isMainWorld': false, // will be set later for one lucky planetary body.
-				'planetSizeMod': systemObject.planetSizeMod
+				'planetSizeMod': systemObject.planetSizeMod,
+				'colonies': []
 			})
 		}
 	}
@@ -83,6 +84,11 @@ const pickMainWorld = (data, results, usedPlanetNames) => {
 	return mainWorld
 }
 
+/**
+ * The logic for world creation.
+ * @param {object} data starData.json
+ * @param {object} world See createSystemObjects()
+ */
 const createWorld = (data, world) => {
 
 	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
@@ -102,14 +108,43 @@ const createWorld = (data, world) => {
 	
 	// Terrain mods use both geosphere and temperature.
 	const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
-	console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
+	// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
 	world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
 
+	// TODO In future, createWorld may be used for uninhabited worlds in the system.
 	if (world.habitable) {
-		// TODO colony stuff here.
+
+		const numColonies = getNumColonies()
+		const colonySizeMod = world.planetSize.colonySizeMod + world.atmosphere.colonySizeMod
+
+		for (i = 0; i < numColonies; i++) {
+
+			let colony = {}
+			colony.colonySize = utils.random2d6ArrayItem(data.colonySizes, colonySizeMod)
+			colony.colonySize.populationAmount = utils.roll(colony.colonySize.population)
+			colony.colonySize.missionsAmount = utils.roll(colony.colonySize.missions)
+
+			// TODO Generate missions
+
+			// TODO Generate factions
+
+			// TODO Generate allegiance (I assume they should be unique for 2 colony setup)
+
+			world.colonies.push(colony)
+		}
+
+		// TODO Generate orbital components for this planet.
+
+		// TODO Generate scenario hook.
+
 	}
 
 }
+
+/**
+ * Roll 2D6, with 10 indicating two competing colonies on the same world.
+ */
+const getNumColonies = () => utils.roll('2d6') >= 10 ? 2 : 1
 
 // For CLI based results.
 const printStarSystem = (results) => {
@@ -139,7 +174,16 @@ const printWorldDetails = (world, tabs) => {
 ${tabs}Atmosphere:  ${world.atmosphere.type}
 ${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})
 ${tabs}Geosphere:   ${world.geosphere.type}. ${world.geosphere.description}
-${tabs}Terrain:     ${world.terrain.description}`
+${tabs}Terrain:     ${world.terrain.description}${world.habitable ? printColonyDetails(world, tabs) : ''}`
 }
 
-export default { helloWorld, createStarSystem, printStarSystem }
+const printColonyDetails = (world, tabs) => {
+	return `
+${tabs}Colony Size: ${world.colonySize.size}, ${utils.formatNumber(world.colonySize.populationAmount)} pax`
+}
+
+export default { 
+	createStarSystem, 
+	helloWorld, 
+	printStarSystem 
+}
