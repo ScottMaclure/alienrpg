@@ -9,7 +9,8 @@ import starSystemPrinter from './docs/starSystemPrinter.js'
 
 let starData = JSON.parse(fs.readFileSync('./docs/starData.json', 'utf-8'))
 
-let results = starSystems.createStarSystem(starData)
+// Clone data for future repeated generation.
+let results = starSystems.createStarSystem(JSON.parse(JSON.stringify(starData)))
 
 // console.log(results) // Debug
 
