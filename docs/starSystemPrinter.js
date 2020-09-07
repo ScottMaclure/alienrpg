@@ -7,19 +7,24 @@ const printStarSystem = (results) => {
 Star System:
 ${tabs}${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
 Planetary Bodies (${results.systemObjects.length}):
-${printPlanetaryBodies(results.systemObjects, tabs)}
+${printSystemObjects(results.systemObjects, tabs)}
 `
 }
 
-const printPlanetaryBodies = (systemObjects, tabs) => {
+const printSystemObjects = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
-		out.push(`${tabs}#${i+1}: ${world.type}${world.feature ? ', ' + world.feature : ''}${world.isMainWorld ? ', ' + world.geosphere.type : ' (Uninhabited)'}${printMoonSummary(world)}`)
-		if (world.isMainWorld === true) {
+		out.push(printWorldTitle(i, world, tabs))
+		if (world.isMainWorld) {
 			out.push(printWorldDetails(world, tabs + "\t"))
 		}
 	}
 	return out.join('\n')
+}
+
+const printWorldTitle = (i, world, tabs) => {
+    const formattedI = (''+(i+1)).padStart(2, 0)
+    return `${tabs}#${formattedI}: ${world.name ? world.name + ', ': ''}${world.type}${world.feature ? ', ' + world.feature : ''}${world.isMainWorld ? ', ' + world.geosphere.type : ' (Uninhabited)'}${printMoonSummary(world)}`
 }
 
 const printMoonSummary = (world) => {

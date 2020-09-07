@@ -11,7 +11,7 @@ const createStarSystem = (data) => {
 	createSystemObjects(data, results)
 
 	// Pick which planetary body will be the "main" world, which has been colonized.
-	let usedPlanetNames = [''] // trick for while loop later.
+	let usedPlanetNames = []
 	let world = pickMainWorld(data, results, usedPlanetNames)
 
 	// Generate details for this world.
@@ -55,11 +55,19 @@ const createSystemObjects = (data, results) => {
 }
 
 const getUniquePlanetName = (data, usedPlanetNames) => {
-	let planetName = ''
-	while (usedPlanetNames.includes(planetName)) {
+	let planetName = null
+	let foundUniquePlanetName = false
+	while (!foundUniquePlanetName) {
 		let iccCode = utils.randomArrayItem(data.iccCodes)
 		let planetaryName = utils.randomArrayItem(data.planetaryNames)
+		
+		// TODO Correct formats?
 		planetName = iccCode + '-' + planetaryName
+		
+		if (!usedPlanetNames.includes(planetName)) {
+			foundUniquePlanetName = true
+			usedPlanetNames.push(planetName)
+		}
 	}
 	return planetName
 }
@@ -73,7 +81,7 @@ const pickMainWorld = (data, results, usedPlanetNames) => {
 		mainWorld = utils.randomArrayItem(results.systemObjects)
 		if (mainWorld.habitable) {
 			mainWorld.isMainWorld = true
-			// generate a unique planet name
+			// TODO Only habitated worlds get a name for now.
 			mainWorld.name = getUniquePlanetName(data, usedPlanetNames)
 			foundMainWorld = true
 		}

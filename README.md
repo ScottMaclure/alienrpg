@@ -19,22 +19,24 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 ### Sooner
 
+* [x] 10+ on 2D6 = two competing colonies on the same world.
+* [ ] Ice planets - force temp to frozen (p340)
+* [ ] Add temperature min/max fields, generate average per planet
+* [ ] Sort planetary bodies by average temperature (p340)
 * [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)
+* [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets.
 * [ ] Contract Fria Ligan for permission to use content for the generator
-* [ ] Add temperature range field, put in output
-* [ ] Add -6 to temp mod if ice planet
-* [ ] 10+ on 2D6 = two competing colonies on the same world.
-* [ ] Maintain a log of calculations, to display to UI later.
+* [ ] Generate uninhabited planetary details for the rest of the system
 
 ### Later
 
+* [ ] Maintain a log of calculations, to display to UI later.
 * [ ] Html interface with... Svelte?
 * [ ] CSS via https://newcss.net/theme/terminal/
 * [ ] Host on https://scott.maclure.info/alienrpg
 * [ ] Unit test JS modules via https://github.com/avajs/ava
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
-* [ ] Generate uninhabited planetary details for the rest of the system
 
 ### Done
 
