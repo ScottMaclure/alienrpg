@@ -219,9 +219,9 @@
 		]
 	},
 	"colonySizes": [
-		{"2d6": "7", "size": "Start-Up", "population": "3d6x10", "missions": "1", "colonyMissionMod": -1},
-		{"2d6": "10", "size": "Young", "population": "3d6x100", "missions": "d3–1", "colonyMissionMod": 0},
-		{"2d6": "50", "size": "Established", "population": "2d6x1000", "missions": "d3", "colonyMissionMod": 4}
+		{"2d6": "7", "size": "Start-Up", "population": "3d6x10", "missions": "1", "colonyMissionMod": -1, "orbitalComponenMod": 0},
+		{"2d6": "10", "size": "Young", "population": "3d6x100", "missions": "d3–1", "colonyMissionMod": 0, "orbitalComponenMod": 1},
+		{"2d6": "50", "size": "Established", "population": "2d6x1000", "missions": "d3", "colonyMissionMod": 4, "orbitalComponenMod": 2}
 	],
 	"colonyMissions": [
 		{"2d6": 2 , "type": "Terraforming"},
@@ -235,5 +235,15 @@
 		{"2d6": 10, "type": "Cattle Ranching/Logging"},
 		{"2d6": 11, "type": "Corporate HQ"},
 		{"2d6": 50, "type": "Government HQ"}
+	],
+	"orbitalComponents": [
+		{"2d6": 4, "type":  "Little (perhaps wreckage) or nothing"},
+		{"2d6": 5, "type":  "Ring"},
+		{"2d6": 6, "type":  "Abandoned or Repurposed Satellite or Space Station"},
+		{"2d6": 8, "type":  "Moons", "quantity": "d3", "isMoon": true},
+		{"2d6": 9, "type":  "Survey Station"},
+		{"2d6": 10, "type":  "Several Survey and Communications Satellites"},
+		{"2d6": 11, "type":  "Transfer Station"},
+		{"2d6": 50, "multiRoll":  "d6"}
 	]
 }

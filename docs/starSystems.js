@@ -120,11 +120,10 @@ const createWorld = (data, world) => {
 		for (let i = 0; i < numColonies; i++) {
 
 			let colony = {}
-			
-			colony.colonySize = utils.random2d6ArrayItem(data.colonySizes, colonySizeMod)
 
+			// Clone colonySize data because we modify it.
+			colony.colonySize = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.colonySizes, colonySizeMod)))
 			colony.colonySize.populationAmount = utils.roll(colony.colonySize.population)
-
 			// Missions data can be either a number (as string) or a rollString.
 			// console.debug(`missions=${colony.colonySize.missions}`)
 			if (colony.colonySize.missions.toLowerCase().includes('d')) {
@@ -148,6 +147,30 @@ const createWorld = (data, world) => {
 				colony.missions.push(newMission)
 			}
 
+			// Generate orbital components for this planet.
+			colony.orbitalComponents = []
+			// Clone the item from the data.
+			let orbitalComponent = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+			if (orbitalComponent.multiRoll) {
+				const maxComponents = utils.roll(orbitalComponent.multiRoll)
+				for (let i = 0; i < maxComponents; i++) {
+					let anotherOrbitalComponent = utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod) 
+					if (anotherOrbitalComponent.multiRoll) {
+						// Skip this one, get another.
+						i--
+					} else {
+						applyQuantityToType(anotherOrbitalComponent)
+						colony.orbitalComponents.push(anotherOrbitalComponent)
+					}
+				}
+			} else {
+				// Just the 1
+				applyQuantityToType(orbitalComponent)
+				colony.orbitalComponents.push(orbitalComponent)
+			}
+			
+			
+
 			// TODO Generate factions
 
 			// TODO Generate allegiance (I assume they should be unique for 2 colony setup)
@@ -155,12 +178,18 @@ const createWorld = (data, world) => {
 			world.colonies.push(colony)
 		}
 
-		// TODO Generate orbital components for this planet.
 
 		// TODO Generate scenario hook.
 
 	}
 
+}
+
+const applyQuantityToType = (obj) => {
+	if (obj.quantity) {
+		obj.quantityAmount = utils.roll(obj.quantity) // set the number for future reference
+		obj.type =  obj.quantityAmount + ' ' + obj.type
+	}
 }
 
 /**
@@ -181,13 +210,28 @@ ${printPlanetaryBodies(results.systemObjects, tabs)}
 
 const printPlanetaryBodies = (systemObjects, tabs) => {
 	let out = []
-	for (const [i, body] of systemObjects.entries()) {
-		out.push(`${tabs}#${i+1}: ${body.type}${body.feature ? ', ' + body.feature : ''}${body.isMainWorld ? ', ' + body.geosphere.type : ' (Uninhabited)'}`)
-		if (body.isMainWorld === true) {
-			out.push(printWorldDetails(body, tabs + "\t"))
+	for (const [i, world] of systemObjects.entries()) {
+		out.push(`${tabs}#${i+1}: ${world.type}${world.feature ? ', ' + world.feature : ''}${world.isMainWorld ? ', ' + world.geosphere.type : ' (Uninhabited)'}${printMoonSummary(world)}`)
+		if (world.isMainWorld === true) {
+			out.push(printWorldDetails(world, tabs + "\t"))
 		}
 	}
 	return out.join('\n')
+}
+
+const printMoonSummary = (world) => {
+	if (!world.habitable) { return '' }
+	let moonCount = 0
+	for (const colony of world.colonies) {
+		for (const orbitalComponent of colony.orbitalComponents) {
+			if (orbitalComponent.isMoon) {
+				moonCount = moonCount + orbitalComponent.quantityAmount
+			}
+		}
+	}
+	if (moonCount == 0) { return '' }
+	if (moonCount == 1) { return `, ${moonCount} moon` }
+	return `, ${moonCount} moons`
 }
 
 const printWorldDetails = (world, tabs) => {
@@ -205,7 +249,7 @@ const printColonyDetails = (world, tabs) => {
 	for (const [i, colony] of world.colonies.entries()) {
 		out.push(`
 ${tabs}Colony #${i+1}:
-${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}`)
+${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}${printColonyOrbitalComponent(colony.orbitalComponents, nestedTabs)}`)
 	}
 	return out.join('')
 }
@@ -214,6 +258,14 @@ const printColonyMissions = (missions, tabs) => {
 	let out = []
 	for (const [i, mission] of missions.entries()) {
 		out.push(`\n${tabs}Mission #${i+1}: ${mission.type}`)
+	}
+	return out.join('')
+}
+
+const printColonyOrbitalComponent = (orbitalComponents, tabs) => {
+	let out = []
+	for (const [i, orbitalComponent] of orbitalComponents.entries()) {
+		out.push(`\n${tabs}Orbital #${i+1}: ${orbitalComponent.type}`)
 	}
 	return out.join('')
 }
