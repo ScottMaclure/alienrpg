@@ -219,8 +219,8 @@
 		]
 	},
 	"colonySizes": [
-		{"2d6": "7", "size": "Start-Up", "population": "3D6x10", "missions": 1},
-		{"2d6": "10", "size": "Young", "population": "3D6x100", "missions": "D3–1"},
-		{"2d6": "50", "size": "Established", "population": "2D6x1000", "missions": "D3"}
+		{"2d6": "7", "size": "Start-Up", "population": "3d6x10", "missions": "1"},
+		{"2d6": "10", "size": "Young", "population": "3d6x100", "missions": "d3–1"},
+		{"2d6": "50", "size": "Established", "population": "2d6x1000", "missions": "d3"}
 	]
 }

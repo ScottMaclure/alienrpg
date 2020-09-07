@@ -62,7 +62,13 @@ const formatNumber = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, 
  * @param {*} rollString E.g. '2d6'
  * @returns {number} The total of the roll. e.g. 10.
  */
-const roll = (rollString) => diceUtils.roll(rollString).total
+const roll = (rollString) => {
+	try {
+		return diceUtils.roll(rollString).total
+	} catch (err) {
+		throw new Error(`roll fail, rollString=${rollString}, err=${err}`)
+	}
+}
 
 /**
  * Simulate a "D66" roll, with an optional modifier to tensMod.

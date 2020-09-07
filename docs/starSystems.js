@@ -117,12 +117,21 @@ const createWorld = (data, world) => {
 		const numColonies = getNumColonies()
 		const colonySizeMod = world.planetSize.colonySizeMod + world.atmosphere.colonySizeMod
 
-		for (i = 0; i < numColonies; i++) {
+		for (let i = 0; i < numColonies; i++) {
 
 			let colony = {}
+			
 			colony.colonySize = utils.random2d6ArrayItem(data.colonySizes, colonySizeMod)
+
 			colony.colonySize.populationAmount = utils.roll(colony.colonySize.population)
-			colony.colonySize.missionsAmount = utils.roll(colony.colonySize.missions)
+
+			// Missions data can be either a number (as string) or a rollString.
+			// console.debug(`missions=${colony.colonySize.missions}`)
+			if (colony.colonySize.missions.toLowerCase().includes('d')) {
+				colony.colonySize.missionsAmount = utils.roll(colony.colonySize.missions)
+			} else {
+				colony.colonySize.missionsAmount = parseInt(colony.colonySize.missions)
+			}
 
 			// TODO Generate missions
 
@@ -178,8 +187,13 @@ ${tabs}Terrain:     ${world.terrain.description}${world.habitable ? printColonyD
 }
 
 const printColonyDetails = (world, tabs) => {
-	return `
-${tabs}Colony Size: ${world.colonySize.size}, ${utils.formatNumber(world.colonySize.populationAmount)} pax`
+	let out = []
+	for (const [i, colony] of world.colonies.entries()) {
+		out.push(`
+${tabs}Colony #${i+1}:
+${tabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})`)
+	}
+	return out.join('')
 }
 
 export default { 
