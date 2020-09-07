@@ -5,6 +5,7 @@
 import fs from 'fs'
 
 import starSystems from './docs/starSystems.js'
+import starSystemPrinter from './docs/starSystemPrinter.js'
 
 let starData = JSON.parse(fs.readFileSync('./docs/starData.json', 'utf-8'))
 
@@ -12,4 +13,4 @@ let results = starSystems.createStarSystem(starData)
 
 // console.log(results) // Debug
 
-console.log(starSystems.printStarSystem(results))
+console.log(starSystemPrinter.printStarSystem(results))
