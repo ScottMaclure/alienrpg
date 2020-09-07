@@ -15,7 +15,7 @@ const createStarSystem = (data) => {
 	// TODO What about generating planetary details for all planets?
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
-	pickMainWorld(data, results, usedPlanetNames)
+	pickColonizedWorlds(data, results, usedPlanetNames)
 	generateWorlds(data, results)
 
 	// Sort the system objects by temperature, instead of randomly.
@@ -55,7 +55,7 @@ const createWorld = (systemObject) => {
 		'type': systemObject.type, // e.g. icePlanet
 		'feature': feature,
 		'habitable': systemObject.habitable,
-		'isMainWorld': false, // will be set later for one lucky planetary body. Maybe more later.
+		'isColonized': false, // will be set later for one lucky planetary body. Maybe more later.
 		'planetSizeMod': systemObject.planetSizeMod,
 		'colonies': [] // fleshed out later
 	})
@@ -83,17 +83,17 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
  * Randomly determine the "main" habitated world in this system.
  * Also set its name, cause it's special.
  */
-const pickMainWorld = (data, results, usedPlanetNames) => {
+const pickColonizedWorlds = (data, results, usedPlanetNames) => {
 
-	let mainWorld = null
-	let foundMainWorld = false
-	while (!foundMainWorld) {
-		mainWorld = utils.randomArrayItem(results.systemObjects)
-		if (mainWorld.habitable) {
-			mainWorld.isMainWorld = true
+	let world = false
+	let foundWorld = false
+	while (!foundWorld) {
+		world = utils.randomArrayItem(results.systemObjects)
+		if (world.habitable) {
+			world.isColonized = true
 			// TODO Only habitated worlds get a name for now.
-			mainWorld.name = getUniquePlanetName(data, usedPlanetNames)
-			foundMainWorld = true
+			world.name = getUniquePlanetName(data, usedPlanetNames)
+			foundWorld = true
 		}
 	}
 
@@ -155,7 +155,7 @@ const generateWorld = (data, world) => {
 		world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
 
 		// Terrain mods use both geosphere and temperature.
-		// Terrain is only for terestrial or ice objects, so for now, put inside the isMainWorld check.
+		// Terrain is only for terestrial or ice objects, so for now, put inside the isColonized check.
 		// TODO In future, would need for gas giants with planets
 		const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
 		// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
@@ -163,7 +163,7 @@ const generateWorld = (data, world) => {
 	}
 	
 	// Only populate worlds flagged as habitable.
-	if (world.isMainWorld) {
+	if (world.isColonized) {
 	
 		// console.log(`Habitating world ${world.name}....`)
 
