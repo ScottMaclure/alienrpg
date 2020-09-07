@@ -34,6 +34,7 @@
 	],
 	"systemObjects": [
 		{
+			"key": "gasGiant",
 			"type": "Gas Giant",
 			"number": "d6",
 			"modifiers": {
@@ -54,6 +55,7 @@
 			"planetSizeMod": "-4"
 		},
 		{
+			"key": "terrestrialPlanet",
 			"type": "Terrestrial Planet",
 			"number": "d6",
 			"modifiers": {
@@ -66,6 +68,7 @@
 			"planetSizeMod": ""
 		},
 		{
+			"key": "icePlanet",
 			"type": "Ice Planet",
 			"number": "d6",
 			"modifiers": {
@@ -79,6 +82,7 @@
 			"planetSizeMod": "-2"
 		},
 		{
+			"key": "asteroidBelt",
 			"type": "Asteroid Belt",
 			"number": "d6",
 			"modifiers": {
@@ -139,26 +143,79 @@
 	],
 	"atmospheres": [
 		{"2d6": 3, "type": "Thin", "temperatureMod": -4, "geosphereMod": -4},
-		{"2d6": 6, "type": "Breathable", "temperatureMod": 0},
-		{"2d6": 8, "type": "Toxic", "temperatureMod": 0},
+		{"2d6": 6, "type": "Breathable", "temperatureMod": 0, "geosphereMod": 0},
+		{"2d6": 8, "type": "Toxic", "temperatureMod": 0, "geosphereMod": 0},
 		{"2d6": 9, "type": "Dense", "temperatureMod": 1, "geosphereMod": -4},
 		{"2d6": 10, "type": "Corrosive", "temperatureMod": 6, "geosphereMod": -4},
 		{"2d6": 11, "type": "Infiltrating", "temperatureMod": 6, "geosphereMod": -4},
 		{"2d6": 50, "type": "Special", "temperatureMod": 0, "geosphereMod": 8}
 	],
 	"temperatures": [
-		{"2d6": 3, "type": "Frozen", "average": -50, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2},
-		{"2d6": 5, "type": "Cold", "average": 0, "description": "Alaska or Antarctica in winter"},
-		{"2d6": 7, "type": "Temperate", "average": 30, "description": "Boston or Paris"},
-		{"2d6": 10, "type": "Hot", "average": 80, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2},
-		{"2d6": 50, "type": "Burning", "average": 200, "description": "Mercury, Venus", "geosphereMod": -4}
+		{"2d6": 3, "type": "Frozen", "average": -50, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": -2, "icePlanet": 0},
+		{"2d6": 5, "type": "Cold", "average": 0, "description": "Alaska or Antarctica in winter", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 7, "type": "Temperate", "average": 30, "description": "Boston or Paris", "geosphereMod": 0, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 10, "type": "Hot", "average": 80, "description": "Titan, Pluto, Enceladus", "geosphereMod": -2, "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 50, "type": "Burning", "average": 200, "description": "Mercury, Venus", "geosphereMod": -4, "terrestrialPlanet": 0, "icePlanet": 0}
 	],
 	"geospheres": [
-		{"2d6": 4, "type": "Desert World", "description": "No surface water"},
-		{"2d6": 6, "type": "Arid World", "description": "Global deserts and dry steppes, with some lakes and small seas"},
-		{"2d6": 8, "type": "Temperate-Dry World", "description": "Oceans cover 30–40% of the world's surface"},
-		{"2d6": 10, "type": "Temperate-Wet World", "description": "Oceans cover 60–70% of the world's surface"},
-		{"2d6": 11, "type": "Wet World", "description": "Global oceans with some islands and archipelagos"},
-		{"2d6": 50, "type": "Water World", "description": "No dry land"}
-	]
+		{"2d6": 4, "type": "Desert World", "description": "No surface water", "terrestrialPlanet": -3, "icePlanet": 0},
+		{"2d6": 6, "type": "Arid World", "description": "Global deserts and dry steppes, with some lakes and small seas", "terrestrialPlanet": -2, "icePlanet": 0},
+		{"2d6": 8, "type": "Temperate-Dry World", "description": "Oceans cover 30–40% of the world's surface", "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 10, "type": "Temperate-Wet World", "description": "Oceans cover 60–70% of the world's surface", "terrestrialPlanet": 0, "icePlanet": 0},
+		{"2d6": 11, "type": "Wet World", "description": "Global oceans with some islands and archipelagos", "terrestrialPlanet": 2, "icePlanet": 0},
+		{"2d6": 50, "type": "Water World", "description": "No dry land", "terrestrialPlanet": 3, "icePlanet": 0}
+	],
+	"terrains": {
+		"terrestrialPlanet": [
+			{"d66": 11, "description": "Huge impact crater"},
+			{"d66": 12, "description": "Plains of silicon glass"},
+			{"d66": 13, "description": "Disturbing wind-cut rock formations"},
+			{"d66": 14, "description": "Permanent global dust-storm"},
+			{"d66": 15, "description": "Eerily colored dust plains"},
+			{"d66": 16, "description": "Active volcanic lava fields"},
+			{"d66": 21, "description": "Extensive salt flats"},
+			{"d66": 22, "description": "Dust-laden, permanent sunset sky"},
+			{"d66": 23, "description": "Ancient, blackened lava plains"},
+			{"d66": 24, "description": "Thermal springs and steam vents"},
+			{"d66": 25, "description": "Tall, gravel-strewn mountains"},
+			{"d66": 26, "description": "Howling winds that never stop"},
+			{"d66": 31, "description": "Daily fog banks roll in"},
+			{"d66": 32, "description": "Deep and wide rift valleys"},
+			{"d66": 33, "description": "Bizarrely eroded, wind-cut badlands"},
+			{"d66": 34, "description": "Steep-sided river gorges cut into soft rocks"},
+			{"d66": 35, "description": "Huge moon dominates day/night sky"},
+			{"d66": 36, "description": "World-spanning super canyon"},
+			{"d66": 41, "description": "Impressive river of great length"},
+			{"d66": 42, "description": "Oddly colored forests of alien vegetation"},
+			{"d66": 43, "description": "Mountains cut by sky-blue lakes"},
+			{"d66": 44, "description": "Sweeping plains of elephant grass"},
+			{"d66": 45, "description": "Highly toxic, but beautiful, plant-life"},
+			{"d66": 46, "description": "Small, bright, incredibly fast moons in orbit"},
+			{"d66": 51, "description": "Vast and complex river delta"},
+			{"d66": 52, "description": "Immense series of waterfalls"},
+			{"d66": 53, "description": "Endless mudflats with twisting water-ways"},
+			{"d66": 54, "description": "Impressive coastline of fjords and cliffs"},
+			{"d66": 55, "description": "Volcanoes, active & widespread"},
+			{"d66": 56, "description": "Impenetrable jungle"},
+			{"d66": 61, "description": "Dangerous tides—fast and loud"},
+			{"d66": 62, "description": "Vast, permanent super storm"},
+			{"d66": 63, "description": "Toxic sea creatures floating with the currents"},
+			{"d66": 64, "description": "Volcanic island chains"},
+			{"d66": 65, "description": "Permanently overcast with unrelenting rainfall"},
+			{"d66": 100, "description": "Mildly acidic oceans and rainfall"}
+		],
+		"icePlanet": [
+			{"d66": 2, "description": "Huge impact crater"},
+			{"d66": 3, "description": "Geysers spew water into low orbit from long fissures"},
+			{"d66": 4, "description": "Deep fissures leading to a subsurface ocean"},
+			{"d66": 5, "description": "Dramatically colored blue-green ice fissures"},
+			{"d66": 6, "description": "Huge and active cryovolcano"},
+			{"d66": 7, "description": "Vast range of ice mountains"},
+			{"d66": 8, "description": "World-spanning super canyon"},
+			{"d66": 9, "description": "Disturbing, wind-cut ice formations"},
+			{"d66": 10, "description": "Black, dust-covered ice plains"},
+			{"d66": 11, "description": "Impressive ice escarpment of great length"},
+			{"d66": 100, "description": "Extensive dune-fields of methane sand grains"}
+		]
+	}
 }

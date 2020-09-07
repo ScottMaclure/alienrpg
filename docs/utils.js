@@ -39,16 +39,52 @@ const random2d6ArrayItem = (arr, mod) => {
 	throw `Couldn't find a random 2d6 item for length ${arr.length} array.`
 }
 
-// From https://blog.abelotech.com/posts/number-currency-formatting-javascript/
+// The mod changes the tens die, not the total.
+const randomD66ArrayItem = (arr, tensMod) => {
+	const total = rollD66(tensMod)
+	for (const item of arr) {
+		if (total <= item['d66']) {
+			return item
+		}
+	}
+	throw `Couldn't find a random d66 item for length ${arr.length} array.`
+}
+
+/**
+ * From https://blog.abelotech.com/posts/number-currency-formatting-javascript/
+ * @param {number} num E.g. 10000
+ * @returns {string} E.g. 10,000
+ */
 const formatNumber = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
+/**
+ * Interface with dice utils function.
+ * @param {*} rollString E.g. '2d6'
+ * @returns {number} The total of the roll. e.g. 10.
+ */
 const roll = (rollString) => diceUtils.roll(rollString).total
+
+/**
+ * Simulate a "D66" roll, with an optional modifier to tensMod.
+ */
+const rollD66 = (tensMod = 0) => {
+	let tensDie = diceUtils.roll('d6').total + tensMod
+	tensDie = tensDie < 1 ? 1 : tensDie // minimum 1.
+	tensDie = tensDie > 6 ? 6 : tensDie // maximum 6.
+	
+	let onesDie = diceUtils.roll('d6').total
+	
+	// Change into a d66 number, by adding tens and ones together, then turning into a number.
+	return parseInt('' + tensDie + onesDie, 10)
+}
 
 export default {
 	formatNumber,
 	random2d6ArrayItem,
 	randomArrayItem,
+	randomD66ArrayItem,
 	roll,
+	rollD66,
 	rollNumberObjects,
 	shuffleArray
 }

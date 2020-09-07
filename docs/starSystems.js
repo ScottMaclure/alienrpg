@@ -43,6 +43,7 @@ const createSystemObjects = (data, results) => {
 			// The main data for a given planetary body.
 			// TODO This is where a type system would come in handy.
 			results['systemObjects'].push({
+				'key': systemObject.key,
 				'type': systemObject.type,
 				'feature': feature,
 				'weight': utils.roll(systemObject.weightRoll),
@@ -84,18 +85,29 @@ const pickMainWorld = (data, results, usedPlanetNames) => {
 
 const createWorld = (data, world) => {
 
+	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
+
 	world.planetSize = utils.random2d6ArrayItem(data.planetSizes, world.planetSizeMod)
 	// console.debug('planetSize', world.planetSize)
 
 	world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
 	// console.debug('atmosphere', world.atmosphere)
 
+	// FIXME Ice planet is broken, you can get hot/burning temps easily.
 	world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
 
 	// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
-	const geoMod = world.planetSize.atmosphereMod + world.atmosphere.temperatureMod
-	// console.debug(`atmosphereMod ${world.planetSize.atmosphereMod} + temperatureMod ${world.atmosphere.temperatureMod} = geoMod ${geoMod}`)
+	const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
 	world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
+	
+	// Terrain mods use both geosphere and temperature.
+	const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
+	console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
+	world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+
+	if (world.habitable) {
+		// TODO colony stuff here.
+	}
 
 }
 
@@ -123,11 +135,11 @@ const printPlanetaryBodies = (systemObjects, tabs) => {
 
 const printWorldDetails = (world, tabs) => {
 	// console.debug('printWorldDetails, world:', world)
-	return `${tabs}Planet size: ${utils.formatNumber(world.planetSize.sizeKm)} km
-${tabs}Surface gravity: ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
-${tabs}Atmosphere: ${world.atmosphere.type}
+	return `${tabs}Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }
+${tabs}Atmosphere:  ${world.atmosphere.type}
 ${tabs}Temperature: ${world.temperature.type}, up to ${world.temperature.average}°C (${world.temperature.description})
-${tabs}Geosphere: ${world.geosphere.type}. ${world.geosphere.description}`
+${tabs}Geosphere:   ${world.geosphere.type}. ${world.geosphere.description}
+${tabs}Terrain:     ${world.terrain.description}`
 }
 
 export default { helloWorld, createStarSystem, printStarSystem }
