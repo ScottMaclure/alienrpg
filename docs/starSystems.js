@@ -18,9 +18,8 @@ const createStarSystem = (data) => {
 	pickMainWorld(data, results, usedPlanetNames)
 	generateWorlds(data, results)
 
-	// TODO Sort the system objects by temperature, instead of randomly. Perhaps have a weighting by type, plus random amount, then sort.
-	// results.systemObjects = utils.shuffleArray(results.systemObjects)
-	results.systemObjects.sort((a, b) => a.temperature.average - b.temperature.average)
+	// Sort the system objects by temperature, instead of randomly.
+	results.systemObjects.sort((a, b) => b.temperature.average - a.temperature.average)
 
 	return results
 }
