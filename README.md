@@ -17,8 +17,6 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 ### Sooner
 
-* [x] Colony factions
-* [ ] Colony allegiance
 * [ ] Scenario hook per inhabited planet
 * [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)
 * [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation independent?)
@@ -38,6 +36,12 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions?
 
 ### Done
+
+#### 2020-09-08
+
+* [x] Colony factions
+* [x] Colony allegiance
+* [x] Fix ice planet data (d66 -> 2d6, oops)
 
 #### 2020-09-07
 
