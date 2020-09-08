@@ -17,17 +17,15 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 ### Sooner
 
-* [ ] Scenario hook per inhabited planet
-* [ ] Full text-output star system generation, with details for the main world (i.e. the MVP)
-* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation independent?)
+* [ ] Html interface with... Svelte?
+* [ ] CSS via https://newcss.net/theme/terminal/
+* [ ] Host on https://scott.maclure.info/alienrpg
+* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent?)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant)
 
 ### Later
 
 * [ ] Maintain a log of calculations, to display to UI later.
-* [ ] Html interface with... Svelte?
-* [ ] CSS via https://newcss.net/theme/terminal/
-* [ ] Host on https://scott.maclure.info/alienrpg
 * [ ] Setup Unit test framework for JS modules via https://github.com/avajs/ava
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
@@ -42,6 +40,9 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * [x] Colony factions
 * [x] Colony allegiance
 * [x] Fix ice planet data (d66 -> 2d6, oops)
+* [x] Scenario hook per inhabited planet
+* [x] Add app data in prep for web interface
+* [x] Full text-output star system generation, with details for the main world (i.e. the MVP)
 
 #### 2020-09-07
 
