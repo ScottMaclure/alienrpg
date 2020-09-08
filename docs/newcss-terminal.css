@@ -15,11 +15,20 @@
 	--nc-ac-tx: #000000;
 }
 
+body {
+	padding: 0.5rem;
+}
+
 small {
 	font-size: 0.7rem;
 }
 
 pre {
-	white-space: pre-wrap;
+	/* white-space: pre-wrap; */
 	font-size: 0.7rem;
+	padding: 0.5rem;
+}
+
+footer {
+	line-height: 1;
 }

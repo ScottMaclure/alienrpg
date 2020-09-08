@@ -1,10 +1,11 @@
 import utils from './utils.js'
 
+const spaceIndent = '  '
+
 // For CLI based results.
 const printStarSystem = (results) => {
-	let tabs = '\t'
-	return `
-Star System:
+	let tabs = spaceIndent
+	return `Star System:
 ${tabs}Location: ${results.starLocation.name} (${results.starLocation.colonyAllegianceKey})
 ${tabs}Type:     ${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
 Planetary Bodies (${results.systemObjects.length}):
@@ -16,7 +17,7 @@ const printSystemObjects = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
         out.push(printWorldTitle(i, world, tabs))
-        out.push(printWorldDetails(world, `${tabs}\t`))
+        out.push(printWorldDetails(world, `${tabs}${spaceIndent}`))
     }
 	return out.join('\n')
 }
@@ -67,7 +68,7 @@ const printWorldDetails = (world, tabs) => {
 
 const printColonyDetails = (world, tabs) => {
 	let out = []
-	let nestedTabs = tabs + '\t'
+	let nestedTabs = tabs + spaceIndent
 	const spaces = '   '
 	for (const [i, colony] of world.colonies.entries()) {
         out.push(`${tabs}Colony #${i+1}:`)

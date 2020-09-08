@@ -3,7 +3,9 @@
  * Will incorporate some rules from Alien's generators.
  */
 
-import diceUtils from '../../node_modules/dice-utils/dist/dice-utils.js';
+// FIXME Because the node module's package.json doesn't have type=module, nodejs fails because it's using cjs.
+// import diceUtils from '../../node_modules/dice-utils/dist/dice-utils.js';
+import diceUtils from './vendor/dice-utils.js';
 
 const randomArrayItem = (arr) => {
 	const idx = Math.floor(Math.random() * arr.length)

@@ -33,8 +33,6 @@ http://localhost:5000/
 
 ### Sooner
 
-* [ ] Html interface with... Svelte?
-* [ ] CSS via https://newcss.net/theme/terminal/
 * [ ] Host on https://scott.maclure.info/alienrpg
 * [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent?)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant)
@@ -49,7 +47,7 @@ http://localhost:5000/
 * [ ] Cypress test suite
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions?
 
-### Done
+### Changelog
 
 #### 2020-09-08
 
@@ -59,6 +57,8 @@ http://localhost:5000/
 * [x] Scenario hook per inhabited planet
 * [x] Add app data in prep for web interface
 * [x] Full text-output star system generation, with details for the main world (i.e. the MVP)
+* [x] Html interface with... Svelte?
+* [x] CSS via https://newcss.net/theme/terminal/
 
 #### 2020-09-07
 

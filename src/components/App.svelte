@@ -1,20 +1,19 @@
 <script>
-	import utils from '../modules/utils.js'
+
+	// import utils from '../modules/utils.js'
+	import starSystems from '../modules/starSystems.js'
+	import starSystemPrinter from '../modules/starSystemPrinter.js'
 
 	export let appData;
 	export let starData;
 
 	// Note: Reactive variable.
-	let count = 0
-	let results = {'TODO': 'Waiting on User.'}
+	let results = {}
+	let output = 'Waiting on User.'
 
-	function handleNewStarSystem(event) {
-		console.log('TODO handleNewStarSystem')
-		count++
-		results = {
-			'TODO': `User clicked ${count} time(s).`,
-			'scenarioHook': utils.randomArrayItem(starData.scenarioHooks).description
-		}
+	function handleNewStarSystem() {
+		results = starSystems.createStarSystem(starData)
+		output = starSystemPrinter.printStarSystem(results)
 	}
 
 </script>
@@ -25,10 +24,10 @@
 	<button on:click={handleNewStarSystem}>New Star System</button>
     
 	<h2>Results</h2>
-	<pre id="results">{JSON.stringify(results, null, 2)}</pre>
+	<pre id="results">{output}</pre>
 
 	<footer>
-		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for the <a href="{appData.licenseUrl}">LICENSE</a>. {appData.copyright}</small>
+		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for details. {appData.copyright}</small>
 	</footer>
 </main>
 
