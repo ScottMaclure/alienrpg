@@ -3,14 +3,14 @@ import utils from './utils.js'
 const createStarSystem = (data) => {
 	let results = {}
 
-	// First, we generate the star type.
-	results.starType = getStarType(data)
-
+	// TODO Make this an option the user can choose, instead of always rolling randomly.
 	results.starLocation = utils.randomArrayItem(data.starLocations)
 	// For frontier, pick random allegiance table for later.
 	if (results.starLocation.colonyAllegianceKeys) {
 		results.starLocation.colonyAllegianceKey = utils.randomArrayItem(results.starLocation.colonyAllegianceKeys)
 	}
+	
+	results.starType = getStarType(data)
 
 	// TODO What about "Spectral Class"?
 
