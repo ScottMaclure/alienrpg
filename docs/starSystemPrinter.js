@@ -5,8 +5,8 @@ const printStarSystem = (results) => {
 	let tabs = '\t'
 	return `
 Star System:
-${tabs}${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
-${tabs}Location: ${results.starLocation.name} (allegiance: ${results.starLocation.colonyAllegianceKey})
+${tabs}Location: ${results.starLocation.name} (${results.starLocation.colonyAllegianceKey})
+${tabs}Type:     ${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
 Planetary Bodies (${results.systemObjects.length}):
 ${printSystemObjects(results.systemObjects, tabs)}
 `
@@ -67,10 +67,11 @@ const printWorldDetails = (world, tabs) => {
 const printColonyDetails = (world, tabs) => {
 	let out = []
 	let nestedTabs = tabs + '\t'
-	const spaces = '    '
+	const spaces = '   '
 	for (const [i, colony] of world.colonies.entries()) {
         out.push(`${tabs}Colony #${i+1}:`)
-		out.push(`${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax`)
+		out.push(`${nestedTabs}Allegiance: ${colony.allegiance}`)
+		out.push(`${nestedTabs}Size:       ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax`)
 		out.push(printColonyMissions(colony.missions, nestedTabs, spaces))
 		out.push(printColonyOrbitalComponents(colony.orbitalComponents, nestedTabs, spaces))
 		out.push(printColonyFactions(colony.factions, nestedTabs, spaces))

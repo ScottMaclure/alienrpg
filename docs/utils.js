@@ -40,9 +40,14 @@ const random2D6ArrayItem = (arr, mod = 0) => {
 	return rollArrayItem(arr, '2d6', mod)
 }
 
+const random3D6ArrayItem = (arr, mod = 0) => {
+	return rollArrayItem(arr, '3d6', mod)
+}
+
 // The mod changes the tens die, not the total.
 const randomD66ArrayItem = (arr, tensMod = 0) => {
 	const total = rollD66(tensMod)
+	// console.debug(`randomD66ArrayItem tensMod=${tensMod}, total=${total}`)
 	for (const item of arr) {
 		if (total <= item['d66']) {
 			return item
@@ -106,6 +111,7 @@ const randomInteger = (min, max) => {
 export default {
 	formatNumber,
 	random2D6ArrayItem,
+	random3D6ArrayItem,
 	randomArrayItem,
 	randomD6ArrayItem,
 	randomD66ArrayItem,

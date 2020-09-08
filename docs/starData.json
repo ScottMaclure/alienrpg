@@ -33,11 +33,11 @@
 
 	],
 	"starLocations": [
-		{"key": "iscs", "name": "The Independent Core System Colonies", "colonyAllegianceKey": "iscs"},
+		{"key": "icsc", "name": "The Independent Core System Colonies", "colonyAllegianceKey": "icsc"},
 		{"key": "aja", "name": "Anglo-Japanese Arm", "colonyAllegianceKey": "aajm"},
 		{"key": "upp", "name": "The Union of Progressive Peoples", "colonyAllegianceKey": "upp"},
 		{"key": "arm", "name": "The United Americas", "colonyAllegianceKey": "aajm"},
-		{"key": "fro", "name": "The Frontier", "colonyAllegianceKeys": ["iscs", "aajm", "upp"]}
+		{"key": "fro", "name": "The Frontier", "colonyAllegianceKeys": ["icsc", "aajm", "upp"]}
 	],
 	"systemObjects": [
 		{
@@ -208,17 +208,17 @@
 			{"d66": 100, "description": "Mildly acidic oceans and rainfall"}
 		],
 		"icePlanet": [
-			{"d66": 2, "description": "Huge impact crater"},
-			{"d66": 3, "description": "Geysers spew water into low orbit from long fissures"},
-			{"d66": 4, "description": "Deep fissures leading to a subsurface ocean"},
-			{"d66": 5, "description": "Dramatically colored blue-green ice fissures"},
-			{"d66": 6, "description": "Huge and active cryovolcano"},
-			{"d66": 7, "description": "Vast range of ice mountains"},
-			{"d66": 8, "description": "World-spanning super canyon"},
-			{"d66": 9, "description": "Disturbing, wind-cut ice formations"},
-			{"d66": 10, "description": "Black, dust-covered ice plains"},
-			{"d66": 11, "description": "Impressive ice escarpment of great length"},
-			{"d66": 100, "description": "Extensive dune-fields of methane sand grains"}
+			{"2d6": 2, "description": "Huge impact crater"},
+			{"2d6": 3, "description": "Geysers spew water into low orbit from long fissures"},
+			{"2d6": 4, "description": "Deep fissures leading to a subsurface ocean"},
+			{"2d6": 5, "description": "Dramatically colored blue-green ice fissures"},
+			{"2d6": 6, "description": "Huge and active cryovolcano"},
+			{"2d6": 7, "description": "Vast range of ice mountains"},
+			{"2d6": 8, "description": "World-spanning super canyon"},
+			{"2d6": 9, "description": "Disturbing, wind-cut ice formations"},
+			{"2d6": 10, "description": "Black, dust-covered ice plains"},
+			{"2d6": 11, "description": "Impressive ice escarpment of great length"},
+			{"2d6": 100, "description": "Extensive dune-fields of methane sand grains"}
 		]
 	},
 	"colonySizes": [

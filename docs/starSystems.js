@@ -113,7 +113,7 @@ const pickColonizedWorlds = (data, results, usedPlanetNames) => {
 const generateWorlds = (data, results) => {
 	for (let world of results.systemObjects) {
 		// Clone the data to ensure uniqueness each time we generate world data.
-		generateWorld(JSON.parse(JSON.stringify(data)), world)
+		generateWorld(JSON.parse(JSON.stringify(data)), results, world)
 	}
 }
 
@@ -123,7 +123,7 @@ const generateWorlds = (data, results) => {
  * @param {object} data starData.json
  * @param {object} world See createSystemObjects()
  */
-const generateWorld = (data, world) => {
+const generateWorld = (data, results, world) => {
 
 	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
 
@@ -131,7 +131,7 @@ const generateWorld = (data, world) => {
 	// console.debug('planetSize', world.planetSize)
 
 	// Atmosphere and temperature are driven by the object type (key).
-	switch (world.key) {
+	switch (worldTypeKey) {
 		case 'gasGiant':
 			world.atmosphere = data.atmospheres[data.atmospheres.length -2] // Infiltrating
 			world.temperature = utils.random2D6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
@@ -160,12 +160,14 @@ const generateWorld = (data, world) => {
 		const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
 		world.geosphere = utils.random2D6ArrayItem(data.geospheres, geoMod)
 
-		// Terrain mods use both geosphere and temperature.
-		// Terrain is only for terestrial or ice objects, so for now, put inside the isColonized check.
-		// TODO In future, would need for gas giants with planets
-		const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
-		// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
-		world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+		if (worldTypeKey === 'icePlanet') {
+			world.terrain = utils.random2D6ArrayItem(data.terrains[worldTypeKey])
+		} else {
+			// TODO In future, would need for gas giants with planets
+			const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
+			// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
+			world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+		}
 	}
 	
 	// Only populate worlds flagged as habitable.
@@ -179,6 +181,9 @@ const generateWorld = (data, world) => {
 		for (let i = 0; i < numColonies; i++) {
 
 			let colony = {}
+
+			const colonyAllegiance = utils.random3D6ArrayItem(data.colonyAllegiances)
+			colony.allegiance = colonyAllegiance[results.starLocation.colonyAllegianceKey]
 
 			// Clone colonySize data because we modify it.
 			colony.colonySize = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.colonySizes, colonySizeMod)))
