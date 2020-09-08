@@ -19,11 +19,12 @@
 </script>
 
 <main>
-	<h1>{appData.title}</h1>
-	
+	<div class="alignRight"><small>{appData.version}</small></div>
+	<h2>{appData.title}</h2>
+	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	<button on:click={handleNewStarSystem}>New Star System</button>
     
-	<h2>Results</h2>
+	<h3>Results</h3>
 	<pre id="results">{output}</pre>
 
 	<footer>
@@ -32,12 +33,4 @@
 </main>
 
 <style>
-	main {
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>

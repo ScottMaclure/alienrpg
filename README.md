@@ -33,9 +33,8 @@ http://localhost:5000/
 
 ### Sooner
 
-* [ ] Host on https://scott.maclure.info/alienrpg
-* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent?)
-* [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant)
+* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent)
+* [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code)
 
 ### Later
 
@@ -43,8 +42,8 @@ http://localhost:5000/
 * [ ] Setup Unit test framework for JS modules via https://github.com/avajs/ava
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
-* [ ] Full unit-test coverage
-* [ ] Cypress test suite
+* [ ] Full unit-test coverage for all modules
+* [ ] Cypress test suite for UAT
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions?
 
 ### Changelog
@@ -59,6 +58,7 @@ http://localhost:5000/
 * [x] Full text-output star system generation, with details for the main world (i.e. the MVP)
 * [x] Html interface with... Svelte?
 * [x] CSS via https://newcss.net/theme/terminal/
+* [x] Host on https://scott.maclure.info/alienrpg
 
 #### 2020-09-07
 

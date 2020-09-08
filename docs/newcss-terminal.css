@@ -17,6 +17,7 @@
 
 body {
 	padding: 0.5rem;
+	line-height: 1;
 }
 
 small {
@@ -31,4 +32,8 @@ pre {
 
 footer {
 	line-height: 1;
+}
+
+.alignRight {
+	float: right;
 }
