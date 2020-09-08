@@ -4,10 +4,11 @@
 
 import fs from 'fs'
 
-import starSystems from './docs/starSystems.js'
-import starSystemPrinter from './docs/starSystemPrinter.js'
+import starSystems from './src/modules/starSystems.js'
+import starSystemPrinter from './src/modules/starSystemPrinter.js'
 
-let starData = JSON.parse(fs.readFileSync('./docs/starData.json', 'utf-8'))
+// TODO ES6 Module loader for nodejs cli that handles json?
+let starData = JSON.parse(fs.readFileSync('./src/starData.json', 'utf-8'))
 
 // Clone data for future repeated generation.
 let results = starSystems.createStarSystem(JSON.parse(JSON.stringify(starData)))
