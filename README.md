@@ -13,6 +13,14 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * Planetary names (what does LV/MT/RF stand for?)
 * No atmosphere = Desert World (Atmosphere table doesn't have a "no atmo" option, only "special"?)
 
+## Local Development
+
+```
+npm start
+```
+
+http://127.0.0.1:8080/
+
 ## TODO
 
 ### Sooner
