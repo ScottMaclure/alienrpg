@@ -1,17 +1,10 @@
-import utils from './docs/utils.js';
+import test from './node_modules/ava/index.js'
 
-const test_rollD66 = () => {
+test('foo', t => {
+    t.pass() // failing is assumed
+    // t.fail() // if you fail after pass, you still fail
+})
 
-    for (let i = 0; i < 20; i++) {
-        let total = utils.rollD66()
-        console.debug(`base total=${total}`)
-    }
-
-    for (let i = -20; i < 20; i++) {
-        let total = utils.rollD66(i) // i == tensmod
-        console.debug(`mod=${i}, total=${total}`)
-    }
-
-}
-
-test_rollD66()
+test.skip('bar', t => {
+	t.fail()
+})
