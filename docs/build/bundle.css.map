@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n\n\t// import utils from '../modules/utils.js'\n\timport starSystems from '../modules/starSystems.js'\n\timport starSystemPrinter from '../modules/starSystemPrinter.js'\n\n\texport let appData;\n\texport let starData;\n\n\t// Note: Reactive variable.\n\tlet results = {}\n\tlet output = 'Waiting on User.'\n\n\tfunction handleNewStarSystem() {\n\t\tresults = starSystems.createStarSystem(starData)\n\t\toutput = starSystemPrinter.printStarSystem(results)\n\t}\n\n</script>\n\n<main>\n\t<h1>{appData.title}</h1>\n\t\n\t<button on:click={handleNewStarSystem}>New Star System</button>\n    \n\t<h2>Results</h2>\n\t<pre id=\"results\">{output}</pre>\n\n\t<footer>\n\t\t<small>{appData.title} {appData.version}. See the <a href=\"{appData.githubUrl}\">github repo</a> for details. {appData.copyright}</small>\n\t</footer>\n</main>\n\n<style>\n\tmain {\n\t}\n\n\t@media (min-width: 640px) {\n\t\tmain {\n\t\t\tmax-width: none;\n\t\t}\n\t}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAqCC,MAAM,AAAC,YAAY,KAAK,CAAC,AAAC,CAAC,AAC1B,IAAI,cAAC,CAAC,AACL,SAAS,CAAE,IAAI,AAChB,CAAC,AACF,CAAC"
+}

@@ -1,4 +1,4 @@
 node_modules
-docs/build
+# docs/build  # We need this committed for github-pages to work.
 .vscode
 .DS_Store
