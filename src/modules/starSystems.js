@@ -219,7 +219,7 @@ const generateWorld = (data, results, world) => {
 				const maxComponents = utils.roll(orbitalComponent.multiRoll)
 				for (let i = 0; i < maxComponents; i++) {
 					let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
-					if (typeof anotherOrbitalComponent.multiRoll !== void 0) {
+					if (anotherOrbitalComponent.multiRoll) {
 						// Skip this one, get another.
 						i--
 					} else {
