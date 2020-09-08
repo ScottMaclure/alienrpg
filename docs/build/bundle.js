@@ -954,7 +954,7 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
     const printColonyOrbitalComponents = (orbitalComponents, tabs, spaces) => {
     	let out = [];
     	for (const [i, orbitalComponent] of orbitalComponents.entries()) {
-    		out.push(`${orbitalComponent.type}`);
+    		out.push(orbitalComponent.type);
     	}
     	return `${tabs}Orbitals:${spaces}` + out.join(', ')
     };
@@ -1320,7 +1320,7 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
     }
 
     var title = "Alien RPG Tools";
-    var version = "v0.6.0 Beta";
+    var version = "v0.6.1 Beta";
     var copyright = "Any text taken from the game is used with permission and remains © of their respective owners.";
     var githubUrl = "https://github.com/ScottMaclure/alienrpg/blob/master/README.md";
     var appData = {

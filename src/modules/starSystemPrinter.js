@@ -96,7 +96,7 @@ const printColonyMissions = (missions, tabs, spaces) => {
 const printColonyOrbitalComponents = (orbitalComponents, tabs, spaces) => {
 	let out = []
 	for (const [i, orbitalComponent] of orbitalComponents.entries()) {
-		out.push(`${orbitalComponent.type}`)
+		out.push(orbitalComponent.type)
 	}
 	return `${tabs}Orbitals:${spaces}` + out.join(', ')
 }
