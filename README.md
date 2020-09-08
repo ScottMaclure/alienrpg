@@ -33,6 +33,7 @@ http://localhost:5000/
 
 ### Sooner
 
+* [ ] Bug - certain runs are hanging - infloop? Debug.
 * [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code)
 * [ ] localStorage to remember options / choices / results
@@ -41,7 +42,6 @@ http://localhost:5000/
 
 * [ ] Add an "options" hide/show button, when we need more options.
 * [ ] Maintain a log of calculations, to display to UI later.
-* [ ] Setup Unit test framework for JS modules via https://github.com/avajs/ava
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
 * [ ] Full unit-test coverage for all modules
@@ -62,6 +62,7 @@ http://localhost:5000/
 * [x] CSS via https://newcss.net/theme/terminal/
 * [x] Host on https://scott.maclure.info/alienrpg
 * [x] Add "show uninhabited details" checkbox
+* [x] Setup Unit test framework for JS modules via https://github.com/avajs/ava
 
 #### 2020-09-07
 
