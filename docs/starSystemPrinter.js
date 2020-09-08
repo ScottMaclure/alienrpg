@@ -57,6 +57,7 @@ const printWorldDetails = (world, tabs) => {
         out.push(`${tabs}Terrain:     ${world.terrain.description}`)
     }
     if (world.isColonized) {
+		out.push(`${tabs}Hook:        ${world.scenarioHook.description}`)
         out.push(printColonyDetails(world, tabs))
     }
     const output = out.join(`\n`)

@@ -250,8 +250,8 @@ const generateWorld = (data, results, world) => {
 			world.colonies.push(colony)
 		}
 
-
-		// TODO Generate scenario hook.
+		// Generate scenario hook.
+		world.scenarioHook = utils.randomD66ArrayItem(data.scenarioHooks)
 
 	}
 

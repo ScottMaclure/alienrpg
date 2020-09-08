@@ -1,4 +1,9 @@
 {
+	"appData": {
+		"title": "Alien RPG Tools",
+		"version": "0.5 Alpha",
+		"copyright": "See github repo for LICENSE. Any text taken from the game is used with permission and remains © of their respective owners."
+	},
 	"starTypes": [
 		{
 			"type": "Giant",
@@ -270,5 +275,43 @@
 		{"3d6": 15, "icsc": "Lorenz SysTech", "aajm": "Chigusa Corporation", "upp": "UPP"},
 		{"3d6": 16, "icsc": "Gemini Exoplanet", "aajm": "Gemini Exoplanet", "upp": "UPP"},
 		{"3d6": 50, "icsc": "Farside Mining", "aajm": "Farside Mining", "upp": "UPP"}
+	],
+	"scenarioHooks": [
+		{"d66": 11, "description": "Pilfering and thefts force security to search rooms and lockers."},
+		{"d66": 12, "description": "Incidents of sabotage are increasing; security suspects an organized campaign."},
+		{"d66": 13, "description": "Colonial Administration is investigating the colony for illegal practices."},
+		{"d66": 14, "description": "Colonists returning to base report sighting a ‘monster’ on the surface."},
+		{"d66": 15, "description": "Petty crime, thefts and sabotage are rife. "},
+		{"d66": 16, "description": "Equipment failure has resulted in rationing at the colony. Tempers are frayed."},
+		{"d66": 21, "description": "Ship recently arrived with some kind of parasite that will soon spread through the colony."},
+		{"d66": 22, "description": "Stolen goods are on offer—cheap! "},
+		{"d66": 23, "description": "Unknown to you an old friend/flame is at the colony."},
+		{"d66": 24, "description": "Unknown to you an old enemy/rival is at the colony."},
+		{"d66": 25, "description": "A minor dignitary/notable is visiting in the company of several aides or guards."},
+		{"d66": 26, "description": "Part of the colony is off-limits temporarily - no reason given."},
+		{"d66": 31, "description": "Sudden restriction on free movement, unless you can find a way to avoid it."},
+		{"d66": 32, "description": "An emergency means repair parts and vital supplies are being shipped in from a nearby colony."},
+		{"d66": 33, "description": "Local crisis about to hit (storm, earthquake, riot, fire, etc.)"},
+		{"d66": 34, "description": "Period of solar flare—will cut communications for one Shift (D6 days if star type MV)."},
+		{"d66": 35, "description": "Spies from a neighboring colony have been discovered and arrested."},
+		{"d66": 36, "description": "Operations manager and his deputy are in conflict; everyone is choosing sides."},
+		{"d66": 41, "description": "PCs are invited to a formal dinner, meeting or party."},
+		{"d66": 42, "description": "The local colonists are not what they seem."},
+		{"d66": 43, "description": "A military ship is in orbit and the landing party is searching for someone/something."},
+		{"d66": 44, "description": "A rival colony or corporation is about to carry out an act of sabotage."},
+		{"d66": 45, "description": "The spaceport is currently quarantined."},
+		{"d66": 46, "description": "Security situation at the colony."},
+		{"d66": 51, "description": "A bunch of asteroid miners causing trouble while on leave."},
+		{"d66": 52, "description": "Mystery ship arrives at the spaceport."},
+		{"d66": 53, "description": "Civil unrest is about to break out."},
+		{"d66": 54, "description": "Colonists are trapped and need rescuing far from the settlement itself."},
+		{"d66": 55, "description": "Authorities have just locked down the colony after a riot."},
+		{"d66": 56, "description": "A religious leader is whipping up discontent."},
+		{"d66": 61, "description": "PCs will be harassed by angry locals. Why the anger? And why directed at off-world personnel?"},
+		{"d66": 62, "description": "An expedition is being assembled for a trek overland—the PCs are invited."},
+		{"d66": 63, "description": "An important colonial official is murdered, only an hour after you arrive."},
+		{"d66": 64, "description": "Several colonists have gone missing — a search is underway."},
+		{"d66": 65, "description": "A lifeboat has crashed on planet, and contained an interesting individual."},
+		{"d66": 100, "description": "The corporation or government paying for the colony keeps ordering teams out to search remote areas—but won’t say what they are searching for."}
 	]
 }
