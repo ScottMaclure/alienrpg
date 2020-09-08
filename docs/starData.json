@@ -32,6 +32,13 @@
 		}
 
 	],
+	"starLocations": [
+		{"key": "iscs", "name": "The Independent Core System Colonies", "colonyAllegianceKey": "iscs"},
+		{"key": "aja", "name": "Anglo-Japanese Arm", "colonyAllegianceKey": "aajm"},
+		{"key": "upp", "name": "The Union of Progressive Peoples", "colonyAllegianceKey": "upp"},
+		{"key": "arm", "name": "The United Americas", "colonyAllegianceKey": "aajm"},
+		{"key": "fro", "name": "The Frontier", "colonyAllegianceKeys": ["iscs", "aajm", "upp"]}
+	],
 	"systemObjects": [
 		{
 			"key": "gasGiant",
@@ -249,5 +256,19 @@
 		{"d6": 4, "factions": [{"strength": 6}, {"strength": 1}]},
 		{"d6": 5, "factions": [{"strength": 5}, {"strength": 5}, {"strength": 5}]},
 		{"d6": 6, "quantity": "d6", "factions": []}
+	],
+	"colonyAllegiances": [
+		{"3d6": 4, "icsc": "Kelland Mining", "aajm": "Kelland Mining", "upp": "UPP"},
+		{"3d6": 5, "icsc": "GeoFund Investor", "aajm": "Gustafsson Enterprise", "upp": "UPP"},
+		{"3d6": 6, "icsc": "Gustafsson Enterprise", "aajm": "GeoFund Investor", "upp": "UPP"},
+		{"3d6": 7, "icsc": "Seegson", "aajm": "Lasalle Bionational", "upp": "UPP"},
+		{"3d6": 8, "icsc": "No allegiance (independent)", "aajm": "Weyland-Yutani", "upp": "UPP"},
+		{"3d6": 11, "icsc": "Jĭngtì Lóng Corporation", "aajm": "Government representative", "upp": "UPP"},
+		{"3d6": 12, "icsc": "Chigusa Corporation", "aajm": "Weyland-Yutani", "upp": "UPP"},
+		{"3d6": 13, "icsc": "Lasalle Bionational", "aajm": "Seegson", "upp": "UPP"},
+		{"3d6": 14, "icsc": "Seegson", "aajm": "Jĭngtì Lóng Corporation", "upp": "UPP"},
+		{"3d6": 15, "icsc": "Lorenz SysTech", "aajm": "Chigusa Corporation", "upp": "UPP"},
+		{"3d6": 16, "icsc": "Gemini Exoplanet", "aajm": "Gemini Exoplanet", "upp": "UPP"},
+		{"3d6": 50, "icsc": "Farside Mining", "aajm": "Farside Mining", "upp": "UPP"}
 	]
 }

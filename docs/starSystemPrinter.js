@@ -6,6 +6,7 @@ const printStarSystem = (results) => {
 	return `
 Star System:
 ${tabs}${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
+${tabs}Location: ${results.starLocation.name} (allegiance: ${results.starLocation.colonyAllegianceKey})
 Planetary Bodies (${results.systemObjects.length}):
 ${printSystemObjects(results.systemObjects, tabs)}
 `
