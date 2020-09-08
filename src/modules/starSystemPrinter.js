@@ -2,22 +2,28 @@ import utils from './utils.js'
 
 const spaceIndent = '  '
 
+const defaultOptions = {
+	showUninhabitedDetails: true
+}
+
 // For CLI based results.
-const printStarSystem = (results) => {
+const printStarSystem = (results, options = defaultOptions) => {
 	let tabs = spaceIndent
 	return `Star System:
 ${tabs}Location: ${results.starLocation.name} (${results.starLocation.colonyAllegianceKey})
 ${tabs}Type:     ${results.starType.type}, ${results.starType.brightness}: ${results.starType.description}
 Planetary Bodies (${results.systemObjects.length}):
-${printSystemObjects(results.systemObjects, tabs)}
+${printSystemObjects(results.systemObjects, tabs, options)}
 `
 }
 
-const printSystemObjects = (systemObjects, tabs) => {
+const printSystemObjects = (systemObjects, tabs, options) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
-        out.push(printWorldTitle(i, world, tabs))
-        out.push(printWorldDetails(world, `${tabs}${spaceIndent}`))
+		out.push(printWorldTitle(i, world, tabs))
+		if (world.isColonized || options.showUninhabitedDetails) {
+			out.push(printWorldDetails(world, `${tabs}${spaceIndent}`))
+		}
     }
 	return out.join('\n')
 }
@@ -49,21 +55,19 @@ const printWorldDetails = (world, tabs) => {
     let out = []
     // console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
     if (world.habitable) {
-        out.push(`${tabs}Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
-    }
-    out.push(`${tabs}Atmosphere:  ${world.atmosphere.type}`)
-    out.push(`${tabs}Temperature: ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
-    if (world.habitable) {
-        out.push(`${tabs}Geosphere:   ${world.geosphere.type}, ${world.geosphere.description}`)
-        out.push(`${tabs}Terrain:     ${world.terrain.description}`)
-    }
-    if (world.isColonized) {
-		out.push(`${tabs}Hook:        ${world.scenarioHook.description}`)
-        out.push(printColonyDetails(world, tabs))
-    }
-    const output = out.join(`\n`)
-    // console.debug(output)
-    return output
+        out.push(`${tabs}Planet Size:  ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+	}
+	out.push(`${tabs}Atmosphere:   ${world.atmosphere.type}`)
+	out.push(`${tabs}Temperature:  ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
+	if (world.habitable) {
+		out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
+		out.push(`${tabs}Terrain:      ${world.terrain.description}`)
+	}
+	if (world.isColonized) {
+		out.push(`${tabs}Hook:         ${world.scenarioHook.description}`)
+		out.push(printColonyDetails(world, tabs))
+	}
+    return out.join(`\n`)
 }
 
 const printColonyDetails = (world, tabs) => {

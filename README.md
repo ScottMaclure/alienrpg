@@ -35,9 +35,11 @@ http://localhost:5000/
 
 * [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code)
+* [ ] localStorage to remember options / choices / results
 
 ### Later
 
+* [ ] Add an "options" hide/show button, when we need more options.
 * [ ] Maintain a log of calculations, to display to UI later.
 * [ ] Setup Unit test framework for JS modules via https://github.com/avajs/ava
 * [ ] Add Job Generator as another button
@@ -59,6 +61,7 @@ http://localhost:5000/
 * [x] Html interface with... Svelte?
 * [x] CSS via https://newcss.net/theme/terminal/
 * [x] Host on https://scott.maclure.info/alienrpg
+* [x] Add "show uninhabited details" checkbox
 
 #### 2020-09-07
 
