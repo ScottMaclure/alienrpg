@@ -241,5 +241,13 @@
 		{"2d6": 10, "type":  "Several Survey and Communications Satellites"},
 		{"2d6": 11, "type":  "Transfer Station"},
 		{"2d6": 50, "multiRoll":  "d6"}
+	],
+	"factionOptions": [
+		{"d6": 1, "factions": [{"strength": 6}]},
+		{"d6": 2, "factions": [{"strength": 3}, {"strength": 3}]},
+		{"d6": 3, "factions": [{"strength": 5}, {"strength": 5}]},
+		{"d6": 4, "factions": [{"strength": 6}, {"strength": 1}]},
+		{"d6": 5, "factions": [{"strength": 5}, {"strength": 5}, {"strength": 5}]},
+		{"d6": 6, "quantity": "d6", "factions": []}
 	]
 }

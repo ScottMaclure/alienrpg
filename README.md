@@ -26,6 +26,7 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 
 ### Later
 
+* [ ] Expand factions to align with corebook (6 = D6 factions, their comparative strengths are determined by D6 each) (will need to expand factions data)
 * [ ] Maintain a log of calculations, to display to UI later.
 * [ ] Html interface with... Svelte?
 * [ ] CSS via https://newcss.net/theme/terminal/

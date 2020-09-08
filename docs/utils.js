@@ -32,19 +32,16 @@ const shuffleArray = (arr) => {
    return arr;
 }
 
-const random2d6ArrayItem = (arr, mod) => {
-	let num = diceUtils.roll('2d6 ' + mod).total // e.g. 2d6 -2
-	// console.log(`random2d6ArrayItem, mod=${mod}, total=${num}`)
-	for (const item of arr) {
-		if (num <= item['2d6']) {
-			return item
-		}
-	}
-	throw `Couldn't find a random 2d6 item for length ${arr.length} array.`
+const randomD6ArrayItem = (arr, mod = 0) => {
+	return rollArrayItem(arr, 'd6', mod)
+}
+
+const random2D6ArrayItem = (arr, mod = 0) => {
+	return rollArrayItem(arr, '2d6', mod)
 }
 
 // The mod changes the tens die, not the total.
-const randomD66ArrayItem = (arr, tensMod) => {
+const randomD66ArrayItem = (arr, tensMod = 0) => {
 	const total = rollD66(tensMod)
 	for (const item of arr) {
 		if (total <= item['d66']) {
@@ -52,6 +49,17 @@ const randomD66ArrayItem = (arr, tensMod) => {
 		}
 	}
 	throw `Couldn't find a random d66 item for length ${arr.length} array.`
+}
+
+const rollArrayItem = (arr, diceString, mod = 0) => {
+	let num = diceUtils.roll(diceString + ' ' + mod).total // e.g. 2d6 -2
+	// console.log(`rollArrayItem, mod=${mod}, total=${num}`)
+	for (const item of arr) {
+		if (num <= item[diceString]) {
+			return item
+		}
+	}
+	throw `Couldn't find a random ${diceString} item for length ${arr.length} array.`
 }
 
 /**
@@ -97,8 +105,9 @@ const randomInteger = (min, max) => {
 
 export default {
 	formatNumber,
-	random2d6ArrayItem,
+	random2D6ArrayItem,
 	randomArrayItem,
+	randomD6ArrayItem,
 	randomD66ArrayItem,
 	randomInteger,
 	roll,

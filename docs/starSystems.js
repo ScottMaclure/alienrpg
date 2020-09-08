@@ -80,7 +80,7 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 }
 
 /**
- * Randomly determine the "main" habitated world in this system.
+ * For now, only one world in a system will be flaggged as colonized - the "main" world.
  * Also set its name, cause it's special.
  */
 const pickColonizedWorlds = (data, results, usedPlanetNames) => {
@@ -121,26 +121,26 @@ const generateWorld = (data, world) => {
 
 	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
 
-	world.planetSize = utils.random2d6ArrayItem(data.planetSizes, world.planetSizeMod)
+	world.planetSize = utils.random2D6ArrayItem(data.planetSizes, world.planetSizeMod)
 	// console.debug('planetSize', world.planetSize)
 
 	// Atmosphere and temperature are driven by the object type (key).
 	switch (world.key) {
 		case 'gasGiant':
 			world.atmosphere = data.atmospheres[data.atmospheres.length -2] // Infiltrating
-			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			world.temperature = utils.random2D6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
 			break
 		case 'icePlanet':
-			world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
+			world.atmosphere = utils.random2D6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
 			world.temperature = data.temperatures[0] // Frozen
 			break
 		case 'asteroidBelt':
 			world.atmosphere = data.atmospheres[0] // Thin
-			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			world.temperature = utils.random2D6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
 			break
 		case 'terrestrialPlanet':
-			world.atmosphere = utils.random2d6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
-			world.temperature = utils.random2d6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
+			world.atmosphere = utils.random2D6ArrayItem(data.atmospheres, world.planetSize.atmosphereMod)
+			world.temperature = utils.random2D6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
 			break
 		default:
 			throw new Error(`Unknown world key=${world.key}, aborting.`)
@@ -152,7 +152,7 @@ const generateWorld = (data, world) => {
 	if (world.habitable) {
 		// Geosphere mods use BOTH atmosphere and temperature mods. Tricky, hey?
 		const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
-		world.geosphere = utils.random2d6ArrayItem(data.geospheres, geoMod)
+		world.geosphere = utils.random2D6ArrayItem(data.geospheres, geoMod)
 
 		// Terrain mods use both geosphere and temperature.
 		// Terrain is only for terestrial or ice objects, so for now, put inside the isColonized check.
@@ -175,7 +175,7 @@ const generateWorld = (data, world) => {
 			let colony = {}
 
 			// Clone colonySize data because we modify it.
-			colony.colonySize = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.colonySizes, colonySizeMod)))
+			colony.colonySize = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.colonySizes, colonySizeMod)))
 			colony.colonySize.populationAmount = utils.roll(colony.colonySize.population)
 			// Missions data can be either a number (as string) or a rollString.
 			// console.debug(`missions=${colony.colonySize.missions}`)
@@ -193,21 +193,21 @@ const generateWorld = (data, world) => {
 				let newMission = ''
 				let foundUniqueMission = false
 				while (!foundUniqueMission) {
-					newMission = utils.random2d6ArrayItem(data.colonyMissions, colonyMissionMod)
+					newMission = utils.random2D6ArrayItem(data.colonyMissions, colonyMissionMod)
 					foundUniqueMission = !usedMissionTypes.includes(newMission.type)
 				}
 				usedMissionTypes.push(newMission.type)
 				colony.missions.push(newMission)
 			}
 
-			// Generate orbital components for this planet.
+			// Generate orbital components around the planet for this colony.
 			colony.orbitalComponents = []
 			// Clone the item from the data.
-			let orbitalComponent = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+			let orbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
 			if (orbitalComponent.multiRoll) {
 				const maxComponents = utils.roll(orbitalComponent.multiRoll)
 				for (let i = 0; i < maxComponents; i++) {
-					let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2d6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+					let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
 					if (typeof anotherOrbitalComponent.multiRoll !== void 0) {
 						// Skip this one, get another.
 						i--
@@ -221,11 +221,19 @@ const generateWorld = (data, world) => {
 				applyQuantityToType(orbitalComponent)
 				colony.orbitalComponents.push(orbitalComponent)
 			}
-			
-			
 
-			// TODO Generate factions
-
+			// Generate factions for this colony.
+			const factionOptions = JSON.parse(JSON.stringify(utils.randomD6ArrayItem(data.factionOptions)))
+			if (factionOptions.quantity) {
+				const numFactions = utils.roll(factionOptions.quantity)
+				for (let i = 0; i < numFactions; i++) {
+					factionOptions.factions.push({
+						strength: utils.roll('d6') // Alien RPG p337
+					})
+				}
+			}
+			colony.factions = factionOptions.factions
+			
 			// TODO Generate allegiance (I assume they should be unique for 2 colony setup)
 
 			world.colonies.push(colony)

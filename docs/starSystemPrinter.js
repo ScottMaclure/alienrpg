@@ -15,7 +15,7 @@ const printSystemObjects = (systemObjects, tabs) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
         out.push(printWorldTitle(i, world, tabs))
-        out.push(printWorldDetails(world, tabs + "\t"))
+        out.push(printWorldDetails(world, `${tabs}\t`))
     }
 	return out.join('\n')
 }
@@ -47,18 +47,18 @@ const printWorldDetails = (world, tabs) => {
     let out = []
     // console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
     if (world.habitable) {
-        out.push(`Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+        out.push(`${tabs}Planet Size: ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
     }
-    out.push(`Atmosphere:  ${world.atmosphere.type}`)
-    out.push(`Temperature: ${world.temperature.type}, ${world.temperature.average}°C average (${world.temperature.description})`)
+    out.push(`${tabs}Atmosphere:  ${world.atmosphere.type}`)
+    out.push(`${tabs}Temperature: ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
     if (world.habitable) {
-        out.push(`Geosphere:   ${world.geosphere.type}, ${world.geosphere.description}`)
-        out.push(`Terrain:     ${world.terrain.description}`)
+        out.push(`${tabs}Geosphere:   ${world.geosphere.type}, ${world.geosphere.description}`)
+        out.push(`${tabs}Terrain:     ${world.terrain.description}`)
     }
     if (world.isColonized) {
         out.push(printColonyDetails(world, tabs))
     }
-    const output = `${tabs}` + out.join(`\n${tabs}`)
+    const output = out.join(`\n`)
     // console.debug(output)
     return output
 }
@@ -66,27 +66,55 @@ const printWorldDetails = (world, tabs) => {
 const printColonyDetails = (world, tabs) => {
 	let out = []
 	let nestedTabs = tabs + '\t'
+	const spaces = '    '
 	for (const [i, colony] of world.colonies.entries()) {
-        out.push(`Colony #${i+1}:
-${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax (Missions: ${colony.colonySize.missionsAmount})${printColonyMissions(colony.missions, nestedTabs)}${printColonyOrbitalComponent(colony.orbitalComponents, nestedTabs)}`)
+        out.push(`${tabs}Colony #${i+1}:`)
+		out.push(`${nestedTabs}Colony Size: ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax`)
+		out.push(printColonyMissions(colony.missions, nestedTabs, spaces))
+		out.push(printColonyOrbitalComponents(colony.orbitalComponents, nestedTabs, spaces))
+		out.push(printColonyFactions(colony.factions, nestedTabs, spaces))
 	}
-	return out.join('')
+	return out.join('\n')
 }
 
-const printColonyMissions = (missions, tabs) => {
+const printColonyMissions = (missions, tabs, spaces) => {
 	let out = []
 	for (const [i, mission] of missions.entries()) {
-		out.push(`\n${tabs}Mission #${i+1}: ${mission.type}`)
+		out.push(`${mission.type}`)
 	}
-	return out.join('')
+	return `${tabs}Missions:${spaces}` + out.join(', ')
 }
 
-const printColonyOrbitalComponent = (orbitalComponents, tabs) => {
+const printColonyOrbitalComponents = (orbitalComponents, tabs, spaces) => {
 	let out = []
 	for (const [i, orbitalComponent] of orbitalComponents.entries()) {
-		out.push(`\n${tabs}Orbital #${i+1}: ${orbitalComponent.type}`)
+		out.push(`${orbitalComponent.type}`)
 	}
-	return out.join('')
+	return `${tabs}Orbitals:${spaces}` + out.join(', ')
+}
+
+const strengthMap = ["weak", "balanced", "balanced", "competing", "competing", "dominant"] // d6 roll
+const printColonyFactions = (factions, tabs, spaces) => {
+	
+	let factionOutputs = {
+		'weak': 0,
+		'balanced': 0,
+		'competing': 0,
+		'dominant': 0
+	}
+
+	for (const faction of factions) {
+		factionOutputs[strengthMap[faction.strength-1]]++
+	}
+
+	let out = []
+	for (const [strength, qty] of Object.entries(factionOutputs)) {
+		if (qty > 0) {
+			out.push(`${qty} ${strength}`)
+		}
+	}
+
+	return `${tabs}Factions:${spaces}` + out.join(', ')
 }
 
 export default { 
