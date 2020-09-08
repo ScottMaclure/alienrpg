@@ -33,15 +33,16 @@ http://localhost:5000/
 
 ### Sooner
 
-* [ ] Bug - certain runs are hanging - infloop? Debug.
-* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent)
+* [ ] Uninhabited moons: If the planet is unexplored and uninhabited then simply roll D3–1 for the number of moons. (Refactor orbitals to be habitation/colony independent, give them an owner)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code)
 * [ ] localStorage to remember options / choices / results
+* [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
 
 ### Later
 
 * [ ] Add an "options" hide/show button, when we need more options.
 * [ ] Maintain a log of calculations, to display to UI later.
+* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed.
 * [ ] Add Job Generator as another button
 * [ ] Save/local state via localStorage
 * [ ] Full unit-test coverage for all modules
@@ -63,6 +64,7 @@ http://localhost:5000/
 * [x] Host on https://scott.maclure.info/alienrpg
 * [x] Add "show uninhabited details" checkbox
 * [x] Setup Unit test framework for JS modules via https://github.com/avajs/ava
+* [x] Bug - certain runs are hanging - infloop? Debug.
 
 #### 2020-09-07
 
