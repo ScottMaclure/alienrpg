@@ -1,5 +1,7 @@
 {
     "title": "Alien RPG Tools",
     "version": "0.5 Alpha",
-    "copyright": "See github repo for LICENSE. Any text taken from the game is used with permission and remains © of their respective owners."
+    "copyright": "Any text taken from the game is used with permission and remains © of their respective owners.",
+    "githubUrl": "https://github.com/ScottMaclure/alienrpg",
+    "licenseUrl": "https://github.com/ScottMaclure/alienrpg/blob/master/LICENSE"
 }

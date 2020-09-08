@@ -1,4 +1,6 @@
 <script>
+	import utils from '../modules/utils.js'
+
 	export let appData;
 	export let starData;
 
@@ -9,7 +11,10 @@
 	function handleNewStarSystem(event) {
 		console.log('TODO handleNewStarSystem')
 		count++
-		results = {'TODO': `User clicked ${count} time(s).`}
+		results = {
+			'TODO': `User clicked ${count} time(s).`,
+			'scenarioHook': utils.randomArrayItem(starData.scenarioHooks).description
+		}
 	}
 
 </script>
@@ -23,7 +28,7 @@
 	<pre id="results">{JSON.stringify(results, null, 2)}</pre>
 
 	<footer>
-		<small>{appData.title} {appData.version}. {appData.copyright}</small>
+		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for the <a href="{appData.licenseUrl}">LICENSE</a>. {appData.copyright}</small>
 	</footer>
 </main>
 

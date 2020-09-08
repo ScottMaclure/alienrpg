@@ -18,3 +18,8 @@
 small {
 	font-size: 0.7rem;
 }
+
+pre {
+	white-space: pre-wrap;
+	font-size: 0.7rem;
+}

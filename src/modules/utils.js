@@ -3,7 +3,7 @@
  * Will incorporate some rules from Alien's generators.
  */
 
-import diceUtils from './dice-utils.js';
+import diceUtils from '../../node_modules/dice-utils/dist/dice-utils.js';
 
 const randomArrayItem = (arr) => {
 	const idx = Math.floor(Math.random() * arr.length)
