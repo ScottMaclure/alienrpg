@@ -12,7 +12,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv docs"
+    "start": "sirv docs",
+    "deploy": "npm run build && git commit -am \"build artifacts.\" && git push"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
