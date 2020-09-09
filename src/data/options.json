@@ -1,0 +1,6 @@
+{
+    "_comments": [
+        "Default options for the UI. Saved to window.localStorage."
+    ],
+    "showUninhabitedDetails": false
+}

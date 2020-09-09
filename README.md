@@ -33,7 +33,6 @@ http://localhost:5000/
 
 ### Sooner
 
-* [ ] localStorage to remember options / choices / results
 * [ ] Allow user to pick the location of the system in advance (e.g. Frontier, UPP, etc)
 * [ ] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
@@ -50,6 +49,10 @@ http://localhost:5000/
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
 
 ### Changelog
+
+#### 2020-09-09
+
+* [x] localStorage to remember options & results
 
 #### 2020-09-08
 

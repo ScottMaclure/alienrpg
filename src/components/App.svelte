@@ -1,26 +1,33 @@
 <script>
 
+	import { createEventDispatcher } from 'svelte';
+
 	// import utils from '../modules/utils.js'
 	import starSystems from '../modules/starSystems.js'
 	import starSystemPrinter from '../modules/starSystemPrinter.js'
 
+	// Exported params that you can set from outside.
 	export let appData;
 	export let starData;
+	export let options; // See src/data/options.json
+	export let results; // Also saved to localStorage
+	let output = 'Waiting on User.' // Reactive variable! Love Svelte v3 :)
 
-	// Note: Reactive variable.
-	let results = {}
-	let options = {
-		showUninhabitedDetails: false
+	const dispatch = createEventDispatcher();
+
+	if (Object.entries(results).length > 0) { // check for empty object
+		output = starSystemPrinter.printStarSystem(results, options)
 	}
-	let output = 'Waiting on User.'
 
 	function handleNewStarSystem() {
 		results = starSystems.createStarSystem(starData)
+		dispatch('newResults', results);
 		output = starSystemPrinter.printStarSystem(results, options)
 	}
 
 	function toggleHideUninhabited() {
 		options.showUninhabitedDetails = !options.showUninhabitedDetails
+		dispatch('newOptions', options);
 		output = starSystemPrinter.printStarSystem(results, options)
 	}
 
