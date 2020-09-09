@@ -11,7 +11,12 @@
 	export let starData;
 	export let options; // See src/data/options.json
 	export let results; // Also saved to localStorage
+	
 	let output = 'Waiting on User.' // Reactive variable! Love Svelte v3 :)
+	
+	// Create a UI-only version of the data
+	let starLocations = JSON.parse(JSON.stringify(starData.starLocations))
+	starLocations.push({"key": "ran", "name": "Random"})
 
 	const dispatch = createEventDispatcher();
 
@@ -20,15 +25,19 @@
 	}
 
 	function handleNewStarSystem() {
-		results = starSystems.createStarSystem(starData)
-		dispatch('newResults', results);
+		results = starSystems.createStarSystem(starData, options)
+		dispatch('saveData', {'key': 'results', 'value': results});
 		output = starSystemPrinter.printStarSystem(results, options)
 	}
 
 	function toggleHideUninhabited() {
 		options.showUninhabitedDetails = !options.showUninhabitedDetails
-		dispatch('newOptions', options);
+		dispatch('saveData', {'key': 'options', 'value': options});
 		output = starSystemPrinter.printStarSystem(results, options)
+	}
+
+	function saveOptions() {
+		dispatch('saveData', {'key': 'options', 'value': options});
 	}
 
 </script>
@@ -39,7 +48,7 @@
 	
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	
-	<button on:click={handleNewStarSystem}>New Star System</button>
+	<button on:click={saveOptions} on:click={handleNewStarSystem}>New Star System</button>
 	<form>
 		<fieldset>
 			<legend>Options</legend>
@@ -47,6 +56,17 @@
 				<label>
 					<input type="checkbox" on:click={toggleHideUninhabited} bind:checked={options.showUninhabitedDetails}> Show uninhabited details
 				</label>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Star System Location (Pick One)</legend>
+			<div>
+				{#each starLocations as item}
+					<label>
+						<!-- FIXME on:change fires before the value is updated to the new value, meaning it's one step behind. -->
+						<input type=radio on:change={saveOptions} bind:group={options.starLocation} value={item.key}> {item.name}
+					</label>
+				{/each}
 			</div>
 		</fieldset>
 	</form>

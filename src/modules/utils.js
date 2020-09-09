@@ -17,6 +17,11 @@ const countUnique = arr => {
 }
 
 /**
+ * Go through an array of objects and return the first item whose key=value matches.
+ */
+const findArrayItemByProperty = (arr, key, value) => arr.find(obj => obj[key] === value)
+
+/**
  * From https://blog.abelotech.com/posts/number-currency-formatting-javascript/
  * @param {number} num E.g. 10000
  * @returns {string} E.g. 10,000
@@ -121,6 +126,7 @@ const shuffleArray = (arr) => {
 
 export default {
 	countUnique,
+	findArrayItemByProperty,
 	formatNumber,
 	random2D6ArrayItem,
 	random3D6ArrayItem,

@@ -2,5 +2,6 @@
     "_comments": [
         "Default options for the UI. Saved to window.localStorage."
     ],
+    "starLocation": "ran",
     "showUninhabitedDetails": false
 }

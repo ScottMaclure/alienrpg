@@ -29,21 +29,24 @@ npm start
 
 http://localhost:5000/
 
-## TODO
+## Roadmap
 
-### Sooner
+### v1.0.0
 
-* [ ] Allow user to pick the location of the system in advance (e.g. Frontier, UPP, etc)
 * [ ] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
-* [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
-
-### Later
-
-* [ ] Add Job Generator as another button
+* [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
+* [ ] Add Job generator (as another module+button)
+* [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
 * [ ] Add an "options" hide/show button, when we need more options.
-* [ ] Maintain a log of calculations, to display to UI later.
+
+### Someday maybe
+
 * [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed (or maybe just page.js, but I want code splitting too!)
+* [ ] Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
+* [ ] Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
+* [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
+* [ ] Maintain a log of calculations, to display to UI later.
 * [ ] Full unit-test coverage for all modules
 * [ ] Cypress test suite for UAT
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
@@ -52,7 +55,8 @@ http://localhost:5000/
 
 #### 2020-09-09
 
-* [x] localStorage to remember options & results
+* [x] sessionStorage to remember options & results (safer than localStorage, which can break the app on code updates if you're not careful)
+* [x] Allow user to set/override the location of the system in advance (e.g. Frontier, UPP, etc) (also update for cli.js)
 
 #### 2020-09-08
 

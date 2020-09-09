@@ -1,10 +1,15 @@
 import utils from './utils.js'
 
-const createStarSystem = (data) => {
+const createStarSystem = (data, options) => {
 	let results = {}
 
-	// TODO Make this an option the user can choose, instead of always rolling randomly.
-	results.starLocation = utils.randomArrayItem(data.starLocations)
+	if (options.starLocation && options.starLocation !== 'ran') {
+		results.starLocation = utils.findArrayItemByProperty(data.starLocations, 'key', options.starLocation)
+	} else {
+		// TODO Make this an option the user can choose, instead of always rolling randomly.
+		results.starLocation = utils.randomArrayItem(data.starLocations)
+	}
+
 	// For frontier, pick random allegiance table for later.
 	if (results.starLocation.colonyAllegianceKeys) {
 		results.starLocation.colonyAllegianceKey = utils.randomArrayItem(results.starLocation.colonyAllegianceKeys)
