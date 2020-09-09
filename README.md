@@ -42,12 +42,11 @@ http://localhost:5000/
 
 * [ ] Add an "options" hide/show button, when we need more options.
 * [ ] Maintain a log of calculations, to display to UI later.
-* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed.
+* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed (or maybe just page.js, but I want code splitting too!)
 * [ ] Add Job Generator as another button
-* [ ] Save/local state via localStorage
 * [ ] Full unit-test coverage for all modules
 * [ ] Cypress test suite for UAT
-* [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions?
+* [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
 
 ### Changelog
 
