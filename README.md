@@ -38,14 +38,15 @@ http://localhost:5000/
 * [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * [ ] Add Job generator (as another module+button)
 * [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
-* [ ] Add an "options" hide/show button, when we need more options.
+* [ ] Add an "options" hide/show button, we'll need more options sooner or later.
 
 ### Someday maybe
 
-* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed (or maybe just page.js, but I want code splitting too!)
+* [ ] npm deploy should bump the version number of the app - hook into npm's version in package.json, and update app data?
 * [ ] Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
 * [ ] Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
 * [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
+* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed (or maybe just page.js, but I want code splitting too!)
 * [ ] Maintain a log of calculations, to display to UI later.
 * [ ] Full unit-test coverage for all modules
 * [ ] Cypress test suite for UAT
