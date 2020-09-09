@@ -39,6 +39,7 @@ http://localhost:5000/
 * [ ] Add Job generator (as another module+button)
 * [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
 * [ ] Add an "options" hide/show button, we'll need more options sooner or later.
+* [ ] Refactor the options into its own (nested) component.
 
 ### Someday maybe
 
