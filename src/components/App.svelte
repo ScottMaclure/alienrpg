@@ -59,7 +59,7 @@
 			</div>
 		</fieldset>
 		<fieldset>
-			<legend>Star System Location (Pick One)</legend>
+			<legend>Star System Location</legend>
 			<div>
 				{#each starLocations as item}
 					<label>
