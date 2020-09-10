@@ -33,15 +33,14 @@ http://localhost:5000/
 
 ## Roadmap
 
-### v1.0.0
+### Sooner
 
-* Enhance options with a hide/show UI
 * Run through star system generator materials, checking with data and code for correctness (testing)
-
-### Someday maybe
-
 * Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * Add Job generator (as another module+button)
+
+### Later
+
 * Add Encounter generators (star system encounter, ship reaction, on-planet)
 * Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
 * Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
@@ -63,6 +62,7 @@ http://localhost:5000/
 * Asteroid belts aren't surveyable (so they'll never get a name, etc)
 * A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 * Refactor the "options" UI into its own (nested) component
+* Enhance options with a hide/show UI
 
 #### 2020-09-09
 
