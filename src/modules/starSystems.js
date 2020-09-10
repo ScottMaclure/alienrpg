@@ -69,6 +69,7 @@ const createWorld = (systemObject) => {
 		'isColonized': false, // will be set later for one lucky planetary body. Maybe more later.
 		'isSurveyed': utils.randomInteger(0, 1) === 1, // 50/50 chance, will be updated later if isColonized
 		'planetSizeMod': systemObject.planetSizeMod,
+		'orbitalComponents': [], // moons, satellites, etc
 		'colonies': [] // fleshed out later
 	})
 }
@@ -183,7 +184,7 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 			world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
 		}
 	}
-	
+
 	// Only populate worlds flagged as habitable.
 	if (world.isColonized) {
 	
@@ -194,7 +195,9 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 
 		for (let i = 0; i < numColonies; i++) {
 
-			let colony = {}
+			let colony = {
+				name: `Colony ${i+1}`
+			}
 
 			const colonyAllegiance = utils.random3D6ArrayItem(data.colonyAllegiances)
 			colony.allegiance = colonyAllegiance[results.starLocation.colonyAllegianceKey]
@@ -226,7 +229,6 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 			}
 
 			// Generate orbital components around the planet for this colony.
-			colony.orbitalComponents = []
 			// Clone the item from the data.
 			let orbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
 			if (orbitalComponent.multiRoll) {
@@ -237,14 +239,16 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 						// Skip this one, get another.
 						i--
 					} else {
+						anotherOrbitalComponent.owner = colony.name
 						applyQuantityToType(anotherOrbitalComponent)
-						colony.orbitalComponents.push(anotherOrbitalComponent)
+						world.orbitalComponents.push(anotherOrbitalComponent)
 					}
 				}
 			} else {
 				// Just the 1
+				orbitalComponent.owner = colony.name
 				applyQuantityToType(orbitalComponent)
-				colony.orbitalComponents.push(orbitalComponent)
+				world.orbitalComponents.push(orbitalComponent)
 			}
 
 			// Generate factions for this colony.

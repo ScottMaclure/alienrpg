@@ -39,13 +39,10 @@ const printWorldTitle = (i, world, tabs) => {
 }
 
 const printMoonSummary = (world) => {
-	if (!world.habitable) { return '' }
 	let moonCount = 0
-	for (const colony of world.colonies) {
-		for (const orbitalComponent of colony.orbitalComponents) {
-			if (orbitalComponent.isMoon) {
-				moonCount = moonCount + orbitalComponent.quantityAmount
-			}
+	for (const orbitalComponent of world.orbitalComponents) {
+		if (orbitalComponent.isMoon) {
+			moonCount = moonCount + orbitalComponent.quantityAmount
 		}
 	}
 	if (moonCount == 0) { return '' }
@@ -57,6 +54,7 @@ const printMoonSummary = (world) => {
  * Handle all world types: habitable, colonised.
  */
 const printWorldDetails = (world, tabs) => {
+	const spaces = '     '
     let out = []
     // console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
     if (world.habitable) {
@@ -68,23 +66,23 @@ const printWorldDetails = (world, tabs) => {
 		out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
 		out.push(`${tabs}Terrain:      ${world.terrain.description}`)
 	}
+	out.push(printOrbitalComponents(world.orbitalComponents, tabs, spaces))
 	if (world.isColonized) {
 		out.push(`${tabs}Hook:         ${world.scenarioHook.description}`)
-		out.push(printColonyDetails(world, tabs))
+		out.push(printColonyDetails(world, tabs, spaces))
 	}
     return out.join(`\n`)
 }
 
 const printColonyDetails = (world, tabs) => {
+	const spaces = '   '
 	let out = []
 	let nestedTabs = tabs + spaceIndent
-	const spaces = '   '
 	for (const [i, colony] of world.colonies.entries()) {
         out.push(`${tabs}Colony #${i+1}:`)
 		out.push(`${nestedTabs}Allegiance: ${colony.allegiance}`)
 		out.push(`${nestedTabs}Size:       ${colony.colonySize.size}, ${utils.formatNumber(colony.colonySize.populationAmount)} pax`)
 		out.push(printColonyMissions(colony.missions, nestedTabs, spaces))
-		out.push(printColonyOrbitalComponents(colony.orbitalComponents, nestedTabs, spaces))
 		out.push(printColonyFactions(colony.factions, nestedTabs, spaces))
 	}
 	return out.join('\n')
@@ -98,10 +96,10 @@ const printColonyMissions = (missions, tabs, spaces) => {
 	return `${tabs}Missions:${spaces}` + out.join(', ')
 }
 
-const printColonyOrbitalComponents = (orbitalComponents, tabs, spaces) => {
+const printOrbitalComponents = (orbitalComponents, tabs, spaces) => {
 	let out = []
-	for (const [i, orbitalComponent] of orbitalComponents.entries()) {
-		out.push(orbitalComponent.type)
+	for (const orbitalComponent of orbitalComponents) {
+		out.push(`${orbitalComponent.type}${orbitalComponent.owner ? ' (' + orbitalComponent.owner + ')' : ''}`)
 	}
 	return `${tabs}Orbitals:${spaces}` + out.join(', ')
 }
