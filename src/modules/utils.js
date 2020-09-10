@@ -137,4 +137,5 @@ export default {
 	roll,
 	rollD66,
 	rollNumberObjects
+	// shuffleArray
 }

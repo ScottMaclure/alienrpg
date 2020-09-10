@@ -42,7 +42,8 @@ const printMoonSummary = (world) => {
 	let moonCount = 0
 	for (const orbitalComponent of world.orbitalComponents) {
 		if (orbitalComponent.isMoon) {
-			moonCount = moonCount + orbitalComponent.quantityAmount
+			// Default 1 for gas giant moons
+			moonCount = moonCount + (orbitalComponent.quantityAmount || 1)
 		}
 	}
 	if (moonCount == 0) { return '' }

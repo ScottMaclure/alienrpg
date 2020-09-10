@@ -7,13 +7,6 @@ Generators and tools for the Alien RPG, by Free League Publishing. All content b
 * https://alien-rpg.com/
 * https://frialigan.se/en/games/alien/
 
-## Issues With Source Material
-
-* Star system generator creates too many planets per system.
-* No atmosphere = Desert World (Atmosphere table doesn't have a "no atmo" option, only "special"?).
-* Planetary names (what does LV/MT/RF stand for?).
-* No given chance for "surveyed", non-colonised moons and planets (p331).
-
 ## Local Development
 
 ```bash
@@ -30,11 +23,20 @@ npm start
 
 http://localhost:5000/
 
+## Issues With Source Material
+
+* Star system generator creates too many planets per system.
+* No atmosphere = Desert World (Atmosphere table doesn't have a "no atmo" option, only "special"?).
+* Planetary names (what does LV/MT/RF stand for?).
+* No given chance for "surveyed", non-colonised moons and planets (p331).
+* Gas giant planet size should be huge? The moons have -4, but the gas giant iself should be large?
+
 ## Roadmap
 
 ### v1.0.0
 
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
+* [ ] Run through star system generator materials, checking with data and code for correctness (testing)
 * [ ] Refactor the "options" UI into its own (nested) component, with a hide/show UI
 * [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * [ ] Add Job generator (as another module+button)
@@ -59,6 +61,7 @@ http://localhost:5000/
 * [x] Change version to (sed replaced) timestamp, move to footer
 * [x] npm deploy bumps the version date
 * [x] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner, update printing logic)
+* [x] Asteroid belts aren't surveyable (so they'll never get a name, etc)
 
 #### 2020-09-09
 

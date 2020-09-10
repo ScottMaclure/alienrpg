@@ -58,7 +58,9 @@
 				"Storms"
 			],
 			"habitable": false,
-			"planetSizeMod": "-4"
+			"surveyable": true,
+			"planetSizeMod": 0,
+			"moonSizeMod": -4
 		},
 		{
 			"key": "terrestrialPlanet",
@@ -70,7 +72,8 @@
 				"White Dwarf": "-3"
 			},
 			"habitable": true,
-			"planetSizeMod": ""
+			"surveyable": true,
+			"planetSizeMod": 0
 		},
 		{
 			"key": "icePlanet",
@@ -83,7 +86,8 @@
 				"White Main Sequence": ""
 			},
 			"habitable": true,
-			"planetSizeMod": "-2"
+			"surveyable": true,
+			"planetSizeMod": -2
 		},
 		{
 			"key": "asteroidBelt",
@@ -103,7 +107,8 @@
 				"Very wide—covering several orbits"
 			],
 			"habitable": false,
-			"planetSizeMod": ""
+			"surveyable": false,
+			"planetSizeMod": 0
 		}
 	],
 	"iccCodes": [

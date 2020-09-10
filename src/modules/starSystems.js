@@ -21,9 +21,6 @@ const createStarSystem = (data, options = {}) => {
 
 	createSystemObjects(data, results)
 
-	// TODO Gas giant planets?
-
-	// TODO What about generating planetary details for all planets?
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
 	pickColonizedWorld(data, results, usedPlanetNames)
@@ -47,7 +44,7 @@ const createSystemObjects = (data, results) => {
 		let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
 		// console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
 		for (let i = 0; i < numberOfObjects; i++) {
-			results['systemObjects'].push(createWorld(systemObject))
+			results['systemObjects'].push(createWorld(data, systemObject))
 		}
 	}
 }
@@ -57,21 +54,43 @@ const createSystemObjects = (data, results) => {
  * TODO This is where a type system would come in handy. TS or Flow?
  * @param {*} systemObject starData.json system object info.
  */
-const createWorld = (systemObject) => {
+const createWorld = (data, systemObject) => {
 	// optional feature
 	let feature = systemObject.features ? utils.randomArrayItem(systemObject.features) : null
+	
 	// TODO What about making systemObject a child of world? More consistent with other data? Or should we flatten the others instead?
-	return({
+
+	let world = {
 		'key': systemObject.key, // used for future reference in starData.json.
 		'type': systemObject.type, // e.g. icePlanet
 		'feature': feature,
 		'habitable': systemObject.habitable,
+		'surveyable': systemObject.surveyable,
 		'isColonized': false, // will be set later for one lucky planetary body. Maybe more later.
-		'isSurveyed': utils.randomInteger(0, 1) === 1, // 50/50 chance, will be updated later if isColonized
+		'isSurveyed': systemObject.surveyable && (utils.randomInteger(0, 1) === 1), // 50/50 chance, will be updated later if isColonized
 		'planetSizeMod': systemObject.planetSizeMod,
 		'orbitalComponents': [], // moons, satellites, etc
 		'colonies': [] // fleshed out later
-	})
+	}
+
+	// If we're creating a gas giant "world", then we have to generate D6+4 moons that are actually terrestrial planets!
+	if (world.key === 'gasGiant') {
+		let numGasGiantMoons = utils.roll('d6+4') // p.340
+		console.debug(`Creating ${numGasGiantMoons} significant moons for gas giant world.`)
+		let gasGiantMoonData = JSON.parse(JSON.stringify(utils.findArrayItemByProperty(data.systemObjects, 'key', 'terrestrialPlanet')))
+		// Tweak the data for sizing this moon
+		// TODO Should this live in data?
+		gasGiantMoonData.key = 'gasGiantMoon'
+		gasGiantMoonData.name = 'Gas Giant Moon'
+		gasGiantMoonData.planetSizeMod = systemObject.moonSizeMod
+		for (let i = 0; i < numGasGiantMoons; i++) {
+			let moon = createWorld(data, gasGiantMoonData)
+			moon.isMoon = true
+			world.orbitalComponents.push(moon)
+		}
+	}
+	
+	return world
 }
 
 /**
