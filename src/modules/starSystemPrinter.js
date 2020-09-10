@@ -82,8 +82,10 @@ const printWorldDetails = (world, options, tabs) => {
 		out.push(`${tabs}Terrain:      ${world.terrain.description}`)
 	}
 
-	if (world.isColonized || hasColonizedMoon(world)) {
-		out.push(printOrbitalComponents(world, options, tabs, spaces))
+	if (world.orbitalComponents.length > 0) {
+		if (world.isColonized || hasColonizedMoon(world)) {
+			out.push(printOrbitalComponents(world, options, tabs, spaces))
+		}
 	}
 
 	if (world.isColonized) {
@@ -129,11 +131,13 @@ const printOrbitalComponents = (world, options, tabs, spaces) => {
 			}
 		}
 		return `${tabs}Orbitals:` + out.join('')
-	} else {
+	} else if (world.orbitalComponents.length > 0) {
 		for (const orbitalComponent of world.orbitalComponents) {
 			out.push(`${orbitalComponent.type}${orbitalComponent.owner ? ' (' + orbitalComponent.owner + ')' : ''}`)
 		}
 		return `${tabs}Orbitals:${spaces}` + out.join(', ')
+	} else {
+		return ''
 	}
 }
 
