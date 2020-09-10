@@ -35,15 +35,14 @@ http://localhost:5000/
 
 ### v1.0.0
 
-* [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 * [ ] Run through star system generator materials, checking with data and code for correctness (testing)
 * [ ] Refactor the "options" UI into its own (nested) component, with a hide/show UI
-* [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
-* [ ] Add Job generator (as another module+button)
-* [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
 
 ### Someday maybe
 
+* [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
+* [ ] Add Job generator (as another module+button)
+* [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
 * [ ] Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
 * [ ] Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
 * [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
@@ -62,6 +61,7 @@ http://localhost:5000/
 * [x] npm deploy bumps the version date
 * [x] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner, update printing logic)
 * [x] Asteroid belts aren't surveyable (so they'll never get a name, etc)
+* [x] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 
 #### 2020-09-09
 
