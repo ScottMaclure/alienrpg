@@ -34,7 +34,6 @@ http://localhost:5000/
 
 ### v1.0.0
 
-* [ ] Change version to (sed replaced) timestamp, move to footer
 * [ ] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 * [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
@@ -60,6 +59,7 @@ http://localhost:5000/
 #### 2020-09-10
 
 * [x] Fix planetary names logic, see p331. Add "surveyed" chance, 3 digit designation.
+* [x] Change version to (sed replaced) timestamp, move to footer
 
 #### 2020-09-09
 
