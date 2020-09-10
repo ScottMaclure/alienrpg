@@ -16,7 +16,8 @@
     "coverage": "nyc --reporter=lcov --reporter=text-summary ava",
     "build": "rollup -c",
     "start": "sirv docs",
-    "deploy": "npm run test && npm run build && git commit -am \"build artifacts.\" && git push"
+    "versionBump": "bash ./scripts/versionBump.sh",
+    "deploy": "npm run test && npm run versionBump && npm run build && git commit -am \"build artifacts.\" && git push"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",

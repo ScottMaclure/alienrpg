@@ -34,14 +34,14 @@ http://localhost:5000/
 
 ### v1.0.0
 
+* [ ] Change version to (sed replaced) timestamp, move to footer
 * [ ] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner)
-* [ ] Fix planetary names logic, see p331. Add "surveyed" chance, 3 digit designation.
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 * [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * [ ] Add Job generator (as another module+button)
 * [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
 * [ ] Add an "options" hide/show button, we'll need more options sooner or later.
-* [ ] Refactor the options into its own (nested) component.
+* [ ] Refactor the "options" UI into its own (nested) component.
 
 ### Someday maybe
 
@@ -56,6 +56,10 @@ http://localhost:5000/
 * [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
 
 ### Changelog
+
+#### 2020-09-10
+
+* [x] Fix planetary names logic, see p331. Add "surveyed" chance, 3 digit designation.
 
 #### 2020-09-09
 

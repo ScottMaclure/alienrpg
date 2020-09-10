@@ -43,7 +43,6 @@
 </script>
 
 <main>
-	<div class="alignRight"><small>{appData.version}</small></div>
 	<h2>{appData.title}</h2>
 	
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
@@ -75,7 +74,7 @@
 	<pre id="results">{output}</pre>
 
 	<footer>
-		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for details. {appData.copyright}</small>
+		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for details. {appData.copyright} Last updated {appData.version}.</small>
 	</footer>
 </main>
 
