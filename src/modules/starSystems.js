@@ -21,6 +21,10 @@ const createStarSystem = (data, options = {}) => {
 
 	createSystemObjects(data, results)
 
+	if (results.systemObjects.length === 0) {
+		throw new Error('Failed to generate any system objects.')
+	}
+
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
 	pickColonizedWorld(data, results, usedPlanetNames)
@@ -41,10 +45,12 @@ const createSystemObjects = (data, results) => {
 	results['systemObjects'] = []
 	let modKey = results['starType'].type // will look up the modifier by this key, else use 'default'.
 	for (const systemObject of data.systemObjects) {
-		let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
-		// console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
-		for (let i = 0; i < numberOfObjects; i++) {
-			results['systemObjects'].push(createWorld(data, systemObject))
+		if (systemObject.enabled) {
+			let numberOfObjects = utils.rollNumberObjects(systemObject, modKey)
+			// console.log(`systemObject type=${systemObject.type}, numberOfObjects=${numberOfObjects}`)
+			for (let i = 0; i < numberOfObjects; i++) {
+				results['systemObjects'].push(createWorld(data, systemObject))
+			}
 		}
 	}
 }
@@ -76,16 +82,16 @@ const createWorld = (data, systemObject) => {
 	// If we're creating a gas giant "world", then we have to generate D6+4 moons that are actually terrestrial planets!
 	if (world.key === 'gasGiant') {
 		let numGasGiantMoons = utils.roll('d6+4') // p.340
-		console.debug(`Creating ${numGasGiantMoons} significant moons for gas giant world.`)
-		let gasGiantMoonData = JSON.parse(JSON.stringify(utils.findArrayItemByProperty(data.systemObjects, 'key', 'terrestrialPlanet')))
+		// console.debug(`Creating ${numGasGiantMoons} significant moons for gas giant world.`)
+		let moonData = JSON.parse(JSON.stringify(utils.findArrayItemByProperty(data.systemObjects, 'key', 'terrestrialPlanet')))
 		// Tweak the data for sizing this moon
 		// TODO Should this live in data?
-		gasGiantMoonData.key = 'gasGiantMoon'
-		gasGiantMoonData.name = 'Gas Giant Moon'
-		gasGiantMoonData.planetSizeMod = systemObject.moonSizeMod
+		moonData.type = 'Gas Giant Moon'
+		moonData.planetSizeMod = systemObject.moonSizeMod
 		for (let i = 0; i < numGasGiantMoons; i++) {
-			let moon = createWorld(data, gasGiantMoonData)
+			let moon = createWorld(data, moonData)
 			moon.isMoon = true
+			moon.isGasGiantMoon = true
 			world.orbitalComponents.push(moon)
 		}
 	}
@@ -115,22 +121,31 @@ const getSurveyedPlanetName = (data, usedPlanetNames) => {
  * For now, only one world in a system will be flaggged as colonized - the "main" world.
  * Also set its name, cause it's special.
  * 
- * Updated to also set D3-1 Moons if uninhabited
+ * Added support for gas giant moons.
  */
 const pickColonizedWorld = (data, results, usedPlanetNames) => {
-
-	let world = false
 	let foundWorld = false
 	while (!foundWorld) {
-		world = utils.randomArrayItem(results.systemObjects)
-		if (world.habitable) {
-			world.isColonized = true
-			world.isSurveyed = true // Can't colonize an unsurveyed planet :)
-			world.name = utils.randomArrayItem(data.planetaryNames)
+		let world = utils.randomArrayItem(results.systemObjects)
+		if (world.key === 'gasGiant') {
+			world.isSurveyed = true
+			// gas giants are special, they have habitable moons!
+			let moonWorld = utils.randomArrayItem(world.orbitalComponents)
+			colonizeWorld(data, moonWorld)
+			foundWorld = true
+		} else if (world.habitable) {
+			// ice, terrestrial, asteroid belts, etc
+			colonizeWorld(data, world)
 			foundWorld = true
 		}
 	}
 
+}
+
+const colonizeWorld = (data, world) => {
+	world.isColonized = true
+	world.isSurveyed = true // Can't colonize an unsurveyed planet :)
+	world.name = utils.randomArrayItem(data.planetaryNames)
 }
 
 /**
@@ -143,6 +158,11 @@ const generateWorlds = (data, results) => {
 	for (let world of results.systemObjects) {
 		// Clone the data to ensure uniqueness each time we generate world data.
 		generateWorld(JSON.parse(JSON.stringify(data)), results, world, surveyedPlanetNames)
+		if (world.key === 'gasGiant') {
+			for (let gasGiantMoon of world.orbitalComponents) {
+				generateWorld(JSON.parse(JSON.stringify(data)), results, gasGiantMoon, surveyedPlanetNames)
+			}
+		}
 	}
 }
 
@@ -154,8 +174,6 @@ const generateWorlds = (data, results) => {
  */
 const generateWorld = (data, results, world, surveyedPlanetNames) => {
 
-	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
-
 	// Every world gets a name
 	world.name = world.isColonized ? 
 		utils.randomArrayItem(data.planetaryNames) : 
@@ -165,7 +183,7 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 	// console.debug('planetSize', world.planetSize)
 
 	// Atmosphere and temperature are driven by the object type (key).
-	switch (worldTypeKey) {
+	switch (world.key) {
 		case 'gasGiant':
 			world.atmosphere = data.atmospheres[data.atmospheres.length -2] // Infiltrating
 			world.temperature = utils.random2D6ArrayItem(data.temperatures, world.atmosphere.temperatureMod)
@@ -194,13 +212,13 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 		const geoMod = world.atmosphere.geosphereMod + world.temperature.geosphereMod
 		world.geosphere = utils.random2D6ArrayItem(data.geospheres, geoMod)
 
-		if (worldTypeKey === 'icePlanet') {
-			world.terrain = utils.random2D6ArrayItem(data.terrains[worldTypeKey])
+		if (world.key === 'icePlanet') {
+			world.terrain = utils.random2D6ArrayItem(data.terrains[world.key])
 		} else {
 			// TODO In future, would need for gas giants with planets
-			const terrainMod = world.geosphere[worldTypeKey] + world.temperature[worldTypeKey]
-			// console.debug(`terrain mods for ${worldTypeKey}, geosphere ${world.geosphere[worldTypeKey]} + temperature ${world.temperature[worldTypeKey]} = ${terrainMod}`)
-			world.terrain = utils.randomD66ArrayItem(data.terrains[worldTypeKey], terrainMod)
+			const terrainMod = world.geosphere[world.key] + world.temperature[world.key]
+			// console.debug(`terrain mods for ${world.key}, geosphere ${world.geosphere[world.key]} + temperature ${world.temperature[world.key]} = ${terrainMod}`)
+			world.terrain = utils.randomD66ArrayItem(data.terrains[world.key], terrainMod)
 		}
 	}
 
@@ -247,27 +265,30 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 				colony.missions.push(newMission)
 			}
 
-			// Generate orbital components around the planet for this colony.
-			// Clone the item from the data.
-			let orbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
-			if (orbitalComponent.multiRoll) {
-				const maxComponents = utils.roll(orbitalComponent.multiRoll)
-				for (let i = 0; i < maxComponents; i++) {
-					let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
-					if (anotherOrbitalComponent.multiRoll) {
-						// Skip this one, get another.
-						i--
-					} else {
-						anotherOrbitalComponent.owner = colony.name
-						applyQuantityToType(anotherOrbitalComponent)
-						world.orbitalComponents.push(anotherOrbitalComponent)
+			if (!world.isGasGiantMoon) { 
+				// Generate orbital components around the planet for this colony.
+				// Don't generate moons for moons :) (gas giants)
+				// Clone the item from the data.
+				let orbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+				if (orbitalComponent.multiRoll) {
+					const maxComponents = utils.roll(orbitalComponent.multiRoll)
+					for (let i = 0; i < maxComponents; i++) {
+						let anotherOrbitalComponent = JSON.parse(JSON.stringify(utils.random2D6ArrayItem(data.orbitalComponents, colony.colonySize.orbitalComponenMod)))
+						if (anotherOrbitalComponent.multiRoll) {
+							// Skip this one, get another.
+							i--
+						} else {
+							anotherOrbitalComponent.owner = colony.name
+							applyQuantityToType(anotherOrbitalComponent)
+							world.orbitalComponents.push(anotherOrbitalComponent)
+						}
 					}
+				} else {
+					// Just the 1
+					orbitalComponent.owner = colony.name
+					applyQuantityToType(orbitalComponent)
+					world.orbitalComponents.push(orbitalComponent)
 				}
-			} else {
-				// Just the 1
-				orbitalComponent.owner = colony.name
-				applyQuantityToType(orbitalComponent)
-				world.orbitalComponents.push(orbitalComponent)
 			}
 
 			// Generate factions for this colony.
@@ -295,7 +316,7 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 		// Not colonised stuff
 		
 		// Moons
-		if (worldTypeKey === 'gasGiant') {	
+		if (world.key === 'gasGiant') {	
 			// TODO Gas giant moons, which are themselves terrestrial planets.
 		} else {
 			let moonComponent = {"type":  "Moons", "quantity": "d3-1", "isMoon": true}

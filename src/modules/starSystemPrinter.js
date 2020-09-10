@@ -20,16 +20,30 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
 const printSystemObjects = (systemObjects, tabs, options) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
-		out.push(printWorldTitle(i, world, tabs))
-		if (world.isColonized || (world.isSurveyed && options.showSurveyedDetails)) {
+		out.push(printWorldTitle(`#${i+1}`, world, tabs))
+		// Workaround for gas giant moons
+		if (world.isColonized || hasColonizedMoon(world) || (world.isSurveyed && options.showSurveyedDetails)) {
 			out.push(printWorldDetails(world, options, `${tabs}${spaceIndent}`))
 		}
     }
 	return out.join('\n')
 }
 
-const printWorldTitle = (i, world, tabs) => {
-	let out = [`${tabs}#${(''+(i+1)).padStart(2, 0)}: `]
+/**
+ * Helper for gas giant moons.
+ */
+const hasColonizedMoon = (world) => {
+	if (world.key !== 'gasGiant') { return false }
+	for (let moon of world.orbitalComponents) {
+		if (moon.isColonized) { 
+			return true
+		}
+	}
+	return false
+}
+
+const printWorldTitle = (prefix, world, tabs) => {
+	let out = [`${tabs}${(''+(prefix)).padStart(2, 0)}: `]
 	out.push(world.type)
 	out.push(world.name ? ' ' + `"${world.name}"`: ' (Unsurveyed)')
 	out.push(world.feature ? ', ' + world.feature : '')
@@ -58,22 +72,21 @@ const printWorldDetails = (world, options, tabs) => {
 	const spaces = '     '
 	let out = []
 	
-	// TODO How about only showing surveyed details?
-	if (world.isSurveyed && options.showSurveyedDetails) {
-		// console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
-		if (world.habitable) {
-			out.push(`${tabs}Planet Size:  ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
-		}
-		out.push(`${tabs}Atmosphere:   ${world.atmosphere.type}`)
-		out.push(`${tabs}Temperature:  ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
-		if (world.habitable) {
-			out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
-			out.push(`${tabs}Terrain:      ${world.terrain.description}`)
-		}
+	// console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
+
+	out.push(`${tabs}Planet Size:  ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+	out.push(`${tabs}Atmosphere:   ${world.atmosphere.type}`)
+	out.push(`${tabs}Temperature:  ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
+	if (world.habitable) {
+		out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
+		out.push(`${tabs}Terrain:      ${world.terrain.description}`)
+	}
+
+	if (world.isColonized || hasColonizedMoon(world)) {
+		out.push(printOrbitalComponents(world, options, tabs, spaces))
 	}
 
 	if (world.isColonized) {
-		out.push(printOrbitalComponents(world.orbitalComponents, tabs, spaces))
 		out.push(`${tabs}Hook:         ${world.scenarioHook.description}`)
 		out.push(printColonyDetails(world, tabs, spaces))
 	}
@@ -103,12 +116,25 @@ const printColonyMissions = (missions, tabs, spaces) => {
 	return `${tabs}Missions:${spaces}` + out.join(', ')
 }
 
-const printOrbitalComponents = (orbitalComponents, tabs, spaces) => {
+const printOrbitalComponents = (world, options, tabs, spaces) => {
 	let out = []
-	for (const orbitalComponent of orbitalComponents) {
-		out.push(`${orbitalComponent.type}${orbitalComponent.owner ? ' (' + orbitalComponent.owner + ')' : ''}`)
+	if (world.key === 'gasGiant') {
+		for (const [i, moonWorld] of world.orbitalComponents.entries()) {
+			// Recursive
+			out.push('\n')
+			out.push(printWorldTitle(`Moon #${i+1}`, moonWorld, tabs+spaceIndent))
+			if (moonWorld.isColonized || (moonWorld.isSurveyed && options.showSurveyedDetails)) {
+				out.push('\n')
+				out.push(printWorldDetails(moonWorld, options, tabs+spaceIndent+spaceIndent))
+			}
+		}
+		return `${tabs}Orbitals:` + out.join('')
+	} else {
+		for (const orbitalComponent of world.orbitalComponents) {
+			out.push(`${orbitalComponent.type}${orbitalComponent.owner ? ' (' + orbitalComponent.owner + ')' : ''}`)
+		}
+		return `${tabs}Orbitals:${spaces}` + out.join(', ')
 	}
-	return `${tabs}Orbitals:${spaces}` + out.join(', ')
 }
 
 const strengthMap = ["weak", "balanced", "balanced", "competing", "competing", "dominant"] // d6 roll

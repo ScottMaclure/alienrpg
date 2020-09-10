@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "rollup -c -w",
-    "test": "ava",
+    "test": "ava -v",
     "testWatch": "ava --watch",
     "coverage": "nyc --reporter=lcov --reporter=text-summary ava",
     "build": "rollup -c",

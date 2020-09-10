@@ -41,6 +41,7 @@
 	],
 	"systemObjects": [
 		{
+			"enabled": true,
 			"key": "gasGiant",
 			"type": "Gas Giant",
 			"number": "d6",
@@ -63,6 +64,7 @@
 			"moonSizeMod": -4
 		},
 		{
+			"enabled": true,
 			"key": "terrestrialPlanet",
 			"type": "Terrestrial Planet",
 			"number": "d6",
@@ -76,6 +78,7 @@
 			"planetSizeMod": 0
 		},
 		{
+			"enabled": true,
 			"key": "icePlanet",
 			"type": "Ice Planet",
 			"number": "d6",
@@ -90,6 +93,7 @@
 			"planetSizeMod": -2
 		},
 		{
+			"enabled": true,
 			"key": "asteroidBelt",
 			"type": "Asteroid Belt",
 			"number": "d6",
