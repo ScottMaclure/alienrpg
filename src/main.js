@@ -24,7 +24,7 @@ const app = new App({
 // TODO Is there a more idiomatic way to do this?
 
 app.$on('saveData', event => {
-	console.debug(`saveData: Saving ${event.detail.key} to sessionStorage.`)
+	// console.debug(`saveData ${event.detail.key}, value:`, event.detail.value)
 	window.sessionStorage.setItem(event.detail.key, JSON.stringify(event.detail.value))
 })
 
