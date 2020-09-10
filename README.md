@@ -36,8 +36,8 @@ http://localhost:5000/
 ### Sooner
 
 * Run through star system generator materials, checking with data and code for correctness (testing)
-* Refactor options & results to handle multiple generators (star systems, jobs, encounters)
-* Add Job generator (as another module+button)
+* Add Mission Job generator
+* Add Expedition Job generator
 
 ### Later
 
@@ -63,6 +63,8 @@ http://localhost:5000/
 * A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
 * Refactor the "options" UI into its own (nested) component
 * Enhance options with a hide/show UI
+* Refactor options & results to handle multiple generators (star systems, jobs, encounters)
+* Add Cargo Run Job generator (as another module+button)
 
 #### 2020-09-09
 
