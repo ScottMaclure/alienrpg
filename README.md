@@ -34,25 +34,22 @@ http://localhost:5000/
 
 ### v1.0.0
 
-* [ ] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner)
 * [ ] A gas giant has D6+4 significant moons which can be created just like Terrestrial Planets (define new type, hang off gas giant, refactor habitation code, printing code, etc)
+* [ ] Refactor the "options" UI into its own (nested) component, with a hide/show UI
 * [ ] Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * [ ] Add Job generator (as another module+button)
 * [ ] Add Encounter generators (star system encounter, ship reaction, on-planet)
-* [ ] Add an "options" hide/show button, we'll need more options sooner or later.
-* [ ] Refactor the "options" UI into its own (nested) component.
 
 ### Someday maybe
 
-* [ ] npm deploy should bump the version number of the app - hook into npm's version in package.json, and update app data?
-* [ ] Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
 * [ ] Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
+* [ ] Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
 * [ ] Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
-* [ ] Add https://routify.dev/ to the mix, for multiple pages, if needed (or maybe just page.js, but I want code splitting too!)
-* [ ] Maintain a log of calculations, to display to UI later.
+* [ ] Add routing for multiple page support (https://routify.dev/, or maybe just page.js, but I want code splitting too!)
+* [ ] Maintain a log of calculations, to display to UI later
 * [ ] Full unit-test coverage for all modules
 * [ ] Cypress test suite for UAT
-* [ ] CI/CD pipeline to run tests? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
+* [ ] CI/CD pipeline to automate deployments? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
 
 ### Changelog
 
@@ -60,6 +57,8 @@ http://localhost:5000/
 
 * [x] Fix planetary names logic, see p331. Add "surveyed" chance, 3 digit designation.
 * [x] Change version to (sed replaced) timestamp, move to footer
+* [x] npm deploy bumps the version date
+* [x] Uninhabited moons: If planet is unexplored/uninhabited, roll D3–1 for moons. (Refactor orbitals to be habitation/colony independent, give them an optional owner, update printing logic)
 
 #### 2020-09-09
 
