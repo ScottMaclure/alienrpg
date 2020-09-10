@@ -30,6 +30,12 @@
 		dispatch('saveData', {'key': 'results', 'value': results});
 	}
 
+	function handleOptions() {
+		options.showOptions = !options.showOptions
+		console.log('handleOptions updated:', options)
+		saveOptions()
+	}
+
 	// Intermediate step - re-render output, and pass the save command up and out.
 	function saveOptions() {
 		if (Object.keys(results).length > 0) {
@@ -47,6 +53,7 @@
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	
 	<button on:click={saveOptions} on:click={handleNewStarSystem}>New Star System</button>
+	<button on:click={handleOptions}>Options</button>
 	
 	<Options starData={starData} options={options} on:saveOptions={saveOptions}/>
     

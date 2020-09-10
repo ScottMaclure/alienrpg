@@ -21,18 +21,19 @@
 	}
 </script>
 
-<div>
+<div style="display: {options.showOptions === false ? 'none' : 'block'}">
     <form>
         <fieldset>
-            <legend>Options</legend>
+            <legend>Star System Options</legend>
+            
+            <div class="subTitle">Output Options</div>
             <div>
                 <label>
                     <input type="checkbox" on:click={toggleHideUninhabited} bind:checked={options.showSurveyedDetails}> Show surveyed details
                 </label>
             </div>
-        </fieldset>
-        <fieldset>
-            <legend>Star System Location</legend>
+            
+            <div class="subTitle">Star System Location</div>
             <div>
                 {#each starLocations as item}
                     <label>
@@ -44,3 +45,10 @@
         </fieldset>
     </form>
 </div>
+
+<style>
+    .subTitle {
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+</style>

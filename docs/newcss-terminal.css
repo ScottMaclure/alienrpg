@@ -41,3 +41,7 @@ footer {
 fieldset {
 	padding: 0.5rem;
 }
+
+legend {
+	font-weight: bold;
+}
