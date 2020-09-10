@@ -1524,22 +1524,29 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
             rewards: [],
             destination: utils.randomD66ArrayItem(data.spaceTruckers.destinations),
             goods: utils.randomD66ArrayItem(data.spaceTruckers.goods),
+            complications: []
         };
+        
         // Calculate rewards
         for (let i = 0; i < results.jobType.extraRewards; i++) {
-            results.rewards.push(getUniqueReward(data, results.rewards));
+            results.rewards.push(getUniqueD66Item(data.spaceTruckers.rewards, results.rewards));
         }
+
+        for (let i = 0; i < results.jobType.complications; i++) {
+            results.complications.push(getUniqueD66Item(data.spaceTruckers.complications, results.complications));
+        }
+
         return results
     };
 
-    const getUniqueReward = (data, rewards) => {
-        let reward = null;
-        let foundNewReward = false;
-        while (!foundNewReward) {
-            reward = utils.randomD66ArrayItem(data.spaceTruckers.rewards);
-            foundNewReward = !rewards.includes(reward);
+    const getUniqueD66Item = (d66Data, existing) => {
+        let item = null;
+        let foundNewItem = false;
+        while (!foundNewItem) {
+            item = utils.randomD66ArrayItem(d66Data);
+            foundNewItem = !existing.includes(item);
         }
-        return reward
+        return item
     };
 
     const createMilitaryMission = (data, options = {}) => {
@@ -1601,6 +1608,10 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
         out.push(`Employer:          ${results.employer.type}`);
         out.push(`Destination:       ${results.destination.description}`);
         out.push(`Goods:             ${results.goods.name} (${results.goods.description})`);
+
+        for (const [i, complication] of results.complications.entries()) {
+            out.push(`Complication #${i+1}:   ${complication.name} (${complication.description})`);
+        }
         
         return out.join('\n')
     };
@@ -3394,6 +3405,48 @@ ${printSystemObjects(results.systemObjects, tabs, options)}
     			d66: 66,
     			name: "Wreckage/Salvage",
     			description: "Shuttle, or escape/cargo pod requiring investigation and study"
+    		}
+    	],
+    	complications: [
+    		{
+    			d66: 13,
+    			name: "Embargo/Quarantine",
+    			description: "The destination is placed under quarantine or an embargo."
+    		},
+    		{
+    			d66: 16,
+    			name: "Intermission",
+    			description: "The ship’s computer brings the ship out of hyperspace early, and then wakes the crew. What’s the story?"
+    		},
+    		{
+    			d66: 26,
+    			name: "Military",
+    			description: "A military starship sends over a small search party for a “routine” ICC and customs check. Should the PCs be worried?"
+    		},
+    		{
+    			d66: 33,
+    			name: "Delay",
+    			description: "There is a delay in lift-off/undocking; perhaps fuel for the reaction drives or coolant cannot be pumped aboard. There may be a strike, an administrative hold-up or loading equipment may have broken down."
+    		},
+    		{
+    			d66: 43,
+    			name: "Maintenance",
+    			description: "A critical part (drive pump, plasma coil, coolant pump, water recycler, gravity compensator control unit, sensor gimbal motor, etc.) requires replacement before it fails, requiring most of the crew’s participation."
+    		},
+    		{
+    			d66: 53,
+    			name: "Waiting game",
+    			description: "Problems at the destination mean they aren’t ready to accept the cargo. Can the crew help speed things along?"
+    		},
+    		{
+    			d66: 56,
+    			name: "Cargo mishap",
+    			description: "There is a serious problem with the cargo, either moving, leaking, over-heating or catching fire."
+    		},
+    		{
+    			d66: 66,
+    			name: "Wreckage",
+    			description: "A small piece of wreckage is spotted on the sensor scope; a cargo container, escape pod, frozen corpse, part of a starship—smashed or blown off, etc."
     		}
     	]
     };

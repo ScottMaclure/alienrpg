@@ -34,6 +34,10 @@ const printCargoRun = (results, options) => {
     out.push(`Employer:          ${results.employer.type}`)
     out.push(`Destination:       ${results.destination.description}`)
     out.push(`Goods:             ${results.goods.name} (${results.goods.description})`)
+
+    for (const [i, complication] of results.complications.entries()) {
+        out.push(`Complication #${i+1}:   ${complication.name} (${complication.description})`)
+    }
     
     return out.join('\n')
 }
