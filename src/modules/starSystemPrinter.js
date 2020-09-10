@@ -29,8 +29,13 @@ const printSystemObjects = (systemObjects, tabs, options) => {
 }
 
 const printWorldTitle = (i, world, tabs) => {
-    const formattedI = (''+(i+1)).padStart(2, 0)
-    return `${tabs}#${formattedI}: ${world.name ? world.name + ', ': ''}${world.type}${world.feature ? ', ' + world.feature : ''}${world.isColonized ? ', ' + world.geosphere.type : ' (Uninhabited)'}${printMoonSummary(world)}`
+	let out = [`${tabs}#${(''+(i+1)).padStart(2, 0)}:`]
+	out.push(world.type)
+	out.push(world.name ? ' ' + `"${world.name}"`: ' (Unsurveyed)')
+	out.push(world.feature ? ', ' + world.feature : '')
+	out.push(world.isColonized ? ', ' + world.geosphere.type : '')
+	out.push(printMoonSummary(world))
+	return out.join('')
 }
 
 const printMoonSummary = (world) => {

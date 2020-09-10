@@ -1,6 +1,6 @@
 import utils from './utils.js'
 
-const createStarSystem = (data, options) => {
+const createStarSystem = (data, options = {}) => {
 	let results = {}
 
 	if (options.starLocation && options.starLocation !== 'ran') {
@@ -26,7 +26,7 @@ const createStarSystem = (data, options) => {
 	// TODO What about generating planetary details for all planets?
 	// Pick which planetary body will be the "main" world, which has been colonized.
 	let usedPlanetNames = []
-	pickColonizedWorlds(data, results, usedPlanetNames)
+	pickColonizedWorld(data, results, usedPlanetNames)
 	generateWorlds(data, results)
 
 	// Sort the system objects by temperature, instead of randomly.
@@ -67,24 +67,25 @@ const createWorld = (systemObject) => {
 		'feature': feature,
 		'habitable': systemObject.habitable,
 		'isColonized': false, // will be set later for one lucky planetary body. Maybe more later.
+		'isSurveyed': utils.randomInteger(0, 1) === 1, // 50/50 chance, will be updated later if isColonized
 		'planetSizeMod': systemObject.planetSizeMod,
 		'colonies': [] // fleshed out later
 	})
 }
 
-const getUniquePlanetName = (data, usedPlanetNames) => {
+/**
+ * E.g. LV-426.
+ */
+const getSurveyedPlanetName = (data, usedPlanetNames) => {
 	let planetName = null
 	let foundUniquePlanetName = false
 	while (!foundUniquePlanetName) {
 		let iccCode = utils.randomArrayItem(data.iccCodes)
-		let planetaryName = utils.randomArrayItem(data.planetaryNames)
-		
-		// TODO Correct formats?
-		planetName = iccCode + '-' + planetaryName
-		
+		let planetCode = utils.randomInteger(111, 999)
+		planetName = iccCode + '-' + planetCode
 		if (!usedPlanetNames.includes(planetName)) {
 			foundUniquePlanetName = true
-			usedPlanetNames.push(planetName)
+			usedPlanetNames.push(planetName) // TODO should abdicate this logic up the chain, to avoid making data changes deep down.
 		}
 	}
 	return planetName
@@ -93,8 +94,10 @@ const getUniquePlanetName = (data, usedPlanetNames) => {
 /**
  * For now, only one world in a system will be flaggged as colonized - the "main" world.
  * Also set its name, cause it's special.
+ * 
+ * Updated to also set D3-1 Moons if uninhabited
  */
-const pickColonizedWorlds = (data, results, usedPlanetNames) => {
+const pickColonizedWorld = (data, results, usedPlanetNames) => {
 
 	let world = false
 	let foundWorld = false
@@ -102,8 +105,8 @@ const pickColonizedWorlds = (data, results, usedPlanetNames) => {
 		world = utils.randomArrayItem(results.systemObjects)
 		if (world.habitable) {
 			world.isColonized = true
-			// TODO Only habitated worlds get a name for now.
-			world.name = getUniquePlanetName(data, usedPlanetNames)
+			world.isSurveyed = true // Can't colonize an unsurveyed planet :)
+			world.name = utils.randomArrayItem(data.planetaryNames)
 			foundWorld = true
 		}
 	}
@@ -116,9 +119,10 @@ const pickColonizedWorlds = (data, results, usedPlanetNames) => {
  * @param {object} results Generated system objects etc.
  */
 const generateWorlds = (data, results) => {
+	let surveyedPlanetNames = []
 	for (let world of results.systemObjects) {
 		// Clone the data to ensure uniqueness each time we generate world data.
-		generateWorld(JSON.parse(JSON.stringify(data)), results, world)
+		generateWorld(JSON.parse(JSON.stringify(data)), results, world, surveyedPlanetNames)
 	}
 }
 
@@ -128,9 +132,14 @@ const generateWorlds = (data, results) => {
  * @param {object} data starData.json
  * @param {object} world See createSystemObjects()
  */
-const generateWorld = (data, results, world) => {
+const generateWorld = (data, results, world, surveyedPlanetNames) => {
 
 	const worldTypeKey = world.key // e.g. terrestrialPlanet, icePlanet
+
+	// Every world gets a name
+	world.name = world.isColonized ? 
+		utils.randomArrayItem(data.planetaryNames) : 
+		(world.isSurveyed ? getSurveyedPlanetName(data, surveyedPlanetNames) : null)
 
 	world.planetSize = utils.random2D6ArrayItem(data.planetSizes, world.planetSizeMod)
 	// console.debug('planetSize', world.planetSize)
