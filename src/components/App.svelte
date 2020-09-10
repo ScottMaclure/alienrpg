@@ -89,7 +89,7 @@
 	<pre id="results">{output}</pre>
 
 	<footer>
-		<small>{appData.title} {appData.version}. See the <a href="{appData.githubUrl}">github repo</a> for details. {appData.copyright} Last updated {appData.version}.</small>
+		<small>{appData.title}. See the <a href="{appData.githubUrl}">github repo</a> for details. {appData.copyright} Last updated {appData.version}.</small>
 	</footer>
 </main>
 
