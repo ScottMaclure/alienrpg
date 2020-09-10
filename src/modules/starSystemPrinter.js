@@ -2,12 +2,8 @@ import utils from './utils.js'
 
 const spaceIndent = '  '
 
-const defaultOptions = {
-	showSurveyedDetails: true
-}
-
 // For CLI based results.
-const printStarSystem = (results, options = defaultOptions) => {
+const printStarSystem = (results, options = {}) => {
 	let tabs = spaceIndent
 	return `Star System:
 ${tabs}Location: ${results.starLocation.name} (${results.starLocation.colonyAllegianceKey})

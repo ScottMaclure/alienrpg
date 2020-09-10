@@ -1,0 +1,77 @@
+{
+    "jobTypes": [
+        {"d66": 12, "type": "Routine", "destination": "Within system", "complications": 0, "baseReward": "20+D6", "extraRewards": 0},
+        {"d66": 15, "type": "Routine", "destination": "Within system", "complications": 1, "baseReward": "20+D6", "extraRewards": 0},
+        {"d66": 23, "type": "Routine", "destination": "Within system", "complications": 1, "baseReward": "30+D6", "extraRewards": 0},
+        {"d66": 25, "type": "Easy", "destination": "Within system", "complications": 0, "baseReward": "20+2D6", "extraRewards": 0},
+        {"d66": 31, "type": "Easy", "destination": "Nearby system", "complications": 1, "baseReward": "20+2D6", "extraRewards": 1},
+        {"d66": 33, "type": "Easy", "destination": "Nearby system", "complications": 1, "baseReward": "25+2D6", "extraRewards": 1},
+        {"d66": 45, "type": "Normal", "destination": "Nearby system", "complications": 1, "baseReward": "30+3D6", "extraRewards": 0},
+        {"d66": 51, "type": "Normal", "destination": "Nearby system", "complications": 1, "baseReward": "30+3D6", "extraRewards": 1},
+        {"d66": 53, "type": "Normal", "destination": "Nearby system", "complications": 1, "baseReward": "40+3D6", "extraRewards": 1},
+        {"d66": 54, "type": "Normal", "destination": "Faraway system", "complications": 1, "baseReward": "50+4D6", "extraRewards": 0},
+        {"d66": 55, "type": "Normal", "destination": "Faraway system", "complications": 1, "baseReward": "50+4D6", "extraRewards": 1},
+        {"d66": 61, "type": "Difficult", "destination": "Within system", "complications": 2, "baseReward": "60+4D6", "extraRewards": 1},
+        {"d66": 63, "type": "Difficult", "destination": "Nearby system", "complications": 2, "baseReward": "50+4D6", "extraRewards": 0},
+        {"d66": 64, "type": "Difficult", "destination": "Nearby system", "complications": 2, "baseReward": "50+4D6", "extraRewards": 1},
+        {"d66": 65, "type": "Difficult", "destination": "Faraway system", "complications": 2, "baseReward": "50+5D6", "extraRewards": 1},
+        {"d66": 66, "type": "Difficult", "destination": "Faraway system", "complications": 3, "baseReward": "50+5D6", "extraRewards": 2}
+    ],
+    "spaceTruckers": {
+        "employers": [
+            {"d66": 16, "type": "Colony Representative"},
+            {"d66": 24, "type": "Colonial Administration"},
+            {"d66": 35, "type": "Mining Company"},
+            {"d66": 46, "type": "Major Corporation"},
+            {"d66": 53, "type": "Military Officer"},
+            {"d66": 56, "type": "Shipping Corporation"},
+            {"d66": 63, "type": "Finance Bank"},
+            {"d66": 66, "type": "Wealthy Individual"}
+        ],
+        "rewards": [
+            {"d66": 13, "type": "Discount on new cargo"},
+            {"d66": 16, "type": "New, guaranteed contract"},
+            {"d66": 46, "type": "Monetary reward"},
+            {"d66": 53, "type": "Ship module/feature"},
+            {"d66": 56, "type": "Faction contact"},
+            {"d66": 66, "type": "Debt cancellation (or credit granted)"}
+        ],
+        "destinations": [
+            {"d66": 13, "description": "Only Coordinates Coordinates for an area in deep space."},
+            {"d66": 16, "description": "Hostile Forest/Jungle/Desert Landing site is planet-side wilderness, far from human habitation, or on an uninhabited world."},
+            {"d66": 26, "description": "Mine A mining facility, far from a colony or starport."},
+            {"d66": 33, "description": "Spaceport Spaceport on an asteroid or moon, or a landing field near a larger settlement."},
+            {"d66": 36, "description": "Asteroid/Moon The surface of an asteroid or a small moon. Vacuum or dangerous atmosphere."},
+            {"d66": 43, "description": "Space Station An orbiting space station."},
+            {"d66": 46, "description": "Earth The busy hub of all interstellar traffic and commerce."},
+            {"d66": 53, "description": "Young Colony A small colony with only a few hundred inhabitants."},
+            {"d66": 56, "description": "Established Colony A busy colony with several thousand people and a thriving, local industry."},
+            {"d66": 63, "description": "Starship A starship in orbit, awaiting your arrival."},
+            {"d66": 66, "description": "Outpost A small outpost, usually planetside. An outpost is commonly just a single complex with a specific function; corporate, military or scientific."}
+        ],
+        "goods": [
+            {"d66": 12, "name": "Industrial gases", "description": "Propylene, acetylene, propane, ethyl-formate, chlorofluorocarbon, ammonia, carbon monoxide, ethylene oxide, hydrogen chloride, sulfur dioxide, sulfur hexafluoride."},
+            {"d66": 14, "name": "Metal ingots or pellets", "description": "Gold, platinum, palladium, silver, tungsten, copper, iron, etc."},
+            {"d66": 16, "name": "Colonists", "description": "Humans in stasis, ready to begin a colonization project"},
+            {"d66": 21, "name": "Timber", "description": "Exotic alien tree products destined for Earth"},
+            {"d66": 22, "name": "Ice/Water", "description": "Water, water ice or some other rare frozen solution"},
+            {"d66": 23, "name": "Industrial chemicals", "description": "Aluminium Chloride, Aluminium Sulfate, Calcium Acetate, Monosodium Phosphate, Ferric Sulphate, Sodium Hydroxide, Hydrochloric Acid, Sodium Aluminate, Polyaluminium Chloride, Ferrous Chloride, Borate, Potassium Acetate etc."},
+            {"d66": 24, "name": "Fertilizer", "description": "Multi-nutrient fertilizer compounds made up of nitrogen, potassium and/or phosphate"},
+            {"d66": 26, "name": "Oil", "description": "Crude oil, or liquid petroleum by-products"},
+            {"d66": 32, "name": "Foodstuff", "description": "Bulk foods such as chickpeas, soybeans and other legumes, grains (corn, barley, rice, wheat) or refined versions thereof"},
+            {"d66": 36, "name": "Ore", "description": "Bauxite (aluminum), galena (lead), pentlandite (nickel), gold-quartz, cassiterite (tin), malachite (copper), magnetite (iron), platinum-bearing sand, trimonite (tungsten)"},
+            {"d66": 41, "name": "Medicinal goods", "description": "Vaccines, medicines, disinfectants, surgical gear, scanning machines, hospital beds"},
+            {"d66": 43, "name": "Technical parts", "description": "Different makes and types, for suits, refineries, vehicles, power stations, hospitals, prospecting gear, factories, atmospheric processors, weaponry or life support systems"},
+            {"d66": 45, "name": "Starship technical parts", "description": "Modules, features, parts for/from dismantled ships"},
+            {"d66": 46, "name": "Pressure suits", "description": "Space suits for delivery to the colonies"},
+            {"d66": 51, "name": "Single oversized item", "description": "Wind turbines, power station generator, space station hull frame, solar panel assembly, drilling machinery, ore processing mill or furnace"},
+            {"d66": 52, "name": "Vehicles", "description": "Diggers, tractors, quad-tracks, all-terrain vehicles, power loaders"},
+            {"d66": 54, "name": "Weapons & armor", "description": "Firearms, ammunition and armor for the colonies or remote stations"},
+            {"d66": 56, "name": "Radioactives", "description": "Processed uranium cakes or uranium dioxide powder, or fusion plant fuel pellets such as deuterium, tritium, protium or helium-3"},
+            {"d66": 62, "name": "Colony construction", "description": "Beams, modules, airlocks, outer shells, roofing material, etc."},
+            {"d66": 63, "name": "Animal feed", "description": "Feed concentrates containing grains, high-protein oil meals and byproducts of sugar beet and sugarcane processing"},
+            {"d66": 65, "name": "Livestock/animals", "description": "Cattle in stasis, ready for rearing on an off-world colony"},
+            {"d66": 66, "name": "Wreckage/Salvage", "description": "Shuttle, or escape/cargo pod requiring investigation and study"}
+        ]
+    }
+}

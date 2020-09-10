@@ -1,15 +1,19 @@
 <script>
 
+	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte'
 	import Options from './Options.svelte'
 
 	// import utils from '../modules/utils.js'
 	import starSystems from '../modules/starSystems.js'
 	import starSystemPrinter from '../modules/starSystemPrinter.js'
+	import jobs from '../modules/jobs.js'
+	import jobsPrinter from '../modules/jobsPrinter.js'
 
 	// Exported params that you can set from outside.
 	export let appData;
 	export let starData;
+	export let jobsData;
 	export let options; // See src/data/options.json
 	export let results; // Also saved to localStorage
 	
@@ -17,33 +21,52 @@
 	
 	const dispatch = createEventDispatcher();
 
-	// Existing session data.
-	if (Object.entries(results).length > 0) { // check for empty object
-		output = starSystemPrinter.printStarSystem(results, options)
+	function handleOptions() {
+		options.showOptions = !options.showOptions
+		saveOptions()
 	}
 
 	// Main action - user has clicked the button.
 	function handleNewStarSystem() {
-		results = starSystems.createStarSystem(starData, options)
-		output = starSystemPrinter.printStarSystem(results, options)
-		dispatch('saveData', {'key': 'options', 'value': options});
+		results = {}
+		results.starSystem = starSystems.createStarSystem(starData, options)
+		output = starSystemPrinter.printStarSystem(results.starSystem, options)
+		saveData()
+	}
+
+	function handleNewCargoJob() {
+		results = {}
+		results.job = jobs.createCargoRunJob(jobsData, options)
+		output = jobsPrinter.printJob(results.job, options)
+		saveData()
+	}
+
+	function saveData() {
+		saveOptions()
 		dispatch('saveData', {'key': 'results', 'value': results});
 	}
-
-	function handleOptions() {
-		options.showOptions = !options.showOptions
-		console.log('handleOptions updated:', options)
-		saveOptions()
-	}
-
+	
 	// Intermediate step - re-render output, and pass the save command up and out.
 	function saveOptions() {
-		if (Object.keys(results).length > 0) {
-			// Only regen output if you have results (i.e. first load issue).
-			output = starSystemPrinter.printStarSystem(results, options)
-		}
+		printResults()
 		dispatch('saveData', {'key': 'options', 'value': options});
 	}
+
+	function printResults() {
+		// Existing session data.
+		// TODO Keep all output separately, and add more UI to display them in tabs or similar.
+		if (Object.entries(results).length > 0) { // check for empty object
+			if (results.job) {
+				output = jobsPrinter.printJob(results.job, options)
+			} else if (results.starSystem) {
+				output = starSystemPrinter.printStarSystem(results.starSystem, options)
+			}
+		}
+	}
+
+	onMount(async () => {
+		printResults()
+	})
 
 </script>
 
@@ -52,8 +75,13 @@
 	
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	
-	<button on:click={saveOptions} on:click={handleNewStarSystem}>New Star System</button>
-	<button on:click={handleOptions}>Options</button>
+	<div class="bottomSpaced">
+		<button on:click={saveOptions} on:click={handleNewStarSystem}>New Star System</button>
+		<button on:click={handleOptions}>Options</button>
+	</div>
+	<div>
+		<button on:click={handleNewCargoJob}>New Cargo Run</button>
+	</div>
 	
 	<Options starData={starData} options={options} on:saveOptions={saveOptions}/>
     
