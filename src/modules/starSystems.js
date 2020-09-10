@@ -266,10 +266,23 @@ const generateWorld = (data, results, world, surveyedPlanetNames) => {
 			// TODO Generate allegiance (I assume they should be unique for 2 colony setup)
 
 			world.colonies.push(colony)
-		}
+		} 
 
 		// Generate scenario hook.
 		world.scenarioHook = utils.randomD66ArrayItem(data.scenarioHooks)
+
+	} else {
+		
+		// Not colonised stuff
+		
+		// Moons
+		if (worldTypeKey === 'gasGiant') {	
+			// TODO Gas giant moons, which are themselves terrestrial planets.
+		} else {
+			let moonComponent = {"type":  "Moons", "quantity": "d3-1", "isMoon": true}
+			applyQuantityToType(moonComponent)
+			world.orbitalComponents.push(moonComponent)
+		}
 
 	}
 

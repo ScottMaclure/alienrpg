@@ -3,7 +3,7 @@ import utils from './utils.js'
 const spaceIndent = '  '
 
 const defaultOptions = {
-	showUninhabitedDetails: true
+	showSurveyedDetails: true
 }
 
 // For CLI based results.
@@ -21,15 +21,15 @@ const printSystemObjects = (systemObjects, tabs, options) => {
 	let out = []
 	for (const [i, world] of systemObjects.entries()) {
 		out.push(printWorldTitle(i, world, tabs))
-		if (world.isColonized || options.showUninhabitedDetails) {
-			out.push(printWorldDetails(world, `${tabs}${spaceIndent}`))
+		if (world.isColonized || (world.isSurveyed && options.showSurveyedDetails)) {
+			out.push(printWorldDetails(world, options, `${tabs}${spaceIndent}`))
 		}
     }
 	return out.join('\n')
 }
 
 const printWorldTitle = (i, world, tabs) => {
-	let out = [`${tabs}#${(''+(i+1)).padStart(2, 0)}:`]
+	let out = [`${tabs}#${(''+(i+1)).padStart(2, 0)}: `]
 	out.push(world.type)
 	out.push(world.name ? ' ' + `"${world.name}"`: ' (Unsurveyed)')
 	out.push(world.feature ? ', ' + world.feature : '')
@@ -53,24 +53,30 @@ const printMoonSummary = (world) => {
 /**
  * Handle all world types: habitable, colonised.
  */
-const printWorldDetails = (world, tabs) => {
+const printWorldDetails = (world, options, tabs) => {
 	const spaces = '     '
-    let out = []
-    // console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
-    if (world.habitable) {
-        out.push(`${tabs}Planet Size:  ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+	let out = []
+	
+	// TODO How about only showing surveyed details?
+	if (world.isSurveyed && options.showSurveyedDetails) {
+		// console.debug(`printWorldDetails, world=${world.habitable}, name=${world.name}`)
+		if (world.habitable) {
+			out.push(`${tabs}Planet Size:  ${utils.formatNumber(world.planetSize.sizeKm)} km, ${world.planetSize.surfaceGravity} G${world.planetSize.examples ? ' (e.g. ' + world.planetSize.examples + ')' : '' }`)
+		}
+		out.push(`${tabs}Atmosphere:   ${world.atmosphere.type}`)
+		out.push(`${tabs}Temperature:  ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
+		if (world.habitable) {
+			out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
+			out.push(`${tabs}Terrain:      ${world.terrain.description}`)
+		}
 	}
-	out.push(`${tabs}Atmosphere:   ${world.atmosphere.type}`)
-	out.push(`${tabs}Temperature:  ${world.temperature.type}, ${world.temperature.average}°C average (e.g. ${world.temperature.description})`)
-	if (world.habitable) {
-		out.push(`${tabs}Geosphere:    ${world.geosphere.type}, ${world.geosphere.description}`)
-		out.push(`${tabs}Terrain:      ${world.terrain.description}`)
-	}
-	out.push(printOrbitalComponents(world.orbitalComponents, tabs, spaces))
+
 	if (world.isColonized) {
+		out.push(printOrbitalComponents(world.orbitalComponents, tabs, spaces))
 		out.push(`${tabs}Hook:         ${world.scenarioHook.description}`)
 		out.push(printColonyDetails(world, tabs, spaces))
 	}
+
     return out.join(`\n`)
 }
 

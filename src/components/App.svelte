@@ -31,7 +31,7 @@
 	}
 
 	function toggleHideUninhabited() {
-		options.showUninhabitedDetails = !options.showUninhabitedDetails
+		options.showSurveyedDetails = !options.showSurveyedDetails
 		dispatch('saveData', {'key': 'options', 'value': options});
 		output = starSystemPrinter.printStarSystem(results, options)
 	}
@@ -53,7 +53,7 @@
 			<legend>Options</legend>
 			<div>
 				<label>
-					<input type="checkbox" on:click={toggleHideUninhabited} bind:checked={options.showUninhabitedDetails}> Show uninhabited details
+					<input type="checkbox" on:click={toggleHideUninhabited} bind:checked={options.showSurveyedDetails}> Show surveyed details
 				</label>
 			</div>
 		</fieldset>
