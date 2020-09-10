@@ -35,8 +35,8 @@ http://localhost:5000/
 
 ### v1.0.0
 
-* [ ] Run through star system generator materials, checking with data and code for correctness (testing)
 * [ ] Refactor the "options" UI into its own (nested) component, with a hide/show UI
+* [ ] Run through star system generator materials, checking with data and code for correctness (testing)
 
 ### Someday maybe
 
