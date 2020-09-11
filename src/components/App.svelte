@@ -126,20 +126,20 @@
 	<div class="bottomSpaced">
 		<h4>Jobs</h4>
 		<button on:click={handleNewCargoJob}>Cargo Run</button>
-		<button on:click={handleNewMilitaryMission}>Military Mission</button>
+		<button on:click={handleNewMilitaryMission}>Military</button>
 		<button on:click={handleNewExpedition}>Expedition</button>
 	</div>
 	<div class="bottomSpaced">
 		<h4>Star System Encounters</h4>
 		<button on:click={e => handleStarSystemEncounter()}>System</button>
-		<button on:click={e => handleStarSystemEncounter(-3)}>Rim/Frontier</button>
+		<button on:click={e => handleStarSystemEncounter(-3)}>Rim</button>
 		<button on:click={e => handleStarSystemEncounter(-5)}>Uncharted</button>
 		<h4>Surface Encounters</h4>
-		<button on:click={e => handleSurfaceEncounter('uninhabited')}>Uninhabited World</button>
-		<button on:click={e => handleSurfaceEncounter('colonized')}>Colonized World</button>
+		<button on:click={e => handleSurfaceEncounter('uninhabited')}>Uninhabited</button>
+		<button on:click={e => handleSurfaceEncounter('colonized')}>Colonized</button>
 		<h4>Colony Encounters</h4>
-		<button on:click={e => handleColonyEncounter(0)}>Young Colony</button>
-		<button on:click={e => handleColonyEncounter(+1)}>Established Colony</button>
+		<button on:click={e => handleColonyEncounter(0)}>Young</button>
+		<button on:click={e => handleColonyEncounter(+1)}>Established</button>
 	</div>
 	
 	<h4>Results</h4>
