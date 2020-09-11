@@ -60,6 +60,7 @@ http://localhost:5000/
 * Add expedition job generator
 * Add plot twists
 * Add Encounter generators (star system encounter, ship reaction, on-planet, colony)
+* Advertised on Reddit (https://www.reddit.com/r/alienrpg/comments/iqiwlc/unofficial_alien_rpg_tools_web_app/)
 
 #### 2020-09-10
 
