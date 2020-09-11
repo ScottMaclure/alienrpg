@@ -115,7 +115,7 @@
 <main>
 	<h2>{appData.title}</h2>
 	
-	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
+	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep. Results are at the bottom.</p>
 	
 	<div class="bottomSpaced">
 		<h4>Star Systems</h4>
@@ -125,7 +125,7 @@
 	</div>
 	<div class="bottomSpaced">
 		<h4>Jobs</h4>
-		<button on:click={handleNewCargoJob}>Cargo Run</button>
+		<button on:click={handleNewCargoJob}>Cargo</button>
 		<button on:click={handleNewMilitaryMission}>Military</button>
 		<button on:click={handleNewExpedition}>Expedition</button>
 	</div>
