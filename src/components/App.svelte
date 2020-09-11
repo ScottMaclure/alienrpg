@@ -155,4 +155,7 @@
 </main>
 
 <style>
+	pre {
+		min-height: 2rem;
+	}
 </style>
