@@ -16,9 +16,11 @@ npm i
 # Run with live reload
 npm run dev
 
+# Run test suite
+npm test
+
 # Build prod assets
-npm build
-npm start
+npm run deploy
 ```
 
 http://localhost:5000/
