@@ -136,7 +136,7 @@
 	<div style="display: {options.showUI === 'encounters' ? 'block' : 'none'}">
 		<h4>Star System Encounters</h4>
 		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter()}>System</a>
-		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter(-3)}>Rim</a>
+		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter(-3)}>Rim/Frontier</a>
 		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter(-5)}>Uncharted</a>
 		<h4>Surface Encounters</h4>
 		&middot; <a href="." on:click|preventDefault={e => handleSurfaceEncounter('uninhabited')}>Uninhabited</a>
