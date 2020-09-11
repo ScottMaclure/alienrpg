@@ -41,7 +41,6 @@ http://localhost:5000/
 
 ### Later
 
-* Add Encounter generators (star system encounter, ship reaction, on-planet)
 * Add an "About" page with details on the app and the author, with some links - again easier to discover for Users.
 * Add roadmap as a page in the app itself, so users can easily check and see what's planned / done etc (would be a "page")
 * Write unit tests for the Star Systems generator module (more important than the utils module, as bugs are less visible)
@@ -58,6 +57,7 @@ http://localhost:5000/
 * Add military mission job generator
 * Add expedition job generator
 * Add plot twists
+* Add Encounter generators (star system encounter, ship reaction, on-planet, colony)
 
 #### 2020-09-10
 

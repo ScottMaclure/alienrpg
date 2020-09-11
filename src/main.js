@@ -3,6 +3,7 @@ import App from './components/App.svelte';
 import appData from './data/appData.json'
 import starData from './data/starData.json'
 import jobsData from './data/jobsData.json'
+import encountersData from './data/encountersData.json'
 import defaultOptions from './data/options.json'
 
 let optionsString = window.sessionStorage.getItem('options')
@@ -17,6 +18,7 @@ const app = new App({
 		appData: appData,
 		starData: starData,
 		jobsData: jobsData,
+		encountersData: encountersData,
 		options: options,
 		results: results
 	}

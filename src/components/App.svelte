@@ -9,13 +9,16 @@
 	import starSystemPrinter from '../modules/starSystemPrinter.js'
 	import jobs from '../modules/jobs.js'
 	import jobsPrinter from '../modules/jobsPrinter.js'
+	import encounters from '../modules/encounters.js'
+	import encountersPrinter from '../modules/encountersPrinter.js'
 
 	// Exported params that you can set from outside.
-	export let appData;
-	export let starData;
-	export let jobsData;
-	export let options; // See src/data/options.json
-	export let results; // Also saved to localStorage
+	export let appData
+	export let starData
+	export let jobsData
+	export let encountersData
+	export let options // See src/data/options.json
+	export let results // Also saved to localStorage
 	
 	let output = 'Waiting on User.' // Reactive variable! Love Svelte v3 :)
 	
@@ -55,6 +58,27 @@
 		saveData()
 	}
 
+	function handleStarSystemEncounter(tensMod = 0) {
+		results = {}
+		results.starSystemEncounter = encounters.createStarSystemEncounter(encountersData, tensMod)
+		output = encountersPrinter.printStarSystemEncounter(results.starSystemEncounter, options)
+		saveData()
+	}
+
+	function handleSurfaceEncounter(type) {
+		results = {}
+		results.surfaceEncounter = encounters.createSurfaceEncounter(encountersData, type)
+		output = encountersPrinter.printSurfaceEncounter(results.surfaceEncounter, options)
+		saveData()
+	}
+
+	function handleColonyEncounter(tensMod) {
+		results = {}
+		results.colonyEncounter = encounters.createColonyEncounter(encountersData, tensMod)
+		output = encountersPrinter.printColonyEncounter(results.colonyEncounter, options)
+		saveData()
+	}
+
 	function saveData() {
 		saveOptions()
 		dispatch('saveData', {'key': 'results', 'value': results});
@@ -70,11 +94,15 @@
 		// Existing session data.
 		// TODO Keep all output separately, and add more UI to display them in tabs or similar.
 		if (Object.entries(results).length > 0) { // check for empty object
-			if (results.job) {
+			if (results.surfaceEncounter) {
+				output = encountersPrinter.printSurfaceEncounter(results.surfaceEncounter, options)
+			} else if (results.starSystemEncounter) {
+				output = encountersPrinter.printStarSystemEncounter(results.starSystemEncounter, options)
+			} else if (results.job) {
 				output = jobsPrinter.printJob(results.job, options)
 			} else if (results.starSystem) {
 				output = starSystemPrinter.printStarSystem(results.starSystem, options)
-			}
+			} 
 		}
 	}
 
@@ -90,18 +118,31 @@
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	
 	<div class="bottomSpaced">
-		<button on:click={saveOptions} on:click={handleNewStarSystem}>New Star System</button>
+		<h4>Systems</h4>
+		<button on:click={saveOptions} on:click={handleNewStarSystem}>Star System</button>
 		<button on:click={handleOptions}>Options</button>
+		<Options starData={starData} options={options} on:saveOptions={saveOptions}/>
 	</div>
-	<div>
-		<button on:click={handleNewCargoJob}>New Cargo Run</button>
-		<button on:click={handleNewMilitaryMission}>New Mission</button>
-		<button on:click={handleNewExpedition}>New Expedition</button>
+	<div class="bottomSpaced">
+		<h4>Jobs</h4>
+		<button on:click={handleNewCargoJob}>Cargo Run</button>
+		<button on:click={handleNewMilitaryMission}>Military Mission</button>
+		<button on:click={handleNewExpedition}>Expedition</button>
+	</div>
+	<div class="bottomSpaced">
+		<h4>Star System Encounters</h4>
+		<button on:click={e => handleStarSystemEncounter()}>System</button>
+		<button on:click={e => handleStarSystemEncounter(-3)}>Rim/Frontier</button>
+		<button on:click={e => handleStarSystemEncounter(-5)}>Uncharted</button>
+		<h4>Surface Encounters</h4>
+		<button on:click={e => handleSurfaceEncounter('uninhabited')}>Uninhabited World</button>
+		<button on:click={e => handleSurfaceEncounter('colonized')}>Colonized World</button>
+		<h4>Colony Encounters</h4>
+		<button on:click={e => handleColonyEncounter(0)}>Young Colony</button>
+		<button on:click={e => handleColonyEncounter(+1)}>Established Colony</button>
 	</div>
 	
-	<Options starData={starData} options={options} on:saveOptions={saveOptions}/>
-    
-	<h3>Results</h3>
+	<h4>Results</h4>
 	<pre id="results">{output}</pre>
 
 	<footer>
