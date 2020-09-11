@@ -2,13 +2,15 @@ import utils from './utils.js'
 
 const createCargoRunJob = (data, options = {}) => {
     let results = {
+        jobName: 'Cargo Run',
         campaignType: 'spaceTruckers',
         jobType: getJobType(data),
         employer: utils.randomD66ArrayItem(data.spaceTruckers.employers),
-        rewards: [],
         destination: utils.randomD66ArrayItem(data.spaceTruckers.destinations),
         goods: utils.randomD66ArrayItem(data.spaceTruckers.goods),
         complications: [],
+        plotTwist: utils.randomD66ArrayItem(data.plotTwists),
+        rewards: [],
         totalMonetaryReward: 0
     }
     
@@ -26,12 +28,14 @@ const createCargoRunJob = (data, options = {}) => {
 
 const createMilitaryMission = (data, options = {}) => {
     let results = {
+        jobName: 'Military Mission',
         campaignType: 'colonialMarines',
         jobType: getJobType(data),
-        rewards: [],
         mission: utils.randomD66ArrayItem(data.colonialMarines.missions),
         objective: utils.randomD66ArrayItem(data.colonialMarines.objectives),
         complications: [],
+        plotTwist: utils.randomD66ArrayItem(data.plotTwists),
+        rewards: [],
         totalMonetaryReward: 0
     }
 
@@ -48,8 +52,28 @@ const createMilitaryMission = (data, options = {}) => {
 }
 
 const createExpedition = (data, options = {}) => {
-    console.log('TODO createExpedition')
-    let results = {}
+    let results = {
+        jobName: 'Expedition',
+        campaignType: 'explorers',
+        jobType: getJobType(data),
+        sponsor: utils.randomD66ArrayItem(data.explorers.sponsors),
+        mission: utils.randomD66ArrayItem(data.explorers.missions),
+        targetArea: utils.randomD66ArrayItem(data.explorers.targetAreas),
+        complications: [],
+        plotTwist: utils.randomD66ArrayItem(data.plotTwists),
+        rewards: [],
+        totalMonetaryReward: 0
+    }
+
+    // Calculate rewards
+    for (let i = 0; i < results.jobType.extraRewards; i++) {
+        results.rewards.push(utils.randomUniqueD66Item(data.explorers.rewards, results.rewards))
+    }
+    // Calc total reward amount
+    results.totalMonetaryReward = calculateTotalMonetaryReward(results)
+
+    addComplications(results, data.explorers.complications)
+
     return results
 }
 
@@ -65,6 +89,7 @@ const calculateTotalMonetaryReward = (results) => {
 
     switch (results.campaignType) {
         case 'spaceTruckers':
+        case 'explorers':
             total += results.jobType.baseRewardAmount
             break
         case 'colonialMarines':

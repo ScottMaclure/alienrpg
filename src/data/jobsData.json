@@ -17,6 +17,17 @@
         {"d66": 65, "type": "Difficult", "destination": "Faraway system", "complications": 2, "baseReward": "50+5D6", "extraRewards": 1},
         {"d66": 66, "type": "Difficult", "destination": "Faraway system", "complications": 3, "baseReward": "50+5D6", "extraRewards": 2}
     ],
+    "plotTwists": [
+        {"d66": 15, "type": "Mayday", "description": "Before (or after) the starship is in hyperspace, the crew receive a distress signal and are obliged by law to assist. Alternatively, the call may come whilst on-planet."},
+        {"d66": 22, "type": "Bad Intel", "description": "Key mission information will prove false or very misleading."},
+        {"d66": 25, "type": "Sabotage", "description": "A serious malfunction or crisis (fire, etc.) quickly turns out to be sabotage, but who is the saboteur?"},
+        {"d66": 35, "type": "Secret Plot", "description": "NPCs or PCs in the game have another agenda that runs counter to that of the players and they are busy working on it."},
+        {"d66": 43, "type": "Murder", "description": "An NPC is suddenly murdered. Who did it? Why?"},
+        {"d66": 46, "type": "Flare Event", "description": "A burst of stellar radiation reaches the PCs’ location from a red dwarf flare star, a distant neutron star or other phenomenon. This could cause power interruptions, or at the very least complete communications blackouts."},
+        {"d66": 55, "type": "Malfunction", "description": "A key component to the mission fails when needed – an airlock or drive, a demolitions charge or diamond cutting drill. What now?"},
+        {"d66": 64, "type": "Time Limit", "description": "The mission has a deadline; lives (perhaps their own) are depending on it."},
+        {"d66": 66, "type": "Alien Outbreak", "description": "At the heart of this scenario is the presence of the Xenomorph XX121. It may be one egg or dozens; or the massacred remains of an unfortunate group of humans with a Xenomorph warrior still on the prowl. Good luck..."}
+    ],
     "spaceTruckers": {
         "employers": [
             {"d66": 16, "type": "Colony Representative"},
@@ -138,6 +149,57 @@
             {"d66": 62, "type": "Traps", "description": "There are hidden dangers across the mission site, varying with the nature of the location. They may be mines, IEDs, predatory carnivorous plants or improvised booby traps."},
             {"d66": 64, "type": "Restrictions", "description": "There are tactical restrictions placed on the mission—how the squad acts, where it can go, what weapons it can use, etc."},
             {"d66": 66, "type": "Rookie", "description": "Commander A new platoon commander is a green, untested and untried lieutenant. He’s read the books, survived the training and ran the simulations—but he’ll go to pieces once the bullets start flying."}
+        ]
+    },
+    "explorers": {
+        "sponsors": [
+            {"d66": 16, "type": "Colonial Administration"},
+            {"d66": 26, "type": "Scientist"},
+            {"d66": 36, "type": "Group of Investors"},
+            {"d66": 46, "type": "Corporate Representative"},
+            {"d66": 56, "type": "Company Mining Rep"},
+            {"d66": 66, "type": "Government Rep"}
+        ],
+        "rewards": [
+            {"d66": 13, "type": "Funds for an expedition of their own", "isMonetaryReward": false},
+            {"d66": 16, "type": "Ship module", "isMonetaryReward": false},
+            {"d66": 46, "type": "Monetary reward", "isMonetaryReward": true},
+            {"d66": 53, "type": "Contract with a mining company", "isMonetaryReward": false},
+            {"d66": 56, "type": "Gear", "isMonetaryReward": false},
+            {"d66": 66, "type": "Knowledge to use or sell", "isMonetaryReward": false}
+        ],
+        "missions": [
+            {"d66": 16, "type": "Salvage", "description": "Locate an abandoned or destroyed ship, station or planetary facility. Recover items of value and avoid the wreck’s fate…"},
+            {"d66": 24, "type": "Survey", "description": "Map a location or an area for the employer. Report back with sensor maps and other collected data."},
+            {"d66": 32, "type": "Mining", "description": "Begin test-mining to determine the viability for later investors. The substance being recovered may be cobalt, gold, tungsten, oil, natural gas, lead or something else."},
+            {"d66": 36, "type": "Colony Assistance", "description": "Assist a start-up colony with gear, information or expert knowledge about surface exploration, medicine, prospecting, construction or something else."},
+            {"d66": 45, "type": "Prospecting", "description": "Command a prospecting expedition or secure a claim somewhere. It could be mining, asteroid harvesting, logging or gas trawling."},
+            {"d66": 52, "type": "Data Collection", "description": "Find a specific piece of information for the employer. Sometimes, the group does not know the intended use of the information."},
+            {"d66": 55, "type": "Courier Make", "description": "sure sensitive information, resources or goods are delivered safely from the employer to the receiver—without delay."},
+            {"d66": 62, "type": "Anomaly Exploration", "description": "A unique phenomenon requires speedy investigation—is it a threat, or something that can be exploited for profit? It may be a wormhole, gravity lens, powerful radiation emission or other anomaly."},
+            {"d66": 66, "type": "Rescue Expedition", "description": "Rescue a group, colony, survey expedition or correspondents from an attack or some other peril. Often, the PCs will be unaware of the fate of the missing victims."}
+        ],
+        "targetAreas": [
+            {"d66": 14, "type": "Abandoned Orbital Station", "description": "Forgotten, abandoned, barely operational."},
+            {"d66": 21, "type": "Rogue Asteroid", "description": "A fast-moving interstellar asteroid or planet passing through a star system."},
+            {"d66": 24, "type": "Abandoned Mine", "description": "A failed mining project with tunnels and buildings, now abandoned and decaying."},
+            {"d66": 31, "type": "Moon", "description": "The rocky moon of a gas giant or planet."},
+            {"d66": 35, "type": "Asteroid Belt", "description": "An asteroid that sits deep within a dense asteroid belt."},
+            {"d66": 36, "type": "Colonized World", "description": "The target area sits in wilderness on a world that already contains colonists."},
+            {"d66": 43, "type": "Terrestrial Planet", "description": "The target area sits on an uninhabited terrestrial planet."},
+            {"d66": 44, "type": "Abandoned Colony", "description": "A failed colony with buildings and structures abandoned and decaying."},
+            {"d66": 51, "type": "Ice Planet", "description": "The target area sits on an uninhabited ice planet."},
+            {"d66": 63, "type": "Wreckage", "description": "The smashed wreckage of a spacecraft, roll again for its current location."},
+            {"d66": 66, "type": "Comet", "description": "A comet heading close to the system’s star, that contains valuable chemical compounds and raw materials."}
+        ],
+        "complications": [
+            {"d66": 21, "type": "Natural Phenomenon", "description": "Some severe natural event occurs during the mission: a rapid temperature change, forest fire, hurricane, tsunami, earthquake, mudslide, etc."},
+            {"d66": 32, "type": "Survey Blues", "description": "The target area is either difficult to locate, or difficult to survey safely or efficiently."},
+            {"d66": 35, "type": "Presumed Missing", "description": "If the PCs gained a permit to survey their target area, they may or may not realize it is inherited from a previous expedition that vanished without a trace."},
+            {"d66": 44, "type": "Rival Expedition", "description": "A competing party has the same goal as the expedition and tries to get there first or stop the PCs. They have roughly the same gear as the PCs."},
+            {"d66": 52, "type": "Quarantine", "description": "The target area is under quarantine or off-limits, possibly for reasons unknown. The expedition has no permit and will be breaking the law if they choose to proceed."},
+            {"d66": 62, "type": "Deadly Treasure", "description": "Some terrible object(s) exist in the target area, unbeknownst to the PCs. This deadly find may be nuclear waste, a dump of biological weapons, a nest of Xenomorph eggs or something equally horrific and life-threatening!"},
+            {"d66": 66, "type": "Surveillance", "description": "The expedition is under surveillance by the military, government or some other party. They will not intervene, although they may communicate their presence to the team. Why are they watching? What do they really want?"}
         ]
     }
 }
