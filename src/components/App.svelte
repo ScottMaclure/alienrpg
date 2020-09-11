@@ -118,7 +118,7 @@
 	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep.</p>
 	
 	<div class="bottomSpaced">
-		<h4>Systems</h4>
+		<h4>Star Systems</h4>
 		<button on:click={saveOptions} on:click={handleNewStarSystem}>Star System</button>
 		<button on:click={handleOptions}>Options</button>
 		<Options starData={starData} options={options} on:saveOptions={saveOptions}/>

@@ -38,6 +38,7 @@ http://localhost:5000/
 ### Sooner
 
 * Run through star system generator materials, checking with data and code for correctness (testing)
+* Refactor buttons UI to be more compact (tabs?)
 
 ### Later
 
