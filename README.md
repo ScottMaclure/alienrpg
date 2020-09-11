@@ -38,8 +38,6 @@ http://localhost:5000/
 ### Sooner
 
 * Run through star system generator materials, checking with data and code for correctness (testing)
-* Add military mission job generator
-* Add expedition job generator
 
 ### Later
 
@@ -54,6 +52,12 @@ http://localhost:5000/
 * CI/CD pipeline to automate deployments? Travis? Netlify? Github actions? (for now it's npm run deploy from local)
 
 ### Changelog
+
+#### 2020-09-11
+
+* Add military mission job generator
+* Add expedition job generator
+* Add plot twists
 
 #### 2020-09-10
 
