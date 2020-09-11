@@ -115,31 +115,35 @@
 <main>
 	<h2>{appData.title}</h2>
 	
-	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep. Results are at the bottom.</p>
+	<p>An <strong><i>unofficial</i></strong> web app to help Game Mothers with their prep. Click buttons and then links to generate random stuff. Results at bottom in plaintext.</p>
 	
-	<div class="bottomSpaced">
+	<button on:click={e => options.showUI = 'starSystems'}>Star Systems</button>
+	<button on:click={e => options.showUI = 'jobs'}>Jobs</button>
+	<button on:click={e => options.showUI = 'encounters'}>Encounters</button>
+	
+	<div style="display: {options.showUI === 'starSystems' ? 'block' : 'none'}">
 		<h4>Star Systems</h4>
-		<button on:click={saveOptions} on:click={handleNewStarSystem}>Star System</button>
-		<button on:click={handleOptions}>Options</button>
+		&middot; <a href="." on:click|preventDefault={saveOptions} on:click={handleNewStarSystem}>Star System</a>
+		&middot; <a href="." on:click|preventDefault={handleOptions}>(Options)</a>
 		<Options starData={starData} options={options} on:saveOptions={saveOptions}/>
 	</div>
-	<div class="bottomSpaced">
+	<div style="display: {options.showUI === 'jobs' ? 'block' : 'none'}">
 		<h4>Jobs</h4>
-		<button on:click={handleNewCargoJob}>Cargo</button>
-		<button on:click={handleNewMilitaryMission}>Military</button>
-		<button on:click={handleNewExpedition}>Expedition</button>
+		&middot; <a href="." on:click|preventDefault={handleNewCargoJob}>Cargo</a>
+		&middot; <a href="." on:click|preventDefault={handleNewMilitaryMission}>Military</a>
+		&middot; <a href="." on:click|preventDefault={handleNewExpedition}>Expedition</a>
 	</div>
-	<div class="bottomSpaced">
+	<div style="display: {options.showUI === 'encounters' ? 'block' : 'none'}">
 		<h4>Star System Encounters</h4>
-		<button on:click={e => handleStarSystemEncounter()}>System</button>
-		<button on:click={e => handleStarSystemEncounter(-3)}>Rim</button>
-		<button on:click={e => handleStarSystemEncounter(-5)}>Uncharted</button>
+		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter()}>System</a>
+		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter(-3)}>Rim</a>
+		&middot; <a href="." on:click|preventDefault={e => handleStarSystemEncounter(-5)}>Uncharted</a>
 		<h4>Surface Encounters</h4>
-		<button on:click={e => handleSurfaceEncounter('uninhabited')}>Uninhabited</button>
-		<button on:click={e => handleSurfaceEncounter('colonized')}>Colonized</button>
+		&middot; <a href="." on:click|preventDefault={e => handleSurfaceEncounter('uninhabited')}>Uninhabited</a>
+		&middot; <a href="." on:click|preventDefault={e => handleSurfaceEncounter('colonized')}>Colonized</a>
 		<h4>Colony Encounters</h4>
-		<button on:click={e => handleColonyEncounter(0)}>Young</button>
-		<button on:click={e => handleColonyEncounter(+1)}>Established</button>
+		&middot; <a href="." on:click|preventDefault={e => handleColonyEncounter(0)}>Young</a>
+		&middot; <a href="." on:click|preventDefault={e => handleColonyEncounter(+1)}>Established</a>
 	</div>
 	
 	<h4>Results</h4>

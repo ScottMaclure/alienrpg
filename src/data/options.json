@@ -4,5 +4,6 @@
     ],
     "starLocation": "ran",
     "showSurveyedDetails": false,
-    "showOptions": false
+    "showOptions": false,
+    "showUI": "starSystems"
 }

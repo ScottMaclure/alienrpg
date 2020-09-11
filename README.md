@@ -38,7 +38,6 @@ http://localhost:5000/
 ### Sooner
 
 * Run through star system generator materials, checking with data and code for correctness (testing)
-* Refactor buttons UI to be more compact (tabs?)
 
 ### Later
 
@@ -72,6 +71,7 @@ http://localhost:5000/
 * Enhance options with a hide/show UI
 * Refactor options & results to handle multiple generators (star systems, jobs, encounters)
 * Add Cargo Run Job generator (as another module+button)
+* Refactor buttons UI to be more compact (tabs?)
 
 #### 2020-09-09
 
