@@ -30,14 +30,16 @@ http://localhost:5000/
 * Planetary names (what does LV/MT/RF stand for?).
 * No given chance for "surveyed", non-colonised moons and planets (p331).
 * Gas giant planet size should be huge? The moons have -4, but the gas giant iself should be large?
+* Military missions - base reward applies?
+* Extra rewards - "Monetary amount" not explained. I assumed it was adding the base reward amount again.
 
 ## Roadmap
 
 ### Sooner
 
 * Run through star system generator materials, checking with data and code for correctness (testing)
-* Add Mission Job generator
-* Add Expedition Job generator
+* Add military mission job generator
+* Add expedition job generator
 
 ### Later
 

@@ -65,6 +65,19 @@ const randomInteger = (min, max) => {
 }
 
 /**
+ * Will keep rolling until it finds one not already in existing.
+ */
+const randomUniqueD66Item = (d66Data, existing) => {
+    let item = null
+    let foundNewItem = false
+    while (!foundNewItem) {
+        item = randomD66ArrayItem(d66Data)
+        foundNewItem = !existing.includes(item)
+    }
+    return item
+}
+
+/**
  * Interface with dice utils function.
  * @param {*} rollString E.g. '2d6'
  * @returns {number} The total of the roll. e.g. 10.
@@ -134,6 +147,7 @@ export default {
 	randomD6ArrayItem,
 	randomD66ArrayItem,
 	randomInteger,
+	randomUniqueD66Item,
 	roll,
 	rollD66,
 	rollNumberObjects

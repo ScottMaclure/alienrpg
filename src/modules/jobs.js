@@ -8,34 +8,42 @@ const createCargoRunJob = (data, options = {}) => {
         rewards: [],
         destination: utils.randomD66ArrayItem(data.spaceTruckers.destinations),
         goods: utils.randomD66ArrayItem(data.spaceTruckers.goods),
-        complications: []
+        complications: [],
+        totalMonetaryReward: 0
     }
     
     // Calculate rewards
     for (let i = 0; i < results.jobType.extraRewards; i++) {
-        results.rewards.push(getUniqueD66Item(data.spaceTruckers.rewards, results.rewards))
+        results.rewards.push(utils.randomUniqueD66Item(data.spaceTruckers.rewards, results.rewards))
     }
+    // Calc total reward amount
+    results.totalMonetaryReward = calculateTotalMonetaryReward(results)
 
-    for (let i = 0; i < results.jobType.complications; i++) {
-        results.complications.push(getUniqueD66Item(data.spaceTruckers.complications, results.complications))
-    }
+    addComplications(results, data.spaceTruckers.complications)
 
     return results
 }
 
-const getUniqueD66Item = (d66Data, existing) => {
-    let item = null
-    let foundNewItem = false
-    while (!foundNewItem) {
-        item = utils.randomD66ArrayItem(d66Data)
-        foundNewItem = !existing.includes(item)
-    }
-    return item
-}
-
 const createMilitaryMission = (data, options = {}) => {
-    console.log('TODO createMilitaryMission')
-    let results = {}
+    let results = {
+        campaignType: 'colonialMarines',
+        jobType: getJobType(data),
+        rewards: [],
+        mission: utils.randomD66ArrayItem(data.colonialMarines.missions),
+        objective: utils.randomD66ArrayItem(data.colonialMarines.objectives),
+        complications: [],
+        totalMonetaryReward: 0
+    }
+
+    // Rewards
+    for (let i = 0; i < results.jobType.extraRewards; i++) {
+        results.rewards.push(utils.randomUniqueD66Item(data.colonialMarines.rewards, results.rewards))
+    }
+    // Calc total reward amount
+    results.totalMonetaryReward = calculateTotalMonetaryReward(results)
+
+    addComplications(results, data.colonialMarines.complications)
+
     return results
 }
 
@@ -50,6 +58,36 @@ const getJobType = (data) => {
     // Process baseReward
     jobType.baseRewardAmount = utils.roll(jobType.baseReward)
     return jobType
+}
+
+const calculateTotalMonetaryReward = (results) => {
+    let total = 0
+
+    switch (results.campaignType) {
+        case 'spaceTruckers':
+            total += results.jobType.baseRewardAmount
+            break
+        case 'colonialMarines':
+            total += 0 // No base reward by default for marines.
+            break
+        default:
+            throw new Error(`Unknown campaignType=${results.campaignType}`)   
+    }
+
+    for (const extraReward of results.rewards) {
+        if (extraReward.isMonetaryReward) {
+            // TODO This is an assumption on my part, add another roll of the base amount.
+            total += parseInt(utils.roll(results.jobType.baseReward), 10)
+        }
+    }
+
+    return total
+}
+
+const addComplications = (results, complicationsData) => {
+    for (let i = 0; i < results.jobType.complications; i++) {
+        results.complications.push(utils.randomUniqueD66Item(complicationsData, results.complications))
+    }
 }
 
 export default {

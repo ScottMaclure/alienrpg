@@ -41,6 +41,13 @@
 		saveData()
 	}
 
+	function handleNewMilitaryMission () {
+		results = {}
+		results.job = jobs.createMilitaryMission(jobsData, options)
+		output = jobsPrinter.printJob(results.job, options)
+		saveData()
+	}
+
 	function saveData() {
 		saveOptions()
 		dispatch('saveData', {'key': 'results', 'value': results});
@@ -81,6 +88,7 @@
 	</div>
 	<div>
 		<button on:click={handleNewCargoJob}>New Cargo Run</button>
+		<button on:click={handleNewMilitaryMission}>New Mission</button>
 	</div>
 	
 	<Options starData={starData} options={options} on:saveOptions={saveOptions}/>

@@ -5,40 +5,72 @@ const printJob = (results, options = {}) => {
     
     out.push(`Job Type:          ${results.jobType.type}`)
     out.push(`Destination:       ${results.jobType.destination}`)
-    out.push(`Base Reward:       ${results.jobType.baseRewardAmount} UAD`)
 
     switch (results.campaignType) {
         case 'spaceTruckers':
             out.push(printCargoRun(results, options))
             break
+        case 'colonialMarines':
+            out.push(printMilitaryMission(results, options))
+            break;
         default:
             throw new Error(`Unknown campaignType=${results.campaignType}`)
     }
+
+    out.push(printComplications(results))
+
+    if (results.totalMonetaryReward > 0) {
+        out.push(`Monetary Reward:   ${results.totalMonetaryReward} UAD`)
+    }
+    out.push(`Extra Rewards:     ${printExtraRewards(results)}`)
 
     return out.join('\n')
 }
 
 const printCargoRun = (results, options) => {
     let out = []
-    
-    let rewardsOut = []
-    if (results.rewards.length > 0) {
-        for (const reward of results.rewards) { 
-            rewardsOut.push(reward.type) 
-        }
-    } else {
-        rewardsOut.push("N/A") 
-    }
-    out.push(`Extra Rewards:     ${rewardsOut.join(', ')}`)
 
     out.push(`Employer:          ${results.employer.type}`)
     out.push(`Destination:       ${results.destination.description}`)
-    out.push(`Goods:             ${results.goods.name} (${results.goods.description})`)
+    out.push(`Goods:             ${results.goods.type} (${results.goods.description})`)
+
+    return out.join('\n')
+}
+
+const printMilitaryMission = (results, options) => {
+    let out = []
+
+    out.push(`Mission:           ${results.mission.type} (${results.mission.description})`)
+    out.push(`Objective:         ${results.objective.type} (${results.objective.description})`)
+
+    return out.join('\n')
+}
+
+const printExtraRewards = (results) => {
+    let rewardsOut = []
+
+    if (results.rewards.length > 0) {
+        for (const reward of results.rewards) { 
+            if (!reward.isMonetaryReward) {
+                rewardsOut.push(reward.type) 
+            }
+        }
+    }
+
+    if (rewardsOut.length === 0) {
+        rewardsOut.push('N/A') 
+    }
+
+    return rewardsOut.join(', ')
+}
+
+const printComplications = (results) => {
+    let out = []
 
     for (const [i, complication] of results.complications.entries()) {
-        out.push(`Complication #${i+1}:   ${complication.name} (${complication.description})`)
+        out.push(`Complication #${i+1}:   ${complication.type} (${complication.description})`)
     }
-    
+
     return out.join('\n')
 }
 
