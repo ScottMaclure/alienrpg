@@ -50,7 +50,7 @@
 		<!-- <div>currentLink={currentLink.path}</div> -->
 		{#each links.filter(e => e.isNav !== false) as link, i}
 			{#if i > 0}&middot;{/if}
-			<a href="{baseRoute}{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
+			<a href="{baseRoute}#!{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
 		{/each}
 	</nav>
 
