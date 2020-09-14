@@ -23,10 +23,10 @@
 	}
 
 	let links = [
-		{path: `${baseRoute}/`, title: 'Home', component: Home},
-		{path: `${baseRoute}/star-systems`, title: 'Star Systems', component: StarSystems},
-		{path: `${baseRoute}/jobs`, title: 'Jobs', component: Jobs},
-		{path: `${baseRoute}/encounters`, title: 'Encounters', component: Encounters},
+		{path: `/`, title: 'Home', component: Home},
+		{path: `/star-systems`, title: 'Star Systems', component: StarSystems},
+		{path: `/jobs`, title: 'Jobs', component: Jobs},
+		{path: `/encounters`, title: 'Encounters', component: Encounters},
 		{path: '*', component:NotFound, isNav: false}
 	]
 
@@ -50,7 +50,7 @@
 		<!-- <div>currentLink={currentLink.path}</div> -->
 		{#each links.filter(e => e.isNav !== false) as link, i}
 			{#if i > 0}&middot;{/if}
-			<a href="{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
+			<a href="{baseRoute}{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
 		{/each}
 	</nav>
 
