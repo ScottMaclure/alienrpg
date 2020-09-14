@@ -15,7 +15,7 @@
     "testWatch": "ava --watch",
     "coverage": "nyc --reporter=lcov --reporter=text-summary ava",
     "build": "rollup -c",
-    "start": "sirv docs",
+    "start": "sirv docs --single",
     "versionBump": "bash ./scripts/versionBump.sh",
     "deploy": "npm run test && npm run versionBump && npm run build && git commit -am \"build artifacts.\" && git push"
   },
@@ -27,6 +27,7 @@
     "dice-utils": "^1.3.0",
     "http-server": "^0.12.3",
     "nyc": "^15.1.0",
+    "page": "^1.11.6",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^6.0.0",

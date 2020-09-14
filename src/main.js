@@ -1,9 +1,5 @@
 import App from './components/App.svelte';
 
-import appData from './data/appData.json'
-import starData from './data/starData.json'
-import jobsData from './data/jobsData.json'
-import encountersData from './data/encountersData.json'
 import defaultOptions from './data/options.json'
 
 let optionsString = window.sessionStorage.getItem('options')
@@ -12,13 +8,12 @@ let options = optionsString ? JSON.parse(optionsString) : defaultOptions
 let resultsString = window.sessionStorage.getItem('results')
 let results = resultsString ? JSON.parse(resultsString) : {}
 
+// let isLocal = window.location.hostname === 'localhost'
+
 const app = new App({
 	target: document.body,
 	props: {
-		appData: appData,
-		starData: starData,
-		jobsData: jobsData,
-		encountersData: encountersData,
+		// isLocal,
 		options: options,
 		results: results
 	}
