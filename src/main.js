@@ -8,12 +8,12 @@ let options = optionsString ? JSON.parse(optionsString) : defaultOptions
 let resultsString = window.sessionStorage.getItem('results')
 let results = resultsString ? JSON.parse(resultsString) : {}
 
-// let isLocal = window.location.hostname === 'localhost'
+let isLocal = window.location.hostname === 'localhost'
 
 const app = new App({
 	target: document.body,
 	props: {
-		// isLocal,
+		isLocal,
 		options: options,
 		results: results
 	}

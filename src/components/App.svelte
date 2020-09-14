@@ -13,21 +13,20 @@
 	// Exported params that you can set from outside.
 	export let options // See src/data/options.json
 	export let results // Saved externally
-	// export let isLocal
+	export let isLocal
 	
 	// FIXME Workaround because I can't see how to configure sirv to run locally from a nested path (i.e. localhost/alienrpg).
-	// Not required due to github pages needing hashbang urls anyway.
-	// let baseRoute = ''
-	// if (!isLocal) {
-	// 	baseRoute = '/alienrpg'
-	// 	router.base(baseRoute) // as per prod hosting
-	// }
+	let baseRoute = ''
+	if (!isLocal) {
+		baseRoute = '/alienrpg'
+		router.base(baseRoute) // as per prod hosting
+	}
 
 	let links = [
-		{path: '/', title: 'Home', component: Home},
-		{path: '/star-systems', title: 'Star Systems', component: StarSystems},
-		{path: '/jobs', title: 'Jobs', component: Jobs},
-		{path: '/encounters', title: 'Encounters', component: Encounters},
+		{path: `${baseRoute}/`, title: 'Home', component: Home},
+		{path: `${baseRoute}/star-systems`, title: 'Star Systems', component: StarSystems},
+		{path: `${baseRoute}/jobs`, title: 'Jobs', component: Jobs},
+		{path: `${baseRoute}/encounters`, title: 'Encounters', component: Encounters},
 		{path: '*', component:NotFound, isNav: false}
 	]
 
@@ -53,7 +52,6 @@
 			{#if i > 0}&middot;{/if}
 			<a href="{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
 		{/each}
-
 	</nav>
 
 	<div class="page">
