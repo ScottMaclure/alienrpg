@@ -54,6 +54,14 @@ http://localhost:5000/
 
 ### Changelog
 
+#### 2020-09-15
+
+* Refactor links again, use own "handleNav" function instead of Page.js's inbuilt click handling.
+
+#### 2020-09-14
+
+* Refactor App into "pages", add Page.js for routing.
+
 #### 2020-09-11
 
 * Add military mission job generator
