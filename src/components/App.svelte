@@ -4,11 +4,7 @@
 
 	import appData from '../data/appData.json'
 
-	import Home from './Home.svelte'
-	import StarSystems from './StarSystems.svelte'
-	import Jobs from './Jobs.svelte'
-	import Encounters from './Encounters.svelte'
-	import NotFound from './NotFound.svelte'
+	import {links} from '../modules/links.js'
 
 	// Exported params that you can set from outside.
 	export let options // See src/data/options.json
@@ -19,16 +15,8 @@
 	let baseRoute = ''
 	if (!isLocal) {
 		baseRoute = '/alienrpg'
-		router.base(baseRoute) // as per prod hosting
+		router.base(baseRoute)
 	}
-
-	let links = [
-		{path: `/`, title: 'Home', component: Home},
-		{path: `/star-systems`, title: 'Star Systems', component: StarSystems},
-		{path: `/jobs`, title: 'Jobs', component: Jobs},
-		{path: `/encounters`, title: 'Encounters', component: Encounters},
-		{path: '*', component:NotFound, isNav: false}
-	]
 
 	let currentLink = links[0] // home
 	for (const link of links) {
@@ -37,8 +25,18 @@
 		})
 	}
 
-	router.start({ 
-		hashbang: true // apppend hashbang for github pages compatibility.
+	/**
+	 * Had to turn off Page.js's automatic click handling, because it would mean the actual URL attributes in the anchor elements are incorrect.
+	 * Meaning the app works fine when you were clicking it, but if you ctrl+clicked or right-click+copy-link into a new tab, the link was incorrect.
+	 */
+	const handleNav = (nextLink) => { 
+		// console.debug(`nextLink.path=${nextLink.path}`)
+		router(nextLink.path) 
+	}
+
+	router.start({  
+		click: false, // Required for handleNav
+		hashbang: true
 	})
 	
 </script>
@@ -47,10 +45,11 @@
 	<h2>{appData.title}</h2>
 	
 	<nav>
-		<!-- <div>currentLink={currentLink.path}</div> -->
 		{#each links.filter(e => e.isNav !== false) as link, i}
 			{#if i > 0}&middot;{/if}
-			<a href="{baseRoute}#!{link.path}" class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
+			<a on:click|preventDefault|stopPropagation={e => handleNav(link)} 
+				href="{baseRoute ? baseRoute + '/' : ''}#!{link.path}" 
+				class="{currentLink.path === link.path ? 'active' : ''}">{link.title}</a>
 		{/each}
 	</nav>
 

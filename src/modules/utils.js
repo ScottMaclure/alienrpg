@@ -3,7 +3,7 @@
  * Will incorporate some rules from Alien's generators.
  */
 
-// FIXME Because the node module's package.json doesn't have type=module, nodejs fails because it's using cjs.
+// FIXME Because the node module's package.json doesn't have type=module, nodejs fails because it's using cjs (when I test modules from CLI).
 // import diceUtils from '../../node_modules/dice-utils/dist/dice-utils.js';
 import diceUtils from './vendor/dice-utils.js';
 

@@ -15,7 +15,8 @@
     "testWatch": "ava --watch",
     "coverage": "nyc --reporter=lcov --reporter=text-summary ava",
     "build": "rollup -c",
-    "start": "sirv docs --single",
+    "start": "sirv docs",
+    "start__comment": "Don't need the --single param with Page.js, we're using hashbangs instead for gh pages compat.",
     "versionBump": "bash ./scripts/versionBump.sh",
     "deploy": "npm run test && npm run versionBump && npm run build && git commit -am \"build artifacts.\" && git push"
   },
