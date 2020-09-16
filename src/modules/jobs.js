@@ -1,6 +1,6 @@
 import utils from './utils.js'
 
-const BASE_REWARD_MULTIPLIER = 1000
+const REWARD_MULTIPLIER = 1000
 
 const createCargoRunJob = (data, options = {}) => {
     let results = {
@@ -85,7 +85,7 @@ const calculateTotalMonetaryReward = (results) => {
     switch (results.campaignType) {
         case 'spaceTruckers':
         case 'explorers':
-            total += utils.roll(results.jobType.baseReward) * BASE_REWARD_MULTIPLIER
+            total += utils.roll(results.jobType.baseReward)
             break
         case 'colonialMarines':
             total += 0 // FIXME No base reward by default for marines?
@@ -97,11 +97,11 @@ const calculateTotalMonetaryReward = (results) => {
     for (const extraReward of results.rewards) {
         if (extraReward.isMonetaryReward) {
             // TODO This is an assumption on my part, add another roll of the base amount.
-            total += utils.roll(results.jobType.baseReward) * BASE_REWARD_MULTIPLIER
+            total += utils.roll(results.jobType.baseReward)
         }
     }
 
-    return total
+    return total * REWARD_MULTIPLIER
 }
 
 const addComplications = (results, complicationsData) => {

@@ -68,9 +68,9 @@ const printExtraRewards = (results) => {
 
     if (results.rewards.length > 0) {
         for (const reward of results.rewards) { 
-            if (!reward.isMonetaryReward) {
+            // if (!reward.isMonetaryReward) {
                 rewardsOut.push(reward.type) 
-            }
+            // }
         }
     }
 
