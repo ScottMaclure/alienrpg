@@ -6,7 +6,7 @@ import NotFound from '../components/NotFound.svelte'
 
 export let links = [
     {path: '/', title: 'Home', component: Home},
-    {path: '/star-systems', title: 'Star Systems', component: StarSystems},
+    {path: '/star-systems', title: 'Systems', component: StarSystems},
     {path: '/jobs', title: 'Jobs', component: Jobs},
     {path: '/encounters', title: 'Encounters', component: Encounters},
     {path: '*', component: NotFound, isNav: false}

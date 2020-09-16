@@ -1,10 +1,12 @@
 import utils from './utils.js'
 
+const BASE_REWARD_MULTIPLIER = 1000
+
 const createCargoRunJob = (data, options = {}) => {
     let results = {
         jobName: 'Cargo Run',
         campaignType: 'spaceTruckers',
-        jobType: getJobType(data),
+        jobType: utils.randomD66ArrayItem(data.jobTypes),
         employer: utils.randomD66ArrayItem(data.spaceTruckers.employers),
         destination: utils.randomD66ArrayItem(data.spaceTruckers.destinations),
         goods: utils.randomD66ArrayItem(data.spaceTruckers.goods),
@@ -30,7 +32,7 @@ const createMilitaryMission = (data, options = {}) => {
     let results = {
         jobName: 'Military Mission',
         campaignType: 'colonialMarines',
-        jobType: getJobType(data),
+        jobType: utils.randomD66ArrayItem(data.jobTypes),
         mission: utils.randomD66ArrayItem(data.colonialMarines.missions),
         objective: utils.randomD66ArrayItem(data.colonialMarines.objectives),
         complications: [],
@@ -55,7 +57,7 @@ const createExpedition = (data, options = {}) => {
     let results = {
         jobName: 'Expedition',
         campaignType: 'explorers',
-        jobType: getJobType(data),
+        jobType: utils.randomD66ArrayItem(data.jobTypes),
         sponsor: utils.randomD66ArrayItem(data.explorers.sponsors),
         mission: utils.randomD66ArrayItem(data.explorers.missions),
         targetArea: utils.randomD66ArrayItem(data.explorers.targetAreas),
@@ -77,23 +79,16 @@ const createExpedition = (data, options = {}) => {
     return results
 }
 
-const getJobType = (data) => {
-    let jobType = utils.randomD66ArrayItem(data.jobTypes)
-    // Process baseReward
-    jobType.baseRewardAmount = utils.roll(jobType.baseReward)
-    return jobType
-}
-
 const calculateTotalMonetaryReward = (results) => {
     let total = 0
 
     switch (results.campaignType) {
         case 'spaceTruckers':
         case 'explorers':
-            total += results.jobType.baseRewardAmount
+            total += utils.roll(results.jobType.baseReward) * BASE_REWARD_MULTIPLIER
             break
         case 'colonialMarines':
-            total += 0 // No base reward by default for marines.
+            total += 0 // FIXME No base reward by default for marines?
             break
         default:
             throw new Error(`Unknown campaignType=${results.campaignType}`)   
@@ -102,7 +97,7 @@ const calculateTotalMonetaryReward = (results) => {
     for (const extraReward of results.rewards) {
         if (extraReward.isMonetaryReward) {
             // TODO This is an assumption on my part, add another roll of the base amount.
-            total += parseInt(utils.roll(results.jobType.baseReward), 10)
+            total += utils.roll(results.jobType.baseReward) * BASE_REWARD_MULTIPLIER
         }
     }
 

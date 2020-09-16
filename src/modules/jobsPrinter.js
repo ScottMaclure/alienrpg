@@ -27,7 +27,7 @@ const printJob = (results, options = {}) => {
     out.push(`Plot Twist:        ${results.plotTwist.type} (${results.plotTwist.description})`)
 
     if (results.totalMonetaryReward > 0) {
-        out.push(`Monetary Reward:   ${results.totalMonetaryReward} UAD`)
+        out.push(`Monetary Reward:   $${utils.formatNumber(results.totalMonetaryReward)} UAD`)
     }
     out.push(`Extra Rewards:     ${printExtraRewards(results)}`)
 
